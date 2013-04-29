@@ -10,11 +10,13 @@ class Player
 		Camera* camera;
 		GLuint vertexArrayID;
 		GLuint vertexBuffer;
+		float moveSpeed;
 
 	public:
 		Player();
 		~Player();
 
-		void prepare();
+		void prepareMaterial();
 		void drawPlayer();
+		void updatePosition(float secondsElapsed);
 };

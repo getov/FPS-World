@@ -7,17 +7,24 @@
 #include "Player.h"
 #include "GPUProgram.h"
 #include "Camera.h"
+//
+#include "TestObject.h"
 
 Application::Application()
 	: screenHeight(768)
 	, screenWidth(1366)
 {
 	player = new Player;
+	camera = new Camera;
+	obj = new TestObject;
 }
 
 Application::~Application()
 {
 	delete player;
+	delete camera;
+	//
+	delete obj;
 }
 
 void Application::initializeScene()
@@ -45,7 +52,9 @@ void Application::initializeScene()
 
 	while(glGetError() != GL_NO_ERROR) {}
 
-	player->prepare();
+	player->prepareMaterial();
+	//
+	obj->prepareMaterial();
 }
 
 void Application::renderScene()
@@ -54,6 +63,8 @@ void Application::renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	player->drawPlayer();
+	//
+	obj->drawObject();
 
 	glfwSwapBuffers();
 }
@@ -62,8 +73,16 @@ void Application::run()
 {
 	initializeScene();
 
+	double lastTime = glfwGetTime();
+
 	while (glfwGetWindowParam(GLFW_OPENED))
 	{
+		double thisTime = glfwGetTime();
+
+		player->updatePosition(thisTime - lastTime);
+
+		lastTime = thisTime;
+
 		renderScene();
 	}
 

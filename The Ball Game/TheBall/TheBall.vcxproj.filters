@@ -33,6 +33,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -50,12 +53,21 @@
     <ClInclude Include="Player.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="TestObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="playerVert.vert">
       <Filter>Source Files</Filter>
     </None>
     <None Include="playerFrag.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="test.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="test.vert">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

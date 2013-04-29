@@ -1,6 +1,9 @@
 #pragma once
 
 class Player;
+class Camera;
+//
+class TestObject;
 
 class Application
 {
@@ -9,6 +12,9 @@ class Application
 		int screenWidth;
 		int screenHeight;
 		Player* player;
+		Camera* camera;
+		//
+		TestObject* obj;
 
 	public:
 
