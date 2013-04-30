@@ -8,6 +8,8 @@
 #include "GPUProgram.h"
 #include "Camera.h"
 
+#include <iostream>
+
 Player::Player()
 	: shader(nullptr)
 	, camera(nullptr)
@@ -70,6 +72,12 @@ void Player::updatePosition(float secondsElapsed)
 	if (glfwGetKey('S'))
 	{
 		camera->offsetCameraPosition(secondsElapsed * moveSpeed * camera->up());
+
+		/*glm::vec3 lastCameraPos = camera->cameraPosition();
+		if (camera->cameraPosition() == lastCameraPos)
+		{
+			camera->offsetCameraPosition(secondsElapsed * moveSpeed * -camera->up());
+		}*/
 	}
 
 	if (glfwGetKey('W'))

@@ -19,4 +19,6 @@ class Player
 		void prepareMaterial();
 		void drawPlayer();
 		void updatePosition(float secondsElapsed);
+
+		void handleCollisions();
 };

@@ -52,6 +52,9 @@ void Application::initializeScene()
 
 	while(glGetError() != GL_NO_ERROR) {}
 
+	glEnable(GL_DEPTH);
+	glShadeModel(GL_SMOOTH);
+
 	player->prepareMaterial();
 	//
 	obj->prepareMaterial();

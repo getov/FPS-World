@@ -54,7 +54,7 @@ void TestObject::drawObject()
 
 	shader->setUniform("camera", camera->matrix());
 	shader->setUniform("model", glm::scale(glm::mat4(), glm::vec3(0.03, 0.03, 0.03)));
-
+	
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
