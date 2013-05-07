@@ -7,6 +7,7 @@
 #include "Player.h"
 #include "GPUProgram.h"
 #include "Camera.h"
+#include "Background.h"
 //
 #include "TestObject.h"
 
@@ -17,12 +18,14 @@ Application::Application()
 	player = new Player;
 	camera = new Camera;
 	obj = new TestObject;
+	bg = new Background;
 }
 
 Application::~Application()
 {
 	delete player;
 	delete camera;
+	delete bg;
 	//
 	delete obj;
 }
@@ -58,6 +61,9 @@ void Application::initializeScene()
 	player->prepareMaterial();
 	//
 	obj->prepareMaterial();
+
+	/*camera->setCameraPosition(glm::vec3(0, 0, 0));
+	camera->setViewportAspectRatio(screenWidth / screenHeight);*/
 }
 
 void Application::renderScene()
@@ -66,6 +72,7 @@ void Application::renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	player->drawPlayer();
+	bg->drawBackground();
 	//
 	obj->drawObject();
 

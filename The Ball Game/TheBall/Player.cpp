@@ -49,6 +49,9 @@ void Player::prepareMaterial()
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
+
+	/*camera->setCameraPosition(glm::vec3(0, 0, 0));
+	camera->setViewportAspectRatio(1366 / 768);*/
 }
 
 void Player::drawPlayer()
@@ -62,6 +65,7 @@ void Player::drawPlayer()
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
+	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 

@@ -2,6 +2,7 @@
 
 class Player;
 class Camera;
+class Background;
 //
 class TestObject;
 
@@ -13,6 +14,8 @@ class Application
 		int screenHeight;
 		Player* player;
 		Camera* camera;
+		Background* bg;
+
 		//
 		TestObject* obj;
 
