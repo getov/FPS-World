@@ -2,6 +2,7 @@
 
 class GPUProgram;
 class Camera;
+class Player;
 
 class TestObject
 {

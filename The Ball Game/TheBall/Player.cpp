@@ -41,9 +41,56 @@ void Player::prepareMaterial()
 	shader->link();
 
 	static const GLfloat vertexBufferData[] = {
-		-1.0f, -1.0f, 0.0f,	
+		/*-1.0f, -1.0f, 0.0f,	
 		 1.0f, -1.0f, 0.0f,
-		 0.0f, 1.0f, 0.0f
+		 0.0f, 1.0f, 0.0f*/
+		// bottom
+        -1.0f,-1.0f,-1.0f,  // 0.0f, 0.0f,
+         1.0f,-1.0f,-1.0f,  // 1.0f, 0.0f,
+        -1.0f,-1.0f, 1.0f,  // 0.0f, 1.0f,
+         1.0f,-1.0f,-1.0f,  // 1.0f, 0.0f,
+         1.0f,-1.0f, 1.0f,  // 1.0f, 1.0f,
+        -1.0f,-1.0f, 1.0f,  // 0.0f, 1.0f,
+
+        // top
+        -1.0f, 1.0f,-1.0f, //  0.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f, //  0.0f, 1.0f,
+         1.0f, 1.0f,-1.0f, //  1.0f, 0.0f,
+         1.0f, 1.0f,-1.0f,  // 1.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,//   0.0f, 1.0f,
+         1.0f, 1.0f, 1.0f,  // 1.0f, 1.0f,
+
+        // front
+        -1.0f,-1.0f, 1.0f,  // 1.0f, 0.0f,
+         1.0f,-1.0f, 1.0f,  // 0.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,  // 1.0f, 1.0f,
+         1.0f,-1.0f, 1.0f,   //0.0f, 0.0f,
+         1.0f, 1.0f, 1.0f,   //0.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,   //1.0f, 1.0f,
+
+        // back
+        -1.0f,-1.0f,-1.0f,  // 0.0f, 0.0f,
+        -1.0f, 1.0f,-1.0f,  // 0.0f, 1.0f,
+         1.0f,-1.0f,-1.0f,  // 1.0f, 0.0f,
+         1.0f,-1.0f,-1.0f, //  1.0f, 0.0f,
+        -1.0f, 1.0f,-1.0f,  // 0.0f, 1.0f,
+         1.0f, 1.0f,-1.0f,   //1.0f, 1.0f,
+
+        // left
+        -1.0f,-1.0f, 1.0f,   //0.0f, 1.0f,
+        -1.0f, 1.0f,-1.0f,  // 1.0f, 0.0f,
+        -1.0f,-1.0f,-1.0f,  // 0.0f, 0.0f,
+        -1.0f,-1.0f, 1.0f,  // 0.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,   //1.0f, 1.0f,
+        -1.0f, 1.0f,-1.0f,   //1.0f, 0.0f,
+
+        // right
+         1.0f,-1.0f, 1.0f,   //1.0f, 1.0f,
+         1.0f,-1.0f,-1.0f,   //1.0f, 0.0f,
+         1.0f, 1.0f,-1.0f,   //0.0f, 0.0f,
+         1.0f,-1.0f, 1.0f,   //1.0f, 1.0f,
+         1.0f, 1.0f,-1.0f,  // 0.0f, 0.0f,
+         1.0f, 1.0f, 1.0f,   //0.0f, 1.0f
 	};
 
 	glGenBuffers(1, &vertexBuffer);
@@ -65,8 +112,8 @@ void Player::drawPlayer()
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
 void Player::updatePosition(float secondsElapsed)
@@ -75,18 +122,12 @@ void Player::updatePosition(float secondsElapsed)
 
 	if (glfwGetKey('S'))
 	{
-		camera->offsetCameraPosition(secondsElapsed * moveSpeed * camera->up());
-
-		/*glm::vec3 lastCameraPos = camera->cameraPosition();
-		if (camera->cameraPosition() == lastCameraPos)
-		{
-			camera->offsetCameraPosition(secondsElapsed * moveSpeed * -camera->up());
-		}*/
+		camera->offsetCameraPosition(secondsElapsed * moveSpeed * -camera->forward());
 	}
 
 	if (glfwGetKey('W'))
 	{
-		camera->offsetCameraPosition(secondsElapsed * moveSpeed * -camera->up());
+		camera->offsetCameraPosition(secondsElapsed * moveSpeed * camera->forward());
 	}
 
 	if (glfwGetKey('A'))

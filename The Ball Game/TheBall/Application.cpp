@@ -18,14 +18,14 @@ Application::Application()
 	player = new Player;
 	camera = new Camera;
 	obj = new TestObject;
-	bg = new Background;
+	//bg = new Background;
 }
 
 Application::~Application()
 {
 	delete player;
 	delete camera;
-	delete bg;
+	//delete bg;
 	//
 	delete obj;
 }
@@ -72,9 +72,11 @@ void Application::renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	player->drawPlayer();
-	bg->drawBackground();
+	//bg->drawBackground();
 	//
 	obj->drawObject();
+
+
 
 	glfwSwapBuffers();
 }

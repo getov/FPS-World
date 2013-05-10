@@ -14,7 +14,7 @@ class Application
 		int screenHeight;
 		Player* player;
 		Camera* camera;
-		Background* bg;
+		//Background* bg;
 
 		//
 		TestObject* obj;
