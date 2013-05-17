@@ -2,9 +2,8 @@
 
 class Player;
 class Camera;
-class Background;
-//
 class Crosshair;
+class Box;
 
 class Application
 {
@@ -13,11 +12,9 @@ class Application
 		int screenWidth;
 		int screenHeight;
 		Player* player;
-		Camera* camera;
-		//Background* bg;
-
-		//
+		Camera* gWorld;
 		Crosshair* cross;
+		Box* box;
 
 	public:
 

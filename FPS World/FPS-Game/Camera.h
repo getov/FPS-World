@@ -66,4 +66,8 @@ class Camera
          transformation.
          */
         glm::mat4 view() const;
+
+		// Orthographic Projection
+		glm::mat4 orthoProjection() const;
+		glm::mat4 orthoMatrix() const;
 };

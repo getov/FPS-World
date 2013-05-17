@@ -7,7 +7,6 @@ class Player
 {
 	private:
 		GPUProgram* shader;
-		Camera* camera;
 		GLuint vertexArrayID;
 		GLuint vertexBuffer;
 
@@ -22,10 +21,7 @@ class Player
 		Player();
 		~Player();
 
-		void prepareMaterial();
-		void drawPlayer();
-		void updatePosition(float secondsElapsed);
-
-		// TODO: Think how to make Global World Camera
-		//static Camera* getWorldCamera();
+		void prepareMaterial(Camera* camera);
+		void drawPlayer(Camera* camera);
+		void updatePosition(float secondsElapsed, Camera* camera);
 };

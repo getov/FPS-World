@@ -79,6 +79,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -88,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Box.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GPUProgram.h" />
@@ -95,10 +97,12 @@
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="box.frag" />
+    <None Include="box.vert" />
     <None Include="playerFrag.frag" />
     <None Include="playerVert.vert" />
-    <None Include="test.frag" />
-    <None Include="test.vert" />
+    <None Include="crosshair.frag" />
+    <None Include="crosshair.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="C:\Users\GetoMafia\Pictures\bg.bmp" />

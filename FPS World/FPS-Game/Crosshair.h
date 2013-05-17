@@ -11,6 +11,7 @@ class Crosshair
 		Camera* camera;
 		GLuint vertexArrayID;
 		GLuint vertexBuffer;
+		glm::mat4 transform;
 
 	public:
 		Crosshair();

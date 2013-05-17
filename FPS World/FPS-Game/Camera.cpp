@@ -141,3 +141,20 @@ glm::mat4 Camera::view() const
 {
 	return orientation() * glm::translate(glm::mat4(), -position);
 }
+
+//
+glm::mat4 Camera::orthoProjection() const
+{
+	return glm::ortho(
+		0.0f,
+		static_cast<float>(1366),
+		static_cast<float>(768),
+		0.0f,
+		nearPlane,
+		farPlane);
+}
+
+glm::mat4 Camera::orthoMatrix() const
+{
+	return orthoProjection() * view();
+}

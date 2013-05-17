@@ -8,22 +8,20 @@
 #include "GPUProgram.h"
 #include "Camera.h"
 #include "Crosshair.h"
+#include "Box.h"
 
 Application::Application()
 	: screenHeight(768)
 	, screenWidth(1366)
 {
-	player = new Player;
-	camera = new Camera;
-	cross = new Crosshair;
-	//camera = Player::getWorldCamera();
 }
 
 Application::~Application()
 {
 	delete player;
-	delete camera;
+	delete gWorld;
 	delete cross;
+	delete box;
 }
 
 void Application::initializeScene()
@@ -38,7 +36,7 @@ void Application::initializeScene()
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
     glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
-    if(!glfwOpenWindow(screenWidth, screenHeight, 8, 8, 8, 8, 32, 0, GLFW_WINDOW))
+    if(!glfwOpenWindow(screenWidth, screenHeight, 8, 8, 8, 8, 16, 0, GLFW_WINDOW))
 	{
 		std::cerr << "glfwOpenWindow failed!\n";
 	}
@@ -51,24 +49,34 @@ void Application::initializeScene()
 
 	while(glGetError() != GL_NO_ERROR) {}
 
-	glEnable(GL_DEPTH);
-	glShadeModel(GL_SMOOTH);
-
+	// Enable Depth testing , so that objects that are far away in the distans doesn't overlap closer objects
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 	glfwDisable(GLFW_MOUSE_CURSOR);
 
-	player->prepareMaterial();
-	
+	/* Initialize game objects here instead in the constructor
+	Memory usage highly decreased */
+	player = new Player;
+	gWorld = new Camera;
+	cross = new Crosshair;
+	box = new Box;
+
+	// Prepare objects' materials to render
+	player->prepareMaterial(gWorld);
 	cross->prepareMaterial();
+	box->prepareMaterial(gWorld);
 }
 
 void Application::renderScene()
 {
-	glClearColor(0.0, 0.3, 0.4, 0.5);
+	glClearColor(0.55f, 0.8f, 0.95f, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	player->drawPlayer();
-
 	cross->drawCrosshair();
+
+	player->drawPlayer(gWorld);
+
+	box->drawBox(gWorld);
 
 	glfwSwapBuffers();
 }
@@ -83,7 +91,7 @@ void Application::run()
 	{
 		double thisTime = glfwGetTime();
 
-		player->updatePosition(thisTime - lastTime);
+		player->updatePosition(thisTime - lastTime, gWorld);
 
 		lastTime = thisTime;
 

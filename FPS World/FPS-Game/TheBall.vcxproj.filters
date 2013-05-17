@@ -5,13 +5,8 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{3c9d13d4-1afb-44c9-bcda-ba7556470932}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -36,6 +31,9 @@
     <ClCompile Include="Crosshair.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -56,19 +54,28 @@
     <ClInclude Include="Crosshair.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="playerVert.vert">
-      <Filter>Source Files</Filter>
-    </None>
     <None Include="playerFrag.frag">
-      <Filter>Source Files</Filter>
+      <Filter>Shaders</Filter>
     </None>
-    <None Include="test.frag">
-      <Filter>Source Files</Filter>
+    <None Include="playerVert.vert">
+      <Filter>Shaders</Filter>
     </None>
-    <None Include="test.vert">
-      <Filter>Source Files</Filter>
+    <None Include="crosshair.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="crosshair.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="box.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="box.vert">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

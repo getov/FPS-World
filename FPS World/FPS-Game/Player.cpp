@@ -12,7 +12,6 @@
 
 Player::Player()
 	: shader(nullptr)
-	, camera(nullptr)
 	, vertexArrayID(0)
 	, moveSpeed(0.1)
 	, degreesPerSecond(180)
@@ -24,14 +23,11 @@ Player::~Player()
 {
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteVertexArrays(1, &vertexArrayID);
-	delete camera;
 	delete shader;
 }
 
-void Player::prepareMaterial()
+void Player::prepareMaterial(Camera* camera)
 {
-	camera = new Camera;
-
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
 
@@ -99,14 +95,15 @@ void Player::prepareMaterial()
 
 	camera->setCameraPosition(glm::vec3(0, 0, 0));
 	camera->setViewportAspectRatio(1366 / 768);
+	//glm::lookAt(glm::vec3(0,0,1), glm::vec3(-1,0,0), glm::vec3(0,1,0));
 }
 
-void Player::drawPlayer()
+void Player::drawPlayer(Camera* camera)
 {
 	shader->use();
 
 	shader->setUniform("camera", camera->matrix());
-	shader->setUniform("model", glm::scale(glm::mat4(), glm::vec3(0.03, 0.03, 0.03)));
+	shader->setUniform("model", glm::scale(glm::mat4(), glm::vec3(0.15, 0.15, 0.15)));
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -114,9 +111,11 @@ void Player::drawPlayer()
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
+
+	//shader->stopUsing();
 }
 
-void Player::updatePosition(float secondsElapsed)
+void Player::updatePosition(float secondsElapsed, Camera* camera)
 {
 	if (glfwGetKey('S'))
 	{
@@ -144,11 +143,3 @@ void Player::updatePosition(float secondsElapsed)
 	// cursor stays inside the window and the camera doesn't freak out ;)
 	glfwSetMousePos(0, 0);
 }
-
-//Camera* Player::getWorldCamera()
-//{
-//	if (camera)
-//	{
-//		return camera;
-//	}
-//}

@@ -32,8 +32,8 @@ void Crosshair::prepareMaterial()
 
 	shader = new GPUProgram;
 
-	shader->loadFragmentShaderFromFile("test.frag");
-	shader->loadVertexShaderFromFile("test.vert");
+	shader->loadFragmentShaderFromFile("crosshair.frag");
+	shader->loadVertexShaderFromFile("crosshair.vert");
 
 	shader->link();
 
@@ -58,6 +58,8 @@ void Crosshair::prepareMaterial()
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
+
+	transform = glm::translate(glm::mat4(), glm::vec3(0, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.03, 0.03, 0.03));
 }
 
 void Crosshair::drawCrosshair()
@@ -65,7 +67,7 @@ void Crosshair::drawCrosshair()
 	shader->use();
 
 	shader->setUniform("camera", camera->matrix());
-	shader->setUniform("model", glm::scale(glm::mat4(), glm::vec3(0.03, 0.03, 0.03)));
+	shader->setUniform("model", transform);
 	
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
