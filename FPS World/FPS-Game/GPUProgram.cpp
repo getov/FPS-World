@@ -163,6 +163,35 @@ GLint GPUProgram::bindAttribute(const char* name)
 	return glGetAttribLocation(glObject, name);
 }
 
+//--------------------------------------
+
+#define ATTRIB_N_UNIFORM_SETTERS(OGL_TYPE, TYPE_PREFIX, TYPE_SUFFIX) \
+\
+    void GPUProgram::setUniform(const GLchar* name, OGL_TYPE v0) \
+        { glUniform1 ## TYPE_SUFFIX (uniform(name), v0); } \
+    void GPUProgram::setUniform(const GLchar* name, OGL_TYPE v0, OGL_TYPE v1) \
+        { glUniform2 ## TYPE_SUFFIX (uniform(name), v0, v1); } \
+    void GPUProgram::setUniform(const GLchar* name, OGL_TYPE v0, OGL_TYPE v1, OGL_TYPE v2) \
+        { glUniform3 ## TYPE_SUFFIX (uniform(name), v0, v1, v2); } \
+    void GPUProgram::setUniform(const GLchar* name, OGL_TYPE v0, OGL_TYPE v1, OGL_TYPE v2, OGL_TYPE v3) \
+        { glUniform4 ## TYPE_SUFFIX (uniform(name), v0, v1, v2, v3); } \
+\
+    void GPUProgram::setUniform1v(const GLchar* name, const OGL_TYPE* v, GLsizei count) \
+        { glUniform1 ## TYPE_SUFFIX ## v (uniform(name), count, v); } \
+    void GPUProgram::setUniform2v(const GLchar* name, const OGL_TYPE* v, GLsizei count) \
+        { glUniform2 ## TYPE_SUFFIX ## v (uniform(name), count, v); } \
+    void GPUProgram::setUniform3v(const GLchar* name, const OGL_TYPE* v, GLsizei count) \
+        { glUniform3 ## TYPE_SUFFIX ## v (uniform(name), count, v); } \
+    void GPUProgram::setUniform4v(const GLchar* name, const OGL_TYPE* v, GLsizei count) \
+        { glUniform4 ## TYPE_SUFFIX ## v (uniform(name), count, v); }
+
+	ATTRIB_N_UNIFORM_SETTERS(GLfloat, , f);
+	ATTRIB_N_UNIFORM_SETTERS(GLdouble, , d);
+	ATTRIB_N_UNIFORM_SETTERS(GLint, I, i);
+	ATTRIB_N_UNIFORM_SETTERS(GLuint, I, ui);
+
+//--------------------------------------
+
 GLint GPUProgram::uniform(const char* name) const
 {
 	return glGetUniformLocation(glObject, name);
@@ -181,4 +210,14 @@ void GPUProgram::setUniform(const char* name, const glm::mat3 &matrix, GLboolean
 void GPUProgram::setUniform(const char* name, const glm::mat4 &matrix, GLboolean transpose)
 {
 	glUniformMatrix4fv(uniform(name), 1, transpose, glm::value_ptr(matrix));
+}
+
+void GPUProgram::setUniform(const GLchar* name, const glm::vec3& v)
+{
+	setUniform3v(name, glm::value_ptr(v));
+}
+
+void GPUProgram::setUniform(const GLchar* name, const glm::vec4& v)
+{
+	setUniform4v(name, glm::value_ptr(v));
 }

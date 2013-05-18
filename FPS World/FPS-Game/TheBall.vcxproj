@@ -81,6 +81,7 @@
     <ClCompile Include="AnotherBox.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Box.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -92,6 +93,7 @@
     <ClInclude Include="AnotherBox.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Box.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GPUProgram.h" />

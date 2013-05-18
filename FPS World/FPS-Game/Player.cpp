@@ -11,7 +11,7 @@
 #include <iostream>
 
 Player::Player()
-	: moveSpeed(0.1)
+	: moveSpeed(0.5)
 	, degreesPerSecond(180)
 	, mouseSensitivity(0.1)
 {

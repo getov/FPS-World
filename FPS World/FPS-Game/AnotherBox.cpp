@@ -104,5 +104,4 @@ void AnotherBox::drawBox(Camera* camera)
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
 }

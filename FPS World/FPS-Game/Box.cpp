@@ -7,6 +7,7 @@
 #include "Box.h"
 #include "GPUProgram.h"
 #include "Camera.h"
+#include "Light.h"
 
 Box::Box()
 	: shader(nullptr)
@@ -35,53 +36,54 @@ void Box::prepareMaterial(Camera* camera)
 
 	static const GLfloat vertexBufferData[] = {
 	
-		// bottom
-        -1.0f,-1.0f,-1.0f,  // 0.0f, 0.0f,
-         1.0f,-1.0f,-1.0f,  // 1.0f, 0.0f,
-        -1.0f,-1.0f, 1.0f,  // 0.0f, 1.0f,
-         1.0f,-1.0f,-1.0f,  // 1.0f, 0.0f,
-         1.0f,-1.0f, 1.0f,  // 1.0f, 1.0f,
-        -1.0f,-1.0f, 1.0f,  // 0.0f, 1.0f,
+		 //  X     Y     Z       U     V          Normal
+        // bottom
+        -1.0f,-1.0f,-1.0f,   0.0f, 0.0f,   0.0f, -1.0f, 0.0f,
+         1.0f,-1.0f,-1.0f,   1.0f, 0.0f,   0.0f, -1.0f, 0.0f,
+        -1.0f,-1.0f, 1.0f,   0.0f, 1.0f,   0.0f, -1.0f, 0.0f,
+         1.0f,-1.0f,-1.0f,   1.0f, 0.0f,   0.0f, -1.0f, 0.0f,
+         1.0f,-1.0f, 1.0f,   1.0f, 1.0f,   0.0f, -1.0f, 0.0f,
+        -1.0f,-1.0f, 1.0f,   0.0f, 1.0f,   0.0f, -1.0f, 0.0f,
 
         // top
-        -1.0f, 1.0f,-1.0f, //  0.0f, 0.0f,
-        -1.0f, 1.0f, 1.0f, //  0.0f, 1.0f,
-         1.0f, 1.0f,-1.0f, //  1.0f, 0.0f,
-         1.0f, 1.0f,-1.0f,  // 1.0f, 0.0f,
-        -1.0f, 1.0f, 1.0f,//   0.0f, 1.0f,
-         1.0f, 1.0f, 1.0f,  // 1.0f, 1.0f,
+        -1.0f, 1.0f,-1.0f,   0.0f, 0.0f,   0.0f, 1.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,   0.0f, 1.0f,   0.0f, 1.0f, 0.0f,
+         1.0f, 1.0f,-1.0f,   1.0f, 0.0f,   0.0f, 1.0f, 0.0f,
+         1.0f, 1.0f,-1.0f,   1.0f, 0.0f,   0.0f, 1.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,   0.0f, 1.0f,   0.0f, 1.0f, 0.0f,
+         1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   0.0f, 1.0f, 0.0f,
 
         // front
-        -1.0f,-1.0f, 1.0f,  // 1.0f, 0.0f,
-         1.0f,-1.0f, 1.0f,  // 0.0f, 0.0f,
-        -1.0f, 1.0f, 1.0f,  // 1.0f, 1.0f,
-         1.0f,-1.0f, 1.0f,   //0.0f, 0.0f,
-         1.0f, 1.0f, 1.0f,   //0.0f, 1.0f,
-        -1.0f, 1.0f, 1.0f,   //1.0f, 1.0f,
+        -1.0f,-1.0f, 1.0f,   1.0f, 0.0f,   0.0f, 0.0f, 1.0f,
+         1.0f,-1.0f, 1.0f,   0.0f, 0.0f,   0.0f, 0.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   0.0f, 0.0f, 1.0f,
+         1.0f,-1.0f, 1.0f,   0.0f, 0.0f,   0.0f, 0.0f, 1.0f,
+         1.0f, 1.0f, 1.0f,   0.0f, 1.0f,   0.0f, 0.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   0.0f, 0.0f, 1.0f,
 
         // back
-        -1.0f,-1.0f,-1.0f,  // 0.0f, 0.0f,
-        -1.0f, 1.0f,-1.0f,  // 0.0f, 1.0f,
-         1.0f,-1.0f,-1.0f,  // 1.0f, 0.0f,
-         1.0f,-1.0f,-1.0f, //  1.0f, 0.0f,
-        -1.0f, 1.0f,-1.0f,  // 0.0f, 1.0f,
-         1.0f, 1.0f,-1.0f,   //1.0f, 1.0f,
+        -1.0f,-1.0f,-1.0f,   0.0f, 0.0f,   0.0f, 0.0f, -1.0f,
+        -1.0f, 1.0f,-1.0f,   0.0f, 1.0f,   0.0f, 0.0f, -1.0f,
+         1.0f,-1.0f,-1.0f,   1.0f, 0.0f,   0.0f, 0.0f, -1.0f,
+         1.0f,-1.0f,-1.0f,   1.0f, 0.0f,   0.0f, 0.0f, -1.0f,
+        -1.0f, 1.0f,-1.0f,   0.0f, 1.0f,   0.0f, 0.0f, -1.0f,
+         1.0f, 1.0f,-1.0f,   1.0f, 1.0f,   0.0f, 0.0f, -1.0f,
 
         // left
-        -1.0f,-1.0f, 1.0f,   //0.0f, 1.0f,
-        -1.0f, 1.0f,-1.0f,  // 1.0f, 0.0f,
-        -1.0f,-1.0f,-1.0f,  // 0.0f, 0.0f,
-        -1.0f,-1.0f, 1.0f,  // 0.0f, 1.0f,
-        -1.0f, 1.0f, 1.0f,   //1.0f, 1.0f,
-        -1.0f, 1.0f,-1.0f,   //1.0f, 0.0f,
+        -1.0f,-1.0f, 1.0f,   0.0f, 1.0f,   -1.0f, 0.0f, 0.0f,
+        -1.0f, 1.0f,-1.0f,   1.0f, 0.0f,   -1.0f, 0.0f, 0.0f,
+        -1.0f,-1.0f,-1.0f,   0.0f, 0.0f,   -1.0f, 0.0f, 0.0f,
+        -1.0f,-1.0f, 1.0f,   0.0f, 1.0f,   -1.0f, 0.0f, 0.0f,
+        -1.0f, 1.0f, 1.0f,   1.0f, 1.0f,   -1.0f, 0.0f, 0.0f,
+        -1.0f, 1.0f,-1.0f,   1.0f, 0.0f,   -1.0f, 0.0f, 0.0f,
 
         // right
-         1.0f,-1.0f, 1.0f,   //1.0f, 1.0f,
-         1.0f,-1.0f,-1.0f,   //1.0f, 0.0f,
-         1.0f, 1.0f,-1.0f,   //0.0f, 0.0f,
-         1.0f,-1.0f, 1.0f,   //1.0f, 1.0f,
-         1.0f, 1.0f,-1.0f,  // 0.0f, 0.0f,
-         1.0f, 1.0f, 1.0f,   //0.0f, 1.0f
+         1.0f,-1.0f, 1.0f,   1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+         1.0f,-1.0f,-1.0f,   1.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+         1.0f, 1.0f,-1.0f,   0.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+         1.0f,-1.0f, 1.0f,   1.0f, 1.0f,   1.0f, 0.0f, 0.0f,
+         1.0f, 1.0f,-1.0f,   0.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+         1.0f, 1.0f, 1.0f,   0.0f, 1.0f,   1.0f, 0.0f, 0.0f
 	};
 
 	glGenBuffers(1, &vertexBuffer);
@@ -92,7 +94,7 @@ void Box::prepareMaterial(Camera* camera)
 	transform = glm::translate(glm::mat4(), glm::vec3(-1,0,0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
 }
 
-void Box::drawBox(Camera* camera)
+void Box::drawBox(Camera* camera, Light* light)
 {
 	shader->use();
 
@@ -101,8 +103,14 @@ void Box::drawBox(Camera* camera)
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
 
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	// connect the normal to the "vertNormal" attribute of the vertex shader
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 8*sizeof(GLfloat), (const GLvoid*)(5 * sizeof(GLfloat)));
+
+	shader->setUniform("light.position", light->getPosition());
+	shader->setUniform("light.intensities", light->getColor());
+
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }

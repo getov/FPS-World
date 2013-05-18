@@ -4,6 +4,7 @@ class Player;
 class Camera;
 class Crosshair;
 class Box;
+class Light;
 //
 class AnotherBox;
 
@@ -17,6 +18,7 @@ class Application
 		Camera* gWorld;
 		Crosshair* cross;
 		Box* box;
+		Light* gLight;
 		//
 		AnotherBox* anBox;
 

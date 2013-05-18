@@ -2,6 +2,7 @@
 
 class GPUProgram;
 class Camera;
+class Light;
 
 class Box
 {
@@ -16,5 +17,5 @@ class Box
 		~Box();
 
 		void prepareMaterial(Camera* camera);
-		void drawBox(Camera* camera);
+		void drawBox(Camera* camera, Light* light);
 };

@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "Crosshair.h"
 #include "Box.h"
+#include "Light.h"
 //
 #include "AnotherBox.h"
 
@@ -24,6 +25,7 @@ Application::~Application()
 	delete gWorld;
 	delete cross;
 	delete box;
+	delete gLight;
 	//
 	delete anBox;
 }
@@ -66,10 +68,16 @@ void Application::initializeScene()
 	gWorld = new Camera;
 	cross = new Crosshair;
 	box = new Box;
+	gLight = new Light;
 	//
 	anBox = new AnotherBox;
 
+	// setup light
+	gLight->setPosition(gWorld->cameraPosition());
+	gLight->setColor(glm::vec3(1,1,1)); // white color
+
 	player->prepare(gWorld);
+
 	// Prepare objects' materials to render
 	cross->prepareMaterial();
 	box->prepareMaterial(gWorld);
@@ -83,7 +91,7 @@ void Application::renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	cross->drawCrosshair();
-	box->drawBox(gWorld);
+	box->drawBox(gWorld, gLight);
 	//
 	anBox->drawBox(gWorld);
 
