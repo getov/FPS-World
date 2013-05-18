@@ -34,6 +34,9 @@
     <ClCompile Include="Box.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AnotherBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -57,14 +60,11 @@
     <ClInclude Include="Box.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="AnotherBox.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="playerFrag.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="playerVert.vert">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="crosshair.frag">
       <Filter>Shaders</Filter>
     </None>
@@ -75,6 +75,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="box.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="anBox.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="anBox.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

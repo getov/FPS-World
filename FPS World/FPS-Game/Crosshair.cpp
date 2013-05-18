@@ -37,36 +37,37 @@ void Crosshair::prepareMaterial()
 
 	shader->link();
 
-	static const GLfloat vertexBufferData[] = {
-		// horizontal crosshair line one
-		-1.0f, -1.0f, 0.0f,	
-		-0.3f, -1.0f, 0.0f,
+	GLfloat vertexBufferData[] = {
+        //  X     Y     Z
+		// horizontal crosshair left line
+		-0.01f, 0.1f, 0.0f,
+		 0.02f, 0.1f, 0.0f,
 
-		// horizontal crosshair line two
-		 0.3f, -1.0f, 0.0f,
-		 1.0f, -1.0f, 0.0f,
+		 // horizontal crosshair right line
+		 0.04f, 0.1f, 0.0f,
+		 0.07f, 0.1f, 0.0f,
 
-		// vertical crosshair line one
-		 0.0f, 0.0f, 0.0f,
-		 0.0f, -0.7f, 0.0f,
+		 // vertical crosshair top line
+		 0.03f, 0.16f, 0.0f,
+		 0.03f, 0.11f, 0.0f,
 
-		// horizontal crosshair line two
-		 0.0f, -1.3f, 0.0f,
-		 0.0f, -2.0f, 0.0f
-	};
+		 // vertical crosshair bottom line
+		 0.03f, 0.09f, 0.0f,
+		 0.03f, 0.04f, 0.0f
+    };
 
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
-	transform = glm::translate(glm::mat4(), glm::vec3(0, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.03, 0.03, 0.03));
+	// scale the size of the crosshair
+	transform = glm::scale(glm::mat4(), glm::vec3(1.0, 1.0, 1.0));
 }
 
 void Crosshair::drawCrosshair()
 {
 	shader->use();
 
-	shader->setUniform("camera", camera->matrix());
 	shader->setUniform("model", transform);
 	
 	glEnableVertexAttribArray(0);

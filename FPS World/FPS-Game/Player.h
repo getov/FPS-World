@@ -6,10 +6,6 @@ class Camera;
 class Player
 {
 	private:
-		GPUProgram* shader;
-		GLuint vertexArrayID;
-		GLuint vertexBuffer;
-
 		GLfloat degreesPerSecond;
 		GLfloat degreesRotated;
 		float moveSpeed;
@@ -21,7 +17,6 @@ class Player
 		Player();
 		~Player();
 
-		void prepareMaterial(Camera* camera);
-		void drawPlayer(Camera* camera);
+		void prepare(Camera* camera);
 		void updatePosition(float secondsElapsed, Camera* camera);
 };

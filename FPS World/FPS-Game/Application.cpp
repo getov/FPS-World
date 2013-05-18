@@ -9,6 +9,8 @@
 #include "Camera.h"
 #include "Crosshair.h"
 #include "Box.h"
+//
+#include "AnotherBox.h"
 
 Application::Application()
 	: screenHeight(768)
@@ -22,6 +24,8 @@ Application::~Application()
 	delete gWorld;
 	delete cross;
 	delete box;
+	//
+	delete anBox;
 }
 
 void Application::initializeScene()
@@ -54,17 +58,23 @@ void Application::initializeScene()
 	glDepthFunc(GL_LESS);
 	glfwDisable(GLFW_MOUSE_CURSOR);
 
-	/* Initialize game objects here instead in the constructor
-	Memory usage highly decreased */
+	/* 
+		Initialize game objects here instead in the constructor
+		Memory usage highly decreased 
+	*/
 	player = new Player;
 	gWorld = new Camera;
 	cross = new Crosshair;
 	box = new Box;
+	//
+	anBox = new AnotherBox;
 
+	player->prepare(gWorld);
 	// Prepare objects' materials to render
-	player->prepareMaterial(gWorld);
 	cross->prepareMaterial();
 	box->prepareMaterial(gWorld);
+	//
+	anBox->prepareMaterial(gWorld);
 }
 
 void Application::renderScene()
@@ -73,10 +83,9 @@ void Application::renderScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	cross->drawCrosshair();
-
-	player->drawPlayer(gWorld);
-
 	box->drawBox(gWorld);
+	//
+	anBox->drawBox(gWorld);
 
 	glfwSwapBuffers();
 }

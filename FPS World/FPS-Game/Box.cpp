@@ -88,7 +88,7 @@ void Box::prepareMaterial(Camera* camera)
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
-	// transform the object to different position in world space
+	// translate the object to different position in world space
 	transform = glm::translate(glm::mat4(), glm::vec3(-1,0,0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
 }
 
@@ -105,6 +105,4 @@ void Box::drawBox(Camera* camera)
 
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
-
-	//shader->stopUsing();
 }
