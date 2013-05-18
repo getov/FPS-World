@@ -1,3 +1,3 @@
 FPS-World
 ============
-This project presents basic FPS camera scene with movement controls and environment objects.
+This project presents FPS camera scene with movement controls, environment objects, textures and lighting effects
