@@ -6,11 +6,9 @@
 
 #include "Crosshair.h"
 #include "GPUProgram.h"
-#include "Camera.h"
 
 Crosshair::Crosshair()
 	: shader(nullptr)
-	, camera(nullptr)
 	, vertexArrayID(0)
 {
 }
@@ -19,14 +17,11 @@ Crosshair::~Crosshair()
 {
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteVertexArrays(1, &vertexArrayID);
-	delete camera;
 	delete shader;
 }
 
 void Crosshair::prepareMaterial()
 {
-	camera = new Camera;
-
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
 

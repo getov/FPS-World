@@ -91,7 +91,7 @@ void Box::prepareMaterial(Camera* camera)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
 	// translate the object to different position in world space
-	transform = glm::translate(glm::mat4(), glm::vec3(-1,0,0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
+	transform = glm::translate(glm::mat4(), glm::vec3(-1, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
 }
 
 void Box::drawBox(Camera* camera, Light* light)

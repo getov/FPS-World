@@ -5,6 +5,8 @@ class Camera;
 class Crosshair;
 class Box;
 class Light;
+class HealthBar;
+class Projectile;
 //
 class AnotherBox;
 
@@ -19,6 +21,8 @@ class Application
 		Crosshair* cross;
 		Box* box;
 		Light* gLight;
+		HealthBar* health;
+		Projectile* projectile;
 		//
 		AnotherBox* anBox;
 

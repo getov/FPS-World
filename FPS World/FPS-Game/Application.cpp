@@ -10,6 +10,8 @@
 #include "Crosshair.h"
 #include "Box.h"
 #include "Light.h"
+#include "HealthBar.h"
+#include "Projectile.h"
 //
 #include "AnotherBox.h"
 
@@ -26,6 +28,8 @@ Application::~Application()
 	delete cross;
 	delete box;
 	delete gLight;
+	delete health;
+	delete projectile;
 	//
 	delete anBox;
 }
@@ -69,6 +73,8 @@ void Application::initializeScene()
 	cross = new Crosshair;
 	box = new Box;
 	gLight = new Light;
+	health = new HealthBar;
+	projectile = new Projectile;
 	//
 	anBox = new AnotherBox;
 
@@ -81,6 +87,8 @@ void Application::initializeScene()
 	// Prepare objects' materials to render
 	cross->prepareMaterial();
 	box->prepareMaterial(gWorld);
+	health->prepareMaterial();
+	//projectile->prepareMaterial();
 	//
 	anBox->prepareMaterial(gWorld);
 }
@@ -90,8 +98,12 @@ void Application::renderScene()
 	glClearColor(0.55f, 0.8f, 0.95f, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	// render world objects
 	cross->drawCrosshair();
 	box->drawBox(gWorld, gLight);
+	health->drawHealthBar();
+	//projectile->drawProjectile();
+	player->renderProjectiles();
 	//
 	anBox->drawBox(gWorld);
 
@@ -109,6 +121,7 @@ void Application::run()
 		double thisTime = glfwGetTime();
 
 		player->updatePosition(thisTime - lastTime, gWorld);
+		//projectile->updatePosition(thisTime - lastTime);
 
 		lastTime = thisTime;
 

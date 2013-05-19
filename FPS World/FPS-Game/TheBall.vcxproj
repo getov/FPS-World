@@ -81,23 +81,27 @@
     <ClCompile Include="AnotherBox.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Box.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GPUProgram.cpp" />
     <ClCompile Include="Crosshair.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnotherBox.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Box.h" />
+    <ClInclude Include="HealthBar.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GPUProgram.h" />
     <ClInclude Include="Crosshair.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +111,10 @@
     <None Include="anBox.vert" />
     <None Include="crosshair.frag" />
     <None Include="crosshair.vert" />
+    <None Include="lostHP.frag" />
+    <None Include="lostHP.vert" />
+    <None Include="projectile.frag" />
+    <None Include="projectile.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="C:\Users\GetoMafia\Pictures\bg.bmp" />

@@ -8,6 +8,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{3c9d13d4-1afb-44c9-bcda-ba7556470932}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects">
+      <UniqueIdentifier>{68336bba-e9b9-4c3c-8d4c-f82b7833f5d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -28,17 +31,23 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Crosshair.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Box.cpp">
+    <ClCompile Include="Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AnotherBox.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Light.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Box.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Crosshair.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -57,17 +66,23 @@
     <ClInclude Include="Player.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Crosshair.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Box.h">
+    <ClInclude Include="Light.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="AnotherBox.h">
-      <Filter>Source Files</Filter>
+      <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Box.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Crosshair.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +102,18 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="anBox.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="lostHP.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="lostHP.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="projectile.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="projectile.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
