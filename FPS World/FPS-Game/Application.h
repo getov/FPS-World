@@ -7,8 +7,9 @@ class Box;
 class Light;
 class HealthBar;
 class Projectile;
-//
+class Renderer;
 class AnotherBox;
+class BoxInstance;
 
 class Application
 {
@@ -23,8 +24,9 @@ class Application
 		Light* gLight;
 		HealthBar* health;
 		Projectile* projectile;
-		//
 		AnotherBox* anBox;
+		BoxInstance* boxI;
+		Renderer* m_renderer;
 
 	public:
 

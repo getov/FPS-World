@@ -1,5 +1,10 @@
-#include "Util.h"
 #include <fstream>
+#include <GL\glew.h>
+#include <GL\glfw.h>
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+
+#include "Util.h"
 
 namespace Util
 {
@@ -29,5 +34,20 @@ namespace Util
 		}
 
 		return fileContents;
+	}
+
+	glm::mat4 scale(GLfloat x, GLfloat y, GLfloat z)
+	{
+		return glm::scale(glm::mat4(), glm::vec3(x, y, z));
+	}
+
+	glm::mat4 translate(GLfloat x, GLfloat y, GLfloat z)
+	{
+		return glm::translate(glm::mat4(), glm::vec3(x, y, z));
+	}
+
+	glm::mat4 rotate(GLfloat angle, GLfloat x, GLfloat y, GLfloat z)
+	{
+		return glm::rotate(glm::mat4(), angle, glm::vec3(x, y, z));
 	}
 }

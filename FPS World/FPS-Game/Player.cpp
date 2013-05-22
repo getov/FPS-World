@@ -32,7 +32,7 @@ void Player::prepare(Camera* camera)
 	camera->offsetOrientation(-30.0f, 20.0f);
 
 	// TO FIX *********
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 1; ++i)
 	{
 		ammo.push_back(new Projectile);
 	}

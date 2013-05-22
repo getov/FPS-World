@@ -11,6 +11,12 @@
     <Filter Include="Objects">
       <UniqueIdentifier>{68336bba-e9b9-4c3c-8d4c-f82b7833f5d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Instances">
+      <UniqueIdentifier>{2bbeedf8-855a-4d15-992a-5e6d62c98e6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{ab24ad2f-7c80-487c-b475-1db42bee0369}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -49,6 +55,12 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="BoxInstance.cpp">
+      <Filter>Objects\Instances</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -83,6 +95,12 @@
     </ClInclude>
     <ClInclude Include="Projectile.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxInstance.h">
+      <Filter>Objects\Instances</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

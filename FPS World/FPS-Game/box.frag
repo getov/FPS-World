@@ -31,6 +31,5 @@ void main()
     //calculate final color of the pixel, based on:
     // 1. The angle of incidence: brightness
     // 2. The color/intensities of the light: light.intensities
-    // 3. The texture and texture coord: texture(tex, fragTexCoord)
     finalColor = brightness * vec4(light.intensities, 1);
 }

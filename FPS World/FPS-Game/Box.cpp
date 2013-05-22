@@ -91,26 +91,38 @@ void Box::prepareMaterial(Camera* camera)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
 	// translate the object to different position in world space
-	transform = glm::translate(glm::mat4(), glm::vec3(-1, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
+	//transform = glm::translate(glm::mat4(), glm::vec3(-1, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
 }
 
-void Box::drawBox(Camera* camera, Light* light)
+GPUProgram* Box::getShader()
 {
-	shader->use();
-
-	shader->setUniform("camera", camera->matrix());
-	shader->setUniform("model", transform);
-
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
-
-	// connect the normal to the "vertNormal" attribute of the vertex shader
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 8*sizeof(GLfloat), (const GLvoid*)(5 * sizeof(GLfloat)));
-
-	shader->setUniform("light.position", light->getPosition());
-	shader->setUniform("light.intensities", light->getColor());
-
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	return shader;
 }
+
+GLuint Box::getVAO()
+{
+	return vertexArrayID;
+}
+
+//void Box::drawBox(Camera* camera, Light* light)
+//{
+//	transform = glm::translate(glm::mat4(), glm::vec3(-1, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
+//
+//	shader->use();
+//
+//	shader->setUniform("camera", camera->matrix());
+//	shader->setUniform("model", transform);
+//
+//	glEnableVertexAttribArray(0);
+//	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+//	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
+//
+//	// connect the normal to the "vertNormal" attribute of the vertex shader
+//	glEnableVertexAttribArray(1);
+//	glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 8*sizeof(GLfloat), (const GLvoid*)(5 * sizeof(GLfloat)));
+//
+//	shader->setUniform("light.position", light->getPosition());
+//	shader->setUniform("light.intensities", light->getColor());
+//
+//	glDrawArrays(GL_TRIANGLES, 0, 36);
+//}

@@ -1,7 +1,10 @@
 #include <GL\glew.h>
 #include <GL\glfw.h>
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
 
 #include <iostream>
+#include <vector>
 
 #include "Application.h"
 #include "Player.h"
@@ -12,8 +15,10 @@
 #include "Light.h"
 #include "HealthBar.h"
 #include "Projectile.h"
+#include "Renderer.h"
 //
 #include "AnotherBox.h"
+#include "BoxInstance.h"
 
 Application::Application()
 	: screenHeight(768)
@@ -75,6 +80,7 @@ void Application::initializeScene()
 	gLight = new Light;
 	health = new HealthBar;
 	projectile = new Projectile;
+	m_renderer = new Renderer;
 	//
 	anBox = new AnotherBox;
 
@@ -82,15 +88,13 @@ void Application::initializeScene()
 	gLight->setPosition(gWorld->cameraPosition());
 	gLight->setColor(glm::vec3(1,1,1)); // white color
 
-	player->prepare(gWorld);
-
 	// Prepare objects' materials to render
+	player->prepare(gWorld);
 	cross->prepareMaterial();
 	box->prepareMaterial(gWorld);
 	health->prepareMaterial();
-	//projectile->prepareMaterial();
-	//
 	anBox->prepareMaterial(gWorld);
+	m_renderer->createBoxInstances(box, boxI);
 }
 
 void Application::renderScene()
@@ -100,12 +104,10 @@ void Application::renderScene()
 
 	// render world objects
 	cross->drawCrosshair();
-	box->drawBox(gWorld, gLight);
 	health->drawHealthBar();
-	//projectile->drawProjectile();
 	player->renderProjectiles();
-	//
 	anBox->drawBox(gWorld);
+	m_renderer->renderBoxInstances(box, gWorld, gLight);
 
 	glfwSwapBuffers();
 }
@@ -130,3 +132,39 @@ void Application::run()
 
 	glfwTerminate();
 }
+
+//void Application::createBoxInstance()
+//{
+//	boxI = new BoxInstance;
+//	boxI->asset = box;
+//	boxI->transform = glm::translate(glm::mat4(), glm::vec3(-1, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
+//	boxes.push_back(boxI);
+//
+//	boxI = new BoxInstance;
+//	boxI->asset = box;
+//	boxI->transform = glm::translate(glm::mat4(), glm::vec3(-2, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
+//	boxes.push_back(boxI);
+//}
+//
+//void Application::renderBoxInstance(BoxInstance* boxI)
+//{
+//	box = boxI->asset;
+//	GPUProgram* shader = box->getShader();
+//
+//	shader->use();
+//	shader->setUniform("camera", gWorld->matrix());
+//	shader->setUniform("model", boxI->transform);
+//
+//	glEnableVertexAttribArray(0);
+//	glBindBuffer(GL_ARRAY_BUFFER, box->getVAO());
+//	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
+//
+//	// connect the normal to the "vertNormal" attribute of the vertex shader
+//	glEnableVertexAttribArray(1);
+//	glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 8*sizeof(GLfloat), (const GLvoid*)(5 * sizeof(GLfloat)));
+//
+//	shader->setUniform("light.position", gLight->getPosition());
+//	shader->setUniform("light.intensities", gLight->getColor());
+//
+//    glDrawArrays(GL_TRIANGLES, 0, 36);
+//}

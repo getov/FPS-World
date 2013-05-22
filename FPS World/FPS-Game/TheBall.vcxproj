@@ -81,6 +81,7 @@
     <ClCompile Include="AnotherBox.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Box.cpp" />
+    <ClCompile Include="BoxInstance.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -89,12 +90,14 @@
     <ClCompile Include="GPUProgram.cpp" />
     <ClCompile Include="Crosshair.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnotherBox.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Box.h" />
+    <ClInclude Include="BoxInstance.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Player.h" />
@@ -102,6 +105,7 @@
     <ClInclude Include="GPUProgram.h" />
     <ClInclude Include="Crosshair.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
