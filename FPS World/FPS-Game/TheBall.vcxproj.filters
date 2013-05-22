@@ -17,6 +17,9 @@
     <Filter Include="Rendering">
       <UniqueIdentifier>{ab24ad2f-7c80-487c-b475-1db42bee0369}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Texture">
+      <UniqueIdentifier>{73122edc-d6e8-4318-8aff-bd87c0307bcb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -61,6 +64,9 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Objects\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -101,6 +107,9 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Objects\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

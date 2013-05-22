@@ -91,6 +91,7 @@
     <ClCompile Include="Crosshair.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Util.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +107,7 @@
     <ClInclude Include="Crosshair.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>

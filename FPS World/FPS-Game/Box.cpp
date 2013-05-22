@@ -8,9 +8,11 @@
 #include "GPUProgram.h"
 #include "Camera.h"
 #include "Light.h"
+#include "Texture.h"
 
 Box::Box()
 	: shader(nullptr)
+	, texture(nullptr)
 	, vertexArrayID(0)
 {
 }
@@ -20,12 +22,16 @@ Box::~Box()
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteVertexArrays(1, &vertexArrayID);
 	delete shader;
+	delete texture;
 }
 
 void Box::prepareMaterial(Camera* camera)
 {
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
+
+	texture = new Texture;
+	texture->loadTexture("bg.bmp");
 
 	shader = new GPUProgram;
 
@@ -89,14 +95,16 @@ void Box::prepareMaterial(Camera* camera)
 	glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
-
-	// translate the object to different position in world space
-	//transform = glm::translate(glm::mat4(), glm::vec3(-1, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
 }
 
 GPUProgram* Box::getShader()
 {
 	return shader;
+}
+
+Texture* Box::getTexture()
+{
+	return texture;
 }
 
 GLuint Box::getVAO()

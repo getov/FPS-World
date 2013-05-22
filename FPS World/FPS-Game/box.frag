@@ -1,12 +1,14 @@
 #version 330 core
 
 uniform mat4 model;
+uniform sampler2D tex;
 
 uniform struct Light {
    vec3 position;
    vec3 intensities; // the color of the light
 } light;
 
+in vec2 fragTexCoord;
 in vec3 fragNormal;
 in vec3 fragVert;
 
@@ -31,5 +33,5 @@ void main()
     //calculate final color of the pixel, based on:
     // 1. The angle of incidence: brightness
     // 2. The color/intensities of the light: light.intensities
-    finalColor = brightness * vec4(light.intensities, 1);
+    finalColor = brightness * vec4(light.intensities, 1) * texture(tex, fragTexCoord);
 }

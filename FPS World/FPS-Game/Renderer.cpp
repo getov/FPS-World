@@ -13,6 +13,7 @@
 #include "BoxInstance.h"
 #include "Renderer.h"
 #include "Util.h"
+#include "Texture.h"
 
 using namespace Util;
 
@@ -75,6 +76,10 @@ void Renderer::renderBoxInstances(Box* box, Camera* gWorld, Light* gLight)
 		shader->use();
 		shader->setUniform("camera", gWorld->matrix());
 		shader->setUniform("model", (*boxI)->transform);
+		shader->setUniform("tex", 0);
+
+		//glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, box->getTexture()->getTexID());
 
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, box->getVAO());
@@ -83,6 +88,10 @@ void Renderer::renderBoxInstances(Box* box, Camera* gWorld, Light* gLight)
 		// connect the normal to the "vertNormal" attribute of the vertex shader
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 8*sizeof(GLfloat), (const GLvoid*)(5 * sizeof(GLfloat)));
+
+		// connect the uv coords to the "vertTexCoord" attribute of the vertex shader
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 2, GL_FLOAT, GL_TRUE,  8*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
 
 		shader->setUniform("light.position", gLight->getPosition());
 		shader->setUniform("light.intensities", gLight->getColor());

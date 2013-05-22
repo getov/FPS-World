@@ -86,7 +86,7 @@ void Application::initializeScene()
 
 	// setup light
 	gLight->setPosition(gWorld->cameraPosition());
-	gLight->setColor(glm::vec3(1,1,1)); // white color
+	gLight->setColor(glm::vec3(1, 1, 1)); // white color
 
 	// Prepare objects' materials to render
 	player->prepare(gWorld);

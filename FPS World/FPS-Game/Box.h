@@ -12,11 +12,13 @@
 class GPUProgram;
 class Camera;
 class Light;
+class Texture;
 
 class Box
 {
 	private:
 		GPUProgram* shader;
+		Texture* texture;
 		GLuint vertexArrayID;
 		GLuint vertexBuffer;
 		glm::mat4 transform;
@@ -29,5 +31,6 @@ class Box
 		//void drawBox(Camera* camera, Light* light);
 
 		GPUProgram* getShader();
+		Texture* getTexture();
 		GLuint getVAO();
 };
