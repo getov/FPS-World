@@ -16,6 +16,7 @@
 #include "HealthBar.h"
 #include "Projectile.h"
 #include "Renderer.h"
+#include "WeaponModel.h"
 //
 #include "AnotherBox.h"
 #include "BoxInstance.h"
@@ -35,6 +36,7 @@ Application::~Application()
 	delete gLight;
 	delete health;
 	delete projectile;
+	delete weapon;
 	//
 	delete anBox;
 }
@@ -81,6 +83,7 @@ void Application::initializeScene()
 	health = new HealthBar;
 	projectile = new Projectile;
 	m_renderer = new Renderer;
+	weapon = new WeaponModel;
 	//
 	anBox = new AnotherBox;
 
@@ -95,6 +98,8 @@ void Application::initializeScene()
 	health->prepareMaterial();
 	anBox->prepareMaterial(gWorld);
 	m_renderer->createBoxInstances(box, boxI);
+	//
+	//weapon->prepareMaterial();
 }
 
 void Application::renderScene()
@@ -108,6 +113,8 @@ void Application::renderScene()
 	player->renderProjectiles();
 	anBox->drawBox(gWorld);
 	m_renderer->renderBoxInstances(box, gWorld, gLight);
+	//
+	//weapon->drawWeapon();
 
 	glfwSwapBuffers();
 }

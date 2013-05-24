@@ -67,6 +67,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Objects\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="WeaponModel.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -111,6 +114,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Objects\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="WeaponModel.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="crosshair.frag">
@@ -141,6 +147,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="projectile.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="weaponModel.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="weaponModel.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

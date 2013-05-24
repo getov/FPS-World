@@ -93,6 +93,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Util.cpp" />
+    <ClCompile Include="WeaponModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnotherBox.h" />
@@ -109,6 +110,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Util.h" />
+    <ClInclude Include="WeaponModel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="box.frag" />
@@ -121,6 +123,8 @@
     <None Include="lostHP.vert" />
     <None Include="projectile.frag" />
     <None Include="projectile.vert" />
+    <None Include="weaponModel.frag" />
+    <None Include="weaponModel.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="C:\Users\GetoMafia\Pictures\bg.bmp" />

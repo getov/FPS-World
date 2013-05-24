@@ -76,10 +76,7 @@ void Renderer::renderBoxInstances(Box* box, Camera* gWorld, Light* gLight)
 		shader->use();
 		shader->setUniform("camera", gWorld->matrix());
 		shader->setUniform("model", (*boxI)->transform);
-		shader->setUniform("tex", 0);
-
-		//glActiveTexture(GL_TEXTURE0);
-		//glBindTexture(GL_TEXTURE_2D, box->getTexture()->getTexID());
+		//shader->setUniform("tex", (*boxI)->asset->getTexture()->getTexID());
 
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, box->getVAO());

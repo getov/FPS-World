@@ -3,12 +3,15 @@
 #include <glm\glm.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
+class Texture;
+
 class GPUProgram
 {
 	private:
 		GLuint glObject;
 		GLuint glFragmentShader;
 		GLuint glVertexShader;
+		size_t boundTextures;
 
 		GLuint loadShader(GLenum shaderType, const char* shaderData);
 
@@ -51,4 +54,5 @@ class GPUProgram
 		void setUniform(const GLchar* name, const glm::mat4 &matrix, GLboolean transpose = GL_FALSE);
 		void setUniform(const GLchar* uniformName, const glm::vec3& v);
         void setUniform(const GLchar* uniformName, const glm::vec4& v);
+		void setUniform(GLint param, const Texture& tex);
 };

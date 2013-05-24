@@ -10,6 +10,7 @@ class Projectile;
 class Renderer;
 class AnotherBox;
 class BoxInstance;
+class WeaponModel;
 
 class Application
 {
@@ -27,6 +28,7 @@ class Application
 		AnotherBox* anBox;
 		BoxInstance* boxI;
 		Renderer* m_renderer;
+		WeaponModel* weapon;
 
 	public:
 

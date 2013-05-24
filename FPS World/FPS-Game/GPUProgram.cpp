@@ -5,12 +5,14 @@
 
 #include <iostream>
 
+#include "Texture.h"
 #include "GPUProgram.h"
 #include "Util.h"
 
 GPUProgram::GPUProgram()
 	: glFragmentShader(0)
 	, glVertexShader(0)
+	, boundTextures(0)
 {
 	glObject = glCreateProgram();
 }
@@ -220,4 +222,14 @@ void GPUProgram::setUniform(const GLchar* name, const glm::vec3& v)
 void GPUProgram::setUniform(const GLchar* name, const glm::vec4& v)
 {
 	setUniform4v(name, glm::value_ptr(v));
+}
+
+void GPUProgram::setUniform(GLint param, const Texture& tex)
+{
+	assert(&tex);
+	glActiveTexture(GL_TEXTURE0 + boundTextures);
+	glBindTexture(tex.getTexType(), tex.getTexID());
+	glUniform1i(param, boundTextures);
+
+	++boundTextures;
 }
