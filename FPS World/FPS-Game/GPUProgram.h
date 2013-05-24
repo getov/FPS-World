@@ -17,6 +17,7 @@ class GPUProgram
 
 	public:
 		GPUProgram();
+		GPUProgram(size_t numTexture);
 		~GPUProgram();
 
 		bool loadFragmentShaderFromFile(const char* fileName);
@@ -54,5 +55,5 @@ class GPUProgram
 		void setUniform(const GLchar* name, const glm::mat4 &matrix, GLboolean transpose = GL_FALSE);
 		void setUniform(const GLchar* uniformName, const glm::vec3& v);
         void setUniform(const GLchar* uniformName, const glm::vec4& v);
-		void setUniform(GLint param, const Texture& tex);
+		void setUniform(const GLchar* name, const Texture& tex);
 };

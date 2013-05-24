@@ -17,6 +17,15 @@ GPUProgram::GPUProgram()
 	glObject = glCreateProgram();
 }
 
+//
+GPUProgram::GPUProgram(size_t numTexture)
+	: glFragmentShader(0)
+	, glVertexShader(0)
+	, boundTextures(numTexture)
+{
+	glObject = glCreateProgram();
+}
+
 GPUProgram::~GPUProgram()
 {
 	if (glObject)
@@ -224,12 +233,12 @@ void GPUProgram::setUniform(const GLchar* name, const glm::vec4& v)
 	setUniform4v(name, glm::value_ptr(v));
 }
 
-void GPUProgram::setUniform(GLint param, const Texture& tex)
+void GPUProgram::setUniform(const GLchar* name, const Texture& tex)
 {
 	assert(&tex);
 	glActiveTexture(GL_TEXTURE0 + boundTextures);
 	glBindTexture(tex.getTexType(), tex.getTexID());
-	glUniform1i(param, boundTextures);
+	glUniform1i(uniform(name), boundTextures);
 
 	++boundTextures;
 }

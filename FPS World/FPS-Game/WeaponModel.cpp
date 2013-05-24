@@ -24,7 +24,7 @@ WeaponModel::~WeaponModel()
 	glDeleteBuffers(1, &vertexBuffer);
 	glDeleteVertexArrays(1, &vertexArrayID);
 	delete shader;
-	//delete texture;
+	delete texture;
 }
 
 void WeaponModel::prepareMaterial()
@@ -32,23 +32,35 @@ void WeaponModel::prepareMaterial()
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
 
-	/*texture = new Texture;
-	texture->loadTexture("bg.bmp");*/
+	texture = new Texture;
+	texture->loadTexture("cs.bmp");
 
-	shader = new GPUProgram;
+	shader = new GPUProgram(1);
 
-	//shader->loadFragmentShaderFromFile("weaponModel.frag");
+	shader->loadFragmentShaderFromFile("weaponModel.frag");
 	shader->loadVertexShaderFromFile("weaponModel.vert");
 
 	shader->link();
 
-	bool res = Util::loadOBJ("ak.obj", vertices, uvs, normals);
+	GLfloat vertexBufferData[] = {
+	//     X     Y    Z       U    V
+		0.01, 0.10, 0.0,	1.0, 1.0, /*0.0, 0.0,*/ 
+		0.01, 0.20, 0.0,	1.0, 0.0, /*0.0, 1.0,*/ 
+		0.30, 0.20, 0.0,	0.0, 0.0, /*1.0, 1.0,*/ 
 
-	glGenBuffers(1, &vertexArrayID);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexArrayID);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+		0.01, 0.10, 0.0,	1.0, 1.0, /*0.0, 0.0,*/ 
+		0.30, 0.20, 0.0,	0.0, 0.0, /*1.0, 1.0,*/ 
+		0.30, 0.10, 0.0,	0.0, 1.0  /*1.0, 0.0*/ 
+	};
 
-	transform = Util::scale(0.5, 0.5, 0.5);
+	glGenBuffers(1, &vertexBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
+
+	shader->setUniform("tex", *texture);
+	
+	transform = Util::translate(-1.1, -2.0, 0.0) * Util::scale(4.0, 10.0, 0.0);
 }
 
 void WeaponModel::drawWeapon()
@@ -58,8 +70,11 @@ void WeaponModel::drawWeapon()
 	shader->setUniform("model", transform);
 
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexArrayID);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5*sizeof(GLfloat), NULL);
 
-	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE,  5*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
+
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 }

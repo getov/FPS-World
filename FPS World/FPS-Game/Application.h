@@ -11,6 +11,7 @@ class Renderer;
 class AnotherBox;
 class BoxInstance;
 class WeaponModel;
+class GPUProgram;
 
 class Application
 {

@@ -96,8 +96,7 @@ void Box::prepareMaterial(Camera* camera)
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
-	GLuint param = shader->uniform("tex");
-	shader->setUniform(param, *texture);
+	shader->setUniform("tex", *texture);
 }
 
 GPUProgram* Box::getShader()
