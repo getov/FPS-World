@@ -1,0 +1,20 @@
+# visual studio specific
+*.suo
+*.sdf
+*.opensdf
+*.user
+
+test/Debug/
+test/ipch/
+
+#code blocks stuff
+*.depend
+*.layout
+*.gch
+
+test/bin/
+test/obj/
+
+#examples
+examples/bin/
+examples/OpenGLFixed/obj/
