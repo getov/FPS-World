@@ -21,6 +21,13 @@
 #include "AnotherBox.h"
 #include "BoxInstance.h"
 
+Application& Application::Instance()
+{
+	static Application app;
+
+	return app;
+}
+
 Application::Application()
 	: screenHeight(768)
 	, screenWidth(1366)
@@ -28,6 +35,10 @@ Application::Application()
 }
 
 Application::~Application()
+{
+}
+
+void Application::Destroy()
 {
 	delete player;
 	delete gWorld;
@@ -136,6 +147,8 @@ void Application::run()
 
 		renderScene();
 	}
+
+	Destroy();
 
 	glfwTerminate();
 }

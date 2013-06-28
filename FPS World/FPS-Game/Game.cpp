@@ -9,9 +9,9 @@ using namespace std;
 
 int main()
 {
-	Application game;
+	Application& app = Application::Instance();
 
-	game.run();
+	app.run();
 
 	return EXIT_SUCCESS;
 }

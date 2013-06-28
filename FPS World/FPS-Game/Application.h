@@ -31,11 +31,14 @@ class Application
 		Renderer* m_renderer;
 		WeaponModel* weapon;
 
+		Application();
+		~Application();
+
+		void Destroy();
+
 	public:
 
-		Application();
-
-		~Application();
+		static Application& Instance();
 
 		void run();
 
