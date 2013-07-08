@@ -92,6 +92,11 @@ void Renderer::renderBoxInstances(Box* box, Camera* gWorld, Light* gLight)
 
 		shader->setUniform("light.position", gLight->getPosition());
 		shader->setUniform("light.intensities", gLight->getColor());
+		shader->setUniform("material.shininess", gLight->getAttenuation());
+		shader->setUniform("material.specularColor", box->getSpecularColor());
+		shader->setUniform("light.attenuation", gLight->getAttenuation());
+		shader->setUniform("light.ambientCoefficient", gLight->getAmbientCoefficient());
+		shader->setUniform("cameraPosition", gWorld->cameraPosition());
 
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}

@@ -23,14 +23,21 @@ class Box
 		GLuint vertexBuffer;
 		glm::mat4 transform;
 
+		GLfloat shininess;
+		glm::vec3 specularColor;
+
 	public:
 		Box();
 		~Box();
 
 		void prepareMaterial(Camera* camera);
-		//void drawBox(Camera* camera, Light* light);
+		void setShininess(GLfloat shine);
+		void setSpecularColor(glm::vec3 color);
 
 		GPUProgram* getShader();
 		Texture* getTexture();
 		GLuint getVAO();
+
+		GLfloat getShininess();
+		glm::vec3 getSpecularColor();
 };

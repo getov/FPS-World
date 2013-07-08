@@ -35,7 +35,7 @@ void WeaponModel::prepareMaterial()
 	texture = new Texture;
 	texture->loadTexture("cs.bmp");
 
-	shader = new GPUProgram(1);
+	shader = new GPUProgram;
 
 	shader->loadFragmentShaderFromFile("weaponModel.frag");
 	shader->loadVertexShaderFromFile("weaponModel.vert");

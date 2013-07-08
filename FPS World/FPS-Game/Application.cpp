@@ -29,8 +29,8 @@ Application& Application::Instance()
 }
 
 Application::Application()
-	: screenHeight(768)
-	, screenWidth(1366)
+	: screenWidth(1366)
+	, screenHeight(768)
 {
 }
 
@@ -101,6 +101,8 @@ void Application::initializeScene()
 	// setup light
 	gLight->setPosition(gWorld->cameraPosition());
 	gLight->setColor(glm::vec3(1, 1, 1)); // white color
+	gLight->setAttenuation(0.2f);
+	gLight->setAmbiendCoefficient(0.005f);
 
 	// Prepare objects' materials to render
 	player->prepare(gWorld);
@@ -115,7 +117,8 @@ void Application::initializeScene()
 
 void Application::renderScene()
 {
-	glClearColor(0.55f, 0.8f, 0.95f, 0);
+	glClearColor(0.55f, 0.8f, 0.95f, 0); //skyblue
+	//glClearColor(0.0f, 0.0f, 0.0f, 0); //black
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// render world objects
@@ -152,39 +155,3 @@ void Application::run()
 
 	glfwTerminate();
 }
-
-//void Application::createBoxInstance()
-//{
-//	boxI = new BoxInstance;
-//	boxI->asset = box;
-//	boxI->transform = glm::translate(glm::mat4(), glm::vec3(-1, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
-//	boxes.push_back(boxI);
-//
-//	boxI = new BoxInstance;
-//	boxI->asset = box;
-//	boxI->transform = glm::translate(glm::mat4(), glm::vec3(-2, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
-//	boxes.push_back(boxI);
-//}
-//
-//void Application::renderBoxInstance(BoxInstance* boxI)
-//{
-//	box = boxI->asset;
-//	GPUProgram* shader = box->getShader();
-//
-//	shader->use();
-//	shader->setUniform("camera", gWorld->matrix());
-//	shader->setUniform("model", boxI->transform);
-//
-//	glEnableVertexAttribArray(0);
-//	glBindBuffer(GL_ARRAY_BUFFER, box->getVAO());
-//	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
-//
-//	// connect the normal to the "vertNormal" attribute of the vertex shader
-//	glEnableVertexAttribArray(1);
-//	glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 8*sizeof(GLfloat), (const GLvoid*)(5 * sizeof(GLfloat)));
-//
-//	shader->setUniform("light.position", gLight->getPosition());
-//	shader->setUniform("light.intensities", gLight->getColor());
-//
-//    glDrawArrays(GL_TRIANGLES, 0, 36);
-//}

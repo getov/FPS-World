@@ -31,7 +31,7 @@ void Box::prepareMaterial(Camera* camera)
 	glBindVertexArray(vertexArrayID);
 
 	texture = new Texture;
-	texture->loadTexture("bg.bmp");
+	texture->loadTexture("wooden-crate.jpg");
 
 	shader = new GPUProgram;
 
@@ -97,6 +97,29 @@ void Box::prepareMaterial(Camera* camera)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
 	shader->setUniform("tex", *texture);
+
+	setShininess(80.0f);
+	setSpecularColor(glm::vec3(1.0f, 1.0f, 1.0f));
+}
+
+void Box::setShininess(GLfloat shine)
+{
+	shininess = shine;
+}
+
+void Box::setSpecularColor(glm::vec3 color)
+{
+	specularColor = color;
+}
+
+GLfloat Box::getShininess()
+{
+	return shininess;
+}
+
+glm::vec3 Box::getSpecularColor()
+{
+	return specularColor;
 }
 
 GPUProgram* Box::getShader()
@@ -113,26 +136,3 @@ GLuint Box::getVAO()
 {
 	return vertexArrayID;
 }
-
-//void Box::drawBox(Camera* camera, Light* light)
-//{
-//	transform = glm::translate(glm::mat4(), glm::vec3(-1, 0, 0)) * glm::scale(glm::mat4(), glm::vec3(0.30, 0.30, 0.30));
-//
-//	shader->use();
-//
-//	shader->setUniform("camera", camera->matrix());
-//	shader->setUniform("model", transform);
-//
-//	glEnableVertexAttribArray(0);
-//	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-//	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
-//
-//	// connect the normal to the "vertNormal" attribute of the vertex shader
-//	glEnableVertexAttribArray(1);
-//	glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 8*sizeof(GLfloat), (const GLvoid*)(5 * sizeof(GLfloat)));
-//
-//	shader->setUniform("light.position", light->getPosition());
-//	shader->setUniform("light.intensities", light->getColor());
-//
-//	glDrawArrays(GL_TRIANGLES, 0, 36);
-//}
