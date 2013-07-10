@@ -151,19 +151,6 @@ void WeaponModel::drawWeapon()
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE,  0, NULL);
 
-	/*glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_NORMAL_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);*/
-
-	/*glVertexPointer(3,GL_FLOAT,0,vertexArray);
-	glNormalPointer(GL_FLOAT,0,normalArray);*/
-
-	/*glClientActiveTexture(GL_TEXTURE0_ARB);
-	glTexCoordPointer(2,GL_FLOAT,0,uvArray);*/
 
 	glDrawArrays(GL_TRIANGLES, 0, numTriangles);
-
-	/*glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);*/
 }
