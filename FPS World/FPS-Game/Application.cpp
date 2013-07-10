@@ -3,6 +3,11 @@
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 
+#include <assimp\Importer.hpp>
+#include <assimp\cimport.h>
+#include <assimp\scene.h>
+#include <assimp\postprocess.h>
+
 #include <iostream>
 #include <vector>
 
@@ -112,7 +117,7 @@ void Application::initializeScene()
 	anBox->prepareMaterial(gWorld);
 	m_renderer->createBoxInstances(box, boxI);
 	//
-	//weapon->prepareMaterial();
+	weapon->prepareMaterial();
 }
 
 void Application::renderScene()
@@ -128,7 +133,7 @@ void Application::renderScene()
 	anBox->drawBox(gWorld);
 	m_renderer->renderBoxInstances(box, gWorld, gLight);
 	//
-	//weapon->drawWeapon();
+	weapon->drawWeapon();
 
 	glfwSwapBuffers();
 }
