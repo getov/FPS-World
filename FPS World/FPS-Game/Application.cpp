@@ -86,6 +86,8 @@ void Application::initializeScene()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glfwDisable(GLFW_MOUSE_CURSOR);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	/* 
 		Initialize game objects here instead in the constructor

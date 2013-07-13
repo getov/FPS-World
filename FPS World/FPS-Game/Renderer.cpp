@@ -78,6 +78,10 @@ void Renderer::renderBoxInstances(Box* box, Camera* gWorld, Light* gLight)
 		shader->setUniform("model", (*boxI)->transform);
 		//shader->setUniform("tex", (*boxI)->asset->getTexture()->getTexID());
 
+		Texture* texture = (*boxI)->asset->getTexture();
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(texture->getTexType(), texture->getTexID());
+
 		glEnableVertexAttribArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, box->getVAO());
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
