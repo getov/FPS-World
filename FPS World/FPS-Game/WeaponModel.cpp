@@ -36,8 +36,8 @@ void WeaponModel::prepareMaterial()
 	//glGenVertexArrays(1, &vertexArrayID);
 	//glBindVertexArray(vertexArrayID);
 
-	//texture = new Texture;
-	//texture->loadTexture("cs.bmp");
+	texture = new Texture;
+	texture->loadTexture("cs.bmp");
 
 	//shader = new GPUProgram;
 
@@ -73,6 +73,7 @@ void WeaponModel::prepareMaterial()
 	shader->loadFragmentShaderFromFile("weaponModel.frag");
 	shader->loadVertexShaderFromFile("weaponModel.vert");
 	shader->link();
+	shader->setUniform("tex", *texture);
 
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile("ak.obj", aiProcessPreset_TargetRealtime_MaxQuality);
@@ -144,6 +145,10 @@ void WeaponModel::drawWeapon()
 	//---------------------------------------------------------------------------
 	shader->use();
 	shader->setUniform("model", transform);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(texture->getTexType(), texture->getTexID());
+
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexArrayID);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);

@@ -7,7 +7,7 @@ class WeaponModel
 {
 	private:
 		GPUProgram* shader;
-		//Texture* texture;
+		Texture* texture;
 		GLuint vertexArrayID;
 		GLuint vertexBuffer;
 		GLuint texBuffer;
