@@ -1,0 +1,8 @@
+*.opensdf
+*.sdf
+*.pdb
+*.suo
+*.vcxproj.user
+FPS World/Release/
+FPS World/FPS-Game/Release/
+FPS World/FPS-Game/Debug/

@@ -71,14 +71,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>P:\My Projects\FPS-World.git\trunk\FPS World\ThirdParty\assimp;P:\My Projects\FPS-World.git\trunk\FPS World\ThirdParty\SDL;P:\My Projects\FPS-World.git\trunk\FPS World\ThirdParty\glm;P:\My Projects\FPS-World.git\trunk\FPS World\ThirdParty\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\ThirdParty\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>P:\My Projects\FPS-World.git\trunk\FPS World\ThirdParty\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\ThirdParty\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>GLFW.lib;glew32.lib;opengl32.lib;glu32.lib;SDL.lib;assimp.lib;SDLmain.lib;SDL_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
