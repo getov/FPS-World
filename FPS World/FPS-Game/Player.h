@@ -5,6 +5,8 @@ class GPUProgram;
 class Camera;
 class Projectile;
 
+class Skybox;
+
 class Player
 {
 	private:
@@ -18,6 +20,8 @@ class Player
 		std::vector<Projectile*> ammo;
 		float upAngle;
 		float rightAngle;
+
+		//Skybox* skybox;
 
 	public:
 		Player();

@@ -70,6 +70,9 @@
     <ClCompile Include="WeaponModel.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -117,6 +120,9 @@
     <ClInclude Include="WeaponModel.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="crosshair.frag">
@@ -153,6 +159,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="weaponModel.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="skybox.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="skybox.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

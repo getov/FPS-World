@@ -8,6 +8,7 @@
 #include "GPUProgram.h"
 #include "Camera.h"
 #include "Projectile.h"
+#include "Skybox.h"
 
 #include <iostream>
 #include <vector>
@@ -66,8 +67,14 @@ void Player::updatePosition(float secondsElapsed, Camera* camera)
 		camera->offsetCameraPosition(secondsElapsed * moveSpeed * camera->right());
 	}
 
+	if (glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS)
+	{
+		
+	}
+
 	glfwGetMousePos(&mouseX, &mouseY);
 	camera->offsetOrientation(mouseSensitivity * mouseY, mouseSensitivity * mouseX);
+	//skybox->getSkyboxCamera()->offsetOrientation(mouseSensitivity * mouseY, mouseSensitivity * mouseX);
 
 	// TO FIX *********
 	if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)

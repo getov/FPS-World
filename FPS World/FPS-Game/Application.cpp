@@ -22,6 +22,7 @@
 #include "Projectile.h"
 #include "Renderer.h"
 #include "WeaponModel.h"
+#include "Skybox.h"
 //
 #include "AnotherBox.h"
 #include "BoxInstance.h"
@@ -55,6 +56,7 @@ void Application::Destroy()
 	delete weapon;
 	//
 	delete anBox;
+	delete skybox;
 }
 
 void Application::initializeScene()
@@ -93,6 +95,7 @@ void Application::initializeScene()
 		Initialize game objects here instead in the constructor
 		Memory usage highly decreased 
 	*/
+	skybox = new Skybox;
 	player = new Player;
 	gWorld = new Camera;
 	cross = new Crosshair;
@@ -112,6 +115,7 @@ void Application::initializeScene()
 	gLight->setAmbiendCoefficient(0.005f);
 
 	// Prepare objects' materials to render
+	skybox->prepareMaterial();
 	player->prepare(gWorld);
 	cross->prepareMaterial();
 	box->prepareMaterial(gWorld);
@@ -136,6 +140,7 @@ void Application::renderScene()
 	m_renderer->renderBoxInstances(box, gWorld, gLight);
 	//
 	weapon->drawWeapon();
+	skybox->drawSkybox(*gWorld);
 
 	glfwSwapBuffers();
 }

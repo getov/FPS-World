@@ -12,6 +12,7 @@ class AnotherBox;
 class BoxInstance;
 class WeaponModel;
 class GPUProgram;
+class Skybox;
 
 class Application
 {
@@ -30,6 +31,7 @@ class Application
 		BoxInstance* boxI;
 		Renderer* m_renderer;
 		WeaponModel* weapon;
+		Skybox* skybox;
 
 		Application();
 		~Application();
