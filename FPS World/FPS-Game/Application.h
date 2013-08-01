@@ -13,6 +13,7 @@ class BoxInstance;
 class WeaponModel;
 class GPUProgram;
 class Skybox;
+class Grid;
 
 class Application
 {
@@ -32,6 +33,7 @@ class Application
 		Renderer* m_renderer;
 		WeaponModel* weapon;
 		Skybox* skybox;
+		Grid* gridFloor;
 
 		Application();
 		~Application();

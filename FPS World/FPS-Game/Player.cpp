@@ -22,18 +22,22 @@ Player::Player()
 
 Player::~Player()
 {
-	
+	// free the allocated memory for ammo
+	for (auto i = ammo.begin(); i != ammo.end(); ++i)
+	{
+		delete (*i);
+	}
 }
 
 void Player::prepare(Camera* camera)
 {
-	camera->setCameraPosition(glm::vec3(0, 0, 0));	
+	camera->setCameraPosition(glm::vec3(0, -0.10f, 0));	
 	camera->setViewportAspectRatio(1366 / 768);
 	// set the "look at" camera position, but it gets reseted as soon as mouse coordinates are registered
 	camera->offsetOrientation(-30.0f, 20.0f);
 
 	// TO FIX *********
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < 2; ++i)
 	{
 		ammo.push_back(new Projectile);
 	}
@@ -69,7 +73,27 @@ void Player::updatePosition(float secondsElapsed, Camera* camera)
 
 	if (glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS)
 	{
-		
+		glfwTerminate();
+	}
+
+	// Hold left SHIFT for slow movement
+	if (glfwGetKey(GLFW_KEY_LSHIFT) == GLFW_PRESS)
+	{
+		moveSpeed = 0.1;
+	}
+	else if (glfwGetKey(GLFW_KEY_LSHIFT) == GLFW_RELEASE && glfwGetKey(GLFW_KEY_LALT) == GLFW_RELEASE)
+	{
+		moveSpeed = 0.5;
+	}
+	
+	// Hold left ALT for sprint
+	if (glfwGetKey(GLFW_KEY_LALT) == GLFW_PRESS)
+	{
+		moveSpeed = 1.0;
+	}
+	else if (glfwGetKey(GLFW_KEY_LALT) == GLFW_RELEASE && glfwGetKey(GLFW_KEY_LSHIFT) == GLFW_RELEASE)
+	{
+		moveSpeed = 0.5;
 	}
 
 	glfwGetMousePos(&mouseX, &mouseY);
@@ -81,7 +105,6 @@ void Player::updatePosition(float secondsElapsed, Camera* camera)
 	{
 		mouseLeftClick = true;
 
-		//ammo.push_back(new Projectile);
 		upAngle = mouseSensitivity * mouseY;
 		rightAngle = mouseSensitivity * mouseX;
 	}

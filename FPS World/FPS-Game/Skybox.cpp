@@ -34,7 +34,7 @@ void Skybox::prepareMaterial()
 	//camera = new Camera;
 
 	texture = new Texture;
-	texture->loadTexture("skybox.jpg");
+	texture->loadTexture("skybox3.jpg");
 
 	shader = new GPUProgram;
 

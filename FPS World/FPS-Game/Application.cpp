@@ -23,6 +23,7 @@
 #include "Renderer.h"
 #include "WeaponModel.h"
 #include "Skybox.h"
+#include "Grid.h"
 //
 #include "AnotherBox.h"
 #include "BoxInstance.h"
@@ -54,9 +55,11 @@ void Application::Destroy()
 	delete health;
 	delete projectile;
 	delete weapon;
+	delete m_renderer;
 	//
 	delete anBox;
 	delete skybox;
+	delete gridFloor;
 }
 
 void Application::initializeScene()
@@ -107,6 +110,7 @@ void Application::initializeScene()
 	weapon = new WeaponModel;
 	//
 	anBox = new AnotherBox;
+	gridFloor = new Grid;
 
 	// setup light
 	gLight->setPosition(gWorld->cameraPosition());
@@ -124,6 +128,7 @@ void Application::initializeScene()
 	m_renderer->createBoxInstances(box, boxI);
 	//
 	weapon->prepareMaterial();
+	gridFloor->prepareMaterial();
 }
 
 void Application::renderScene()
@@ -141,6 +146,7 @@ void Application::renderScene()
 	//
 	weapon->drawWeapon();
 	skybox->drawSkybox(*gWorld);
+	gridFloor->drawGrid(*gWorld);
 
 	glfwSwapBuffers();
 }

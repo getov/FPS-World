@@ -73,6 +73,9 @@
     <ClCompile Include="Skybox.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -123,6 +126,9 @@
     <ClInclude Include="Skybox.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="crosshair.frag">
@@ -165,6 +171,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="skybox.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="grid.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="grid.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -87,6 +87,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="BoxInstance.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="BoxInstance.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Player.h" />
@@ -126,6 +128,8 @@
     <None Include="anBox.vert" />
     <None Include="crosshair.frag" />
     <None Include="crosshair.vert" />
+    <None Include="grid.frag" />
+    <None Include="grid.vert" />
     <None Include="lostHP.frag" />
     <None Include="lostHP.vert" />
     <None Include="projectile.frag" />
