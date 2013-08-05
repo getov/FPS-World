@@ -71,11 +71,6 @@ void Player::updatePosition(float secondsElapsed, Camera* camera)
 		camera->offsetCameraPosition(secondsElapsed * moveSpeed * camera->right());
 	}
 
-	if (glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS)
-	{
-		glfwTerminate();
-	}
-
 	// Hold left SHIFT for slow movement
 	if (glfwGetKey(GLFW_KEY_LSHIFT) == GLFW_PRESS)
 	{
@@ -94,6 +89,12 @@ void Player::updatePosition(float secondsElapsed, Camera* camera)
 	else if (glfwGetKey(GLFW_KEY_LALT) == GLFW_RELEASE && glfwGetKey(GLFW_KEY_LSHIFT) == GLFW_RELEASE)
 	{
 		moveSpeed = 0.5;
+	}
+
+	// exit game
+	if (glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS)
+	{
+		glfwTerminate();
 	}
 
 	glfwGetMousePos(&mouseX, &mouseY);
