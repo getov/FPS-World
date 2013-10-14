@@ -26,6 +26,10 @@ class Box
 		GLfloat shininess;
 		glm::vec3 specularColor;
 
+		float moveSpeed;
+		GLfloat degreesPerSecond;
+		float degreesRotated;
+
 	public:
 		Box();
 		~Box();
@@ -40,4 +44,13 @@ class Box
 
 		GLfloat getShininess();
 		glm::vec3 getSpecularColor();
+
+		// functions for movement control over the box
+		float getMoveSpeed();
+		GLfloat getDegreesPerSecond();
+		float getDegreesRotated();
+
+		void setMoveSpeed(float speed);
+		void setDegreesPerSecond(float degPerSecond);
+		void setDegreesRotated(float degRotated);
 };

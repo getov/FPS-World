@@ -31,10 +31,10 @@ Player::~Player()
 
 void Player::prepare(Camera* camera)
 {
-	camera->setCameraPosition(glm::vec3(0, -0.10f, 0));	
+	camera->setCameraPosition(glm::vec3(0.0, -0.10f, 4.0));	
 	camera->setViewportAspectRatio(1366 / 768);
 	// set the "look at" camera position, but it gets reseted as soon as mouse coordinates are registered
-	camera->offsetOrientation(-30.0f, 20.0f);
+	//camera->offsetOrientation(0.0f, 0.0f);
 
 	// TO FIX *********
 	for (int i = 0; i < 2; ++i)

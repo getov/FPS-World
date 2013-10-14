@@ -54,7 +54,7 @@ void Application::Destroy()
 	delete gLight;
 	delete health;
 	delete projectile;
-	delete weapon;
+	//delete weapon;
 	delete m_renderer;
 	//
 	delete anBox;
@@ -78,6 +78,12 @@ void Application::initializeScene()
 	{
 		std::cerr << "glfwOpenWindow failed!\n";
 	}
+
+	//
+	// GLFW settings
+    glfwDisable(GLFW_MOUSE_CURSOR);
+    glfwSetMousePos(0, 0);
+    glfwSetMouseWheel(0);
 
 	// initialize GLEW
 	if (glewInit() != GLEW_OK)
@@ -107,13 +113,13 @@ void Application::initializeScene()
 	health = new HealthBar;
 	projectile = new Projectile;
 	m_renderer = new Renderer;
-	weapon = new WeaponModel;
+	//weapon = new WeaponModel;
 	//
 	anBox = new AnotherBox;
 	gridFloor = new Grid;
 
 	// setup light
-	gLight->setPosition(gWorld->cameraPosition());
+	gLight->setPosition(glm::vec3(0.0, 1.0, 2.0)); // gWorld->cameraPosition() ; glm::vec3(1.0, 0.0, 4.0);
 	gLight->setColor(glm::vec3(1, 1, 1)); // white color
 	gLight->setAttenuation(0.2f);
 	gLight->setAmbiendCoefficient(0.005f);
@@ -127,7 +133,7 @@ void Application::initializeScene()
 	anBox->prepareMaterial(gWorld);
 	m_renderer->createBoxInstances(box, boxI);
 	//
-	weapon->prepareMaterial();
+	//weapon->prepareMaterial();
 	gridFloor->prepareMaterial();
 }
 
@@ -141,10 +147,10 @@ void Application::renderScene()
 	cross->drawCrosshair();
 	health->drawHealthBar();
 	player->renderProjectiles();
-	anBox->drawBox(gWorld);
+	anBox->drawBox(gWorld, gLight);
 	m_renderer->renderBoxInstances(box, gWorld, gLight);
 	//
-	weapon->drawWeapon();
+	//weapon->drawWeapon();
 	skybox->drawSkybox(*gWorld);
 	gridFloor->drawGrid(*gWorld);
 
@@ -155,14 +161,14 @@ void Application::run()
 {
 	initializeScene();
 
-	double lastTime = glfwGetTime();
+	float lastTime = glfwGetTime();
 
 	while (glfwGetWindowParam(GLFW_OPENED))
 	{
-		double thisTime = glfwGetTime();
+		float thisTime = glfwGetTime();
 
 		player->updatePosition(thisTime - lastTime, gWorld);
-		//projectile->updatePosition(thisTime - lastTime);
+		m_renderer->updateScene(thisTime - lastTime);
 
 		lastTime = thisTime;
 

@@ -36,6 +36,8 @@ class Application
 		Grid* gridFloor;
 
 		Application();
+		Application(const Application&);
+		void operator=(const Application&);
 		~Application();
 
 		void Destroy();

@@ -14,6 +14,9 @@ Box::Box()
 	: shader(nullptr)
 	, texture(nullptr)
 	, vertexArrayID(0)
+	, moveSpeed(0.1f)
+	, degreesPerSecond(180.0f)
+	, degreesRotated(0.0f)
 {
 }
 
@@ -135,4 +138,35 @@ Texture* Box::getTexture()
 GLuint Box::getVAO()
 {
 	return vertexArrayID;
+}
+
+// setters and getters for movement controls
+float Box::getMoveSpeed()
+{
+	return moveSpeed;
+}
+
+GLfloat Box::getDegreesPerSecond()
+{
+	return degreesPerSecond;
+}
+
+float Box::getDegreesRotated()
+{
+	return degreesRotated;
+}
+
+void Box::setMoveSpeed(float speed)
+{
+	moveSpeed = speed;
+}
+
+void Box::setDegreesPerSecond(float degPerSecond)
+{
+	degreesPerSecond = degPerSecond;
+}
+
+void Box::setDegreesRotated(float degRotated)
+{
+	degreesRotated += degRotated;
 }
