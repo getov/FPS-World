@@ -24,6 +24,8 @@ Skybox::~Skybox()
 	glDeleteVertexArrays(1, &vertexArrayID);
 	delete shader;
 	delete texture;
+
+	delete camera;
 }
 
 void Skybox::prepareMaterial()
@@ -31,7 +33,7 @@ void Skybox::prepareMaterial()
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
 
-	//camera = new Camera;
+	camera = new Camera;
 
 	texture = new Texture;
 	texture->loadTexture("space.jpg");
@@ -101,13 +103,13 @@ void Skybox::prepareMaterial()
 
 	shader->setUniform("tex", *texture);
 
-	transform = Util::translate(0.0f, 0.0f, 0.0f) * Util::scale(10.0f, 10.0f, 10.0f);
+	transform = Util::translate(0.0f, 0.0f, 0.0f) * Util::scale(20.0f, 20.0f, 20.0f);
 }
 
-void Skybox::drawSkybox(Camera& gWorld)
+void Skybox::drawSkybox()
 {
 	shader->use();
-	shader->setUniform("camera", gWorld.matrix());
+	shader->setUniform("camera", camera->matrix());
 	shader->setUniform("model", transform);
 
 	Texture* texture = this->texture;
@@ -130,7 +132,7 @@ void Skybox::drawSkybox(Camera& gWorld)
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
-//Camera* Skybox::getSkyboxCamera()
-//{
-//	return camera;
-//}
+Camera* Skybox::getSkyboxCamera()
+{
+	return camera;
+}

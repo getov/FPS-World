@@ -37,7 +37,7 @@ void Player::prepare(Camera* camera)
 	//camera->offsetOrientation(0.0f, 0.0f);
 
 	// TO FIX *********
-	for (int i = 0; i < 1; ++i)
+	for (int i = 0; i < 2; ++i)
 	{
 		ammo.push_back(new Projectile);
 	}
@@ -49,7 +49,7 @@ void Player::prepare(Camera* camera)
 	// ***********************
 }
 
-void Player::updatePosition(float secondsElapsed, Camera* camera)
+void Player::updatePosition(float secondsElapsed, Camera* camera, Skybox& cubemap)
 {
 	if (glfwGetKey('S'))
 	{
@@ -99,7 +99,7 @@ void Player::updatePosition(float secondsElapsed, Camera* camera)
 
 	glfwGetMousePos(&mouseX, &mouseY);
 	camera->offsetOrientation(mouseSensitivity * mouseY, mouseSensitivity * mouseX);
-	//skybox->getSkyboxCamera()->offsetOrientation(mouseSensitivity * mouseY, mouseSensitivity * mouseX);
+	cubemap.getSkyboxCamera()->offsetOrientation(mouseSensitivity * mouseY, mouseSensitivity * mouseX);
 
 	// TO FIX *********
 	if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
@@ -110,12 +110,8 @@ void Player::updatePosition(float secondsElapsed, Camera* camera)
 	upAngle = mouseSensitivity * mouseY;
 	rightAngle = mouseSensitivity * mouseX;
 
-	if (fireDelay > 0)
-	{
-		--fireDelay;
-	}
 
-	if (mouseLeftClick && fireDelay == 0)
+	if (mouseLeftClick)
 	{
 		for (auto i = ammo.begin(); i != ammo.end(); ++i)
 		{
@@ -142,4 +138,3 @@ void Player::renderProjectiles()
 
 // states
 bool Player::mouseLeftClick = false;
-float Player::fireDelay = 5.0;

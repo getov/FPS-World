@@ -15,14 +15,14 @@ class Skybox
 		GLuint vertexBuffer;
 		glm::mat4 transform;
 
-		//Camera* camera;
+		Camera* camera;
 
 	public:
 		Skybox();
 		~Skybox();
 
 		void prepareMaterial();
-		void drawSkybox(Camera& gWorld);
+		void drawSkybox();
 
-		/*Camera* getSkyboxCamera();*/
+		Camera* getSkyboxCamera();
 };

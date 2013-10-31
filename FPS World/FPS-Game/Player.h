@@ -28,10 +28,9 @@ class Player
 		~Player();
 
 		void prepare(Camera* camera);
-		void updatePosition(float secondsElapsed, Camera* camera);
+		void updatePosition(float secondsElapsed, Camera* camera, Skybox& cubemap);
 		void renderProjectiles();
 
 		//states
 		static bool mouseLeftClick;
-		static float fireDelay;
 };

@@ -10,6 +10,8 @@
 #include "Camera.h"
 #include "Util.h"
 
+const int Grid::GRID_LINES = 52;
+
 Grid::Grid()
 	: shader(nullptr)
 	, vertexArrayID(0)
@@ -36,40 +38,40 @@ void Grid::prepareMaterial()
 
 	shader->link();
  
-	Point vertices[51][51];
+	Point vertices[GRID_LINES][GRID_LINES];
  
-	for(int i = 0; i < 51; i++) 
+	for(int i = 0; i < GRID_LINES; i++) 
 	{
-	  for(int j = 0; j < 51; j++)
+	  for(int j = 0; j < GRID_LINES; j++)
 	  {
-		vertices[i][j].x = (j - 25) / 25.0;
-		vertices[i][j].y = (i - 25) / 25.0;
+		vertices[i][j].x = (j - ((GRID_LINES - 1)/2)) / static_cast<GLfloat>(((GRID_LINES - 1)/2));
+		vertices[i][j].y = (i - ((GRID_LINES - 1)/2)) / static_cast<GLfloat>(((GRID_LINES - 1)/2));
 	  }
 	}
  
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-	GLushort indices[2 * 50 * 51 * 2];
+	GLuint indices[2 * (GRID_LINES - 1) * GRID_LINES * 2];
 	int i = 0;
  
 	// Horizontal grid lines
-	for(int y = 0; y < 51; y++) 
+	for(int y = 0; y < GRID_LINES; y++) 
 	{
-	  for(int x = 0; x < 50; x++)
+	  for(int x = 0; x < GRID_LINES - 1; x++)
 	  {
-		indices[i++] = y * 51 + x;
-		indices[i++] = y * 51 + x + 1;
+		indices[i++] = static_cast<GLuint>(y * GRID_LINES + x);
+		indices[i++] = static_cast<GLuint>(y * GRID_LINES + x + 1);
 	  }
 	}
  
 	// Vertical grid lines
-	for(int x = 0; x < 51; x++)
+	for(int x = 0; x < GRID_LINES; x++)
 	{
-	  for(int y = 0; y < 50; y++)
+	  for(int y = 0; y < GRID_LINES - 1; y++) 
 	  {
-		indices[i++] = y * 51 + x;
-		indices[i++] = (y + 1) * 51 + x;
+		indices[i++] = static_cast<GLuint>(y * GRID_LINES + x);
+		indices[i++] = static_cast<GLuint>((y + 1) * GRID_LINES + x);
 	  }
 	}
  
@@ -91,5 +93,5 @@ void Grid::drawGrid(Camera& gWordl)
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-	glDrawElements(GL_LINES, 2 * 50 * 51 * 2, GL_UNSIGNED_SHORT, 0);
+	glDrawElements(GL_LINES, 2 * (GRID_LINES - 1) * GRID_LINES * 2, GL_UNSIGNED_INT, 0);
 }

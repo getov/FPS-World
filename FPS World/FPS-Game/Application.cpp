@@ -145,7 +145,7 @@ void Application::renderScene()
 	anBox->drawBox(gWorld, gLight);
 	m_renderer->renderBoxInstances(box, gWorld, gLight);
 	//weapon->drawWeapon();
-	skybox->drawSkybox(*gWorld);
+	skybox->drawSkybox();
 	gridFloor->drawGrid(*gWorld);
 
 	glfwSwapBuffers();
@@ -161,7 +161,7 @@ void Application::run()
 	{
 		float thisTime = glfwGetTime();
 
-		player->updatePosition(thisTime - lastTime, gWorld);
+		player->updatePosition(thisTime - lastTime, gWorld, *skybox);
 		m_renderer->updateScene(thisTime - lastTime);
 
 		// debugging info

@@ -17,6 +17,8 @@ class Grid
 		  GLfloat y;
 		};
 
+		static const int GRID_LINES;
+
 	public:
 		Grid();
 		~Grid();
