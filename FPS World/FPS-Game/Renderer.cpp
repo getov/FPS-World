@@ -67,11 +67,11 @@ void Renderer::createBoxInstances(Box* box, BoxInstance* boxI)
 
 void Renderer::updateScene(float secondsElapsed)
 {
-	if (boxes.size() >= 2)
+	if (!boxes.empty())
 	{
 		for (int i = 0; i < 2; ++i)
 		{
-			boxes[i]->asset->setDegreesRotated((secondsElapsed * boxes[i]->asset->getDegreesPerSecond()) / 2.0); // divide by 2 for slower rotation
+			boxes[i]->asset->setDegreesRotated((secondsElapsed * boxes[i]->asset->getDegreesPerSecond()) / 6.0); // divide by 6 for slower rotation
 
 			while(boxes[i]->asset->getDegreesRotated() > 360.0f)
 			{
@@ -80,12 +80,9 @@ void Renderer::updateScene(float secondsElapsed)
 		}
 
 		boxes[0]->transform = translate(2.0f, 0.7f, 0.0f) * scale(0.30f, 0.30f, 0.30f) * rotate(boxes[0]->asset->getDegreesRotated(), 0, 1, 0);
-		boxes[1]->transform = rotate(boxes[1]->asset->getDegreesRotated() - 50.0, 0, 1, 0) * translate(1.0f, 2.3f, 1.0f) * scale(0.30f, 0.30f, 0.30f);
+		boxes[1]->transform = rotate(boxes[1]->asset->getDegreesRotated(), 0, 1, 0) * translate(1.0f, 2.3f, 1.0f) * scale(0.30f, 0.30f, 0.30f) *
+							  rotate(boxes[1]->asset->getDegreesRotated() * 2.0, 0, -1, 0); // optional rotation for fun :)
 	}
-
-	//boxes[0]->transform = translate(2.0f, 0.7f, 0.0f) * scale(0.30f, 0.30f, 0.30f) * rotate(boxes[0]->asset->getDegreesRotated(), 0, 1, 0);
-	//when "rotate" is applied first it rotates the box around the world axis, /box[1]/
-	//when applied last it rotates it around its own axis /box[0]/ ???!! - it should be the other way round because of OpenGL?
 }
 
 void Renderer::renderBoxInstances(Box* box, Camera* gWorld, Light* gLight)

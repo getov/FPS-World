@@ -114,6 +114,26 @@ void Projectile::drawProjectile()
 
 void Projectile::updatePosition(float secondsElapsed, float upAngle, float rightAngle)
 {
+	if (glfwGetKey('S'))
+	{
+		camera->offsetCameraPosition(secondsElapsed * moveSpeed * -camera->forward());
+	}
+
+	if (glfwGetKey('W'))
+	{
+		camera->offsetCameraPosition(secondsElapsed * moveSpeed * camera->forward());
+	}
+
+	if (glfwGetKey('A'))
+	{
+		camera->offsetCameraPosition(secondsElapsed * moveSpeed * -camera->right());
+	}
+
+	if (glfwGetKey('D'))
+	{
+		camera->offsetCameraPosition(secondsElapsed * moveSpeed * camera->right());
+	}
+
 	camera->offsetCameraPosition(secondsElapsed * moveSpeed * -camera->forward());
 	//transform = glm::translate(glm::mat4(), secondsElapsed * moveSpeed * -camera->forward()) * glm::scale(glm::mat4(), glm::vec3(0.03, 0.03, 0.03));
 	camera->offsetOrientation(upAngle, rightAngle);

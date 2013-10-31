@@ -50,7 +50,5 @@ class Application
 
 		void initializeScene();
 
-		void updateScene();
-
 		void renderScene();
 };

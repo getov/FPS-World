@@ -24,7 +24,7 @@ out vec4 finalColor;
 void main() {
     vec3 normal = normalize(transpose(inverse(mat3(model))) * fragNormal);
     vec3 surfacePos = vec3(model * vec4(fragVert, 1));
-    vec4 surfaceColor = vec4(0.0, 1.0, 0.0, 1.0);
+    vec4 surfaceColor = vec4(0.8, 1.0, 0.0, 1.0);
     vec3 surfaceToLight = normalize(light.position - surfacePos);
     vec3 surfaceToCamera = normalize(cameraPosition - surfacePos);
     

@@ -41,6 +41,7 @@ namespace Util
 		return fileContents;
 	}
 
+	// wrapper functions for more intuitive interface
 	glm::mat4 scale(GLfloat x, GLfloat y, GLfloat z)
 	{
 		return glm::scale(glm::mat4(), glm::vec3(x, y, z));

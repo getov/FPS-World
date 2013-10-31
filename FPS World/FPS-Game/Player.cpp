@@ -31,13 +31,13 @@ Player::~Player()
 
 void Player::prepare(Camera* camera)
 {
-	camera->setCameraPosition(glm::vec3(0.0, -0.10f, 4.0));	
+	camera->setCameraPosition(glm::vec3(0.0f, -0.10f, 4.0f));	
 	camera->setViewportAspectRatio(1366 / 768);
 	// set the "look at" camera position, but it gets reseted as soon as mouse coordinates are registered
 	//camera->offsetOrientation(0.0f, 0.0f);
 
 	// TO FIX *********
-	for (int i = 0; i < 2; ++i)
+	for (int i = 0; i < 1; ++i)
 	{
 		ammo.push_back(new Projectile);
 	}
@@ -105,10 +105,10 @@ void Player::updatePosition(float secondsElapsed, Camera* camera)
 	if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
 		mouseLeftClick = true;
-
-		upAngle = mouseSensitivity * mouseY;
-		rightAngle = mouseSensitivity * mouseX;
 	}
+
+	upAngle = mouseSensitivity * mouseY;
+	rightAngle = mouseSensitivity * mouseX;
 
 	if (fireDelay > 0)
 	{

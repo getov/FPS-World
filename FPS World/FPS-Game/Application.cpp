@@ -56,7 +56,6 @@ void Application::Destroy()
 	delete projectile;
 	//delete weapon;
 	delete m_renderer;
-	//
 	delete anBox;
 	delete skybox;
 	delete gridFloor;
@@ -79,7 +78,6 @@ void Application::initializeScene()
 		std::cerr << "glfwOpenWindow failed!\n";
 	}
 
-	//
 	// GLFW settings
     glfwDisable(GLFW_MOUSE_CURSOR);
     glfwSetMousePos(0, 0);
@@ -96,7 +94,6 @@ void Application::initializeScene()
 	// Enable Depth testing , so that objects that are far away in the distans doesn't overlap closer objects
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-	glfwDisable(GLFW_MOUSE_CURSOR);
 	//glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -114,7 +111,6 @@ void Application::initializeScene()
 	projectile = new Projectile;
 	m_renderer = new Renderer;
 	//weapon = new WeaponModel;
-	//
 	anBox = new AnotherBox;
 	gridFloor = new Grid;
 
@@ -132,7 +128,6 @@ void Application::initializeScene()
 	health->prepareMaterial();
 	anBox->prepareMaterial(gWorld);
 	m_renderer->createBoxInstances(box, boxI);
-	//
 	//weapon->prepareMaterial();
 	gridFloor->prepareMaterial();
 }
@@ -149,7 +144,6 @@ void Application::renderScene()
 	player->renderProjectiles();
 	anBox->drawBox(gWorld, gLight);
 	m_renderer->renderBoxInstances(box, gWorld, gLight);
-	//
 	//weapon->drawWeapon();
 	skybox->drawSkybox(*gWorld);
 	gridFloor->drawGrid(*gWorld);
@@ -169,6 +163,9 @@ void Application::run()
 
 		player->updatePosition(thisTime - lastTime, gWorld);
 		m_renderer->updateScene(thisTime - lastTime);
+
+		// debugging info
+		//std::cout << "x:" << gWorld->cameraPosition().x << " y:" << gWorld->cameraPosition().y << " z:" << gWorld->cameraPosition().z << std::endl;
 
 		lastTime = thisTime;
 

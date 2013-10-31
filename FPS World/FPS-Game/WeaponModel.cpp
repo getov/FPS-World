@@ -41,7 +41,7 @@ void WeaponModel::prepareMaterial()
 	glBindVertexArray(vertexArrayID);
 
 	texture = new Texture;
-	texture->loadTexture("cs.bmp");
+	texture->loadTexture("test.png");
 
 	shader = new GPUProgram;
 

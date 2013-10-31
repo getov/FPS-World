@@ -3,6 +3,7 @@
 
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
+#include <vector>
 
 #include "Grid.h"
 #include "GPUProgram.h"
@@ -37,8 +38,10 @@ void Grid::prepareMaterial()
  
 	Point vertices[51][51];
  
-	for(int i = 0; i < 51; i++) {
-	  for(int j = 0; j < 51; j++) {
+	for(int i = 0; i < 51; i++) 
+	{
+	  for(int j = 0; j < 51; j++)
+	  {
 		vertices[i][j].x = (j - 25) / 25.0;
 		vertices[i][j].y = (i - 25) / 25.0;
 	  }

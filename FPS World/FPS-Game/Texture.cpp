@@ -24,7 +24,7 @@ bool Texture::loadTexture(const char* filename)
 		const char* error = IMG_GetError();
 		return false;
 	}
-
+	
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
 	glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);

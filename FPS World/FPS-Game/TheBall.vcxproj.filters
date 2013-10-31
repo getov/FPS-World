@@ -20,6 +20,9 @@
     <Filter Include="Objects\Texture">
       <UniqueIdentifier>{73122edc-d6e8-4318-8aff-bd87c0307bcb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{ff613954-f2e5-4110-9ce2-e7b4231611ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -181,8 +184,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\GetoMafia\Pictures\bg.bmp">
-      <Filter>Source Files</Filter>
+    <Image Include="nvidia.jpg">
+      <Filter>Source Files\Resources</Filter>
+    </Image>
+    <Image Include="weapon-model.png">
+      <Filter>Source Files\Resources</Filter>
+    </Image>
+    <Image Include="test.png">
+      <Filter>Source Files\Resources</Filter>
+    </Image>
+    <Image Include="space.jpg">
+      <Filter>Source Files\Resources</Filter>
     </Image>
   </ItemGroup>
 </Project>

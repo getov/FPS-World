@@ -34,7 +34,7 @@ void Box::prepareMaterial(Camera* camera)
 	glBindVertexArray(vertexArrayID);
 
 	texture = new Texture;
-	texture->loadTexture("wooden-crate.jpg");
+	texture->loadTexture("nvidia.jpg");
 
 	shader = new GPUProgram;
 
