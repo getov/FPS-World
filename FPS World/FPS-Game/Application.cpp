@@ -10,6 +10,8 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+#include <sstream>
 
 #include "Application.h"
 #include "Player.h"
@@ -38,6 +40,11 @@ Application& Application::Instance()
 Application::Application()
 	: screenWidth(1366)
 	, screenHeight(768)
+	, appName("FPS World")
+	, frameCount(0)
+	, lastFrameEnd(0)
+	, lastTitleUpdateTime(0)
+	, lastTitleUpdateFrameCount(0)
 {
 }
 
@@ -151,11 +158,38 @@ void Application::renderScene()
 	glfwSwapBuffers();
 }
 
+void Application::displayFrameCounter()
+{
+	++frameCount;
+
+	const unsigned now = glfwGetTime();
+	const unsigned frameTime = now - lastFrameEnd;
+	const unsigned titleUpdateTimeDelta = now - lastTitleUpdateTime;
+
+	if (titleUpdateTimeDelta > 1)
+	{
+		const unsigned framesDelta = frameCount - lastTitleUpdateFrameCount;
+		const unsigned meanFrameTime = titleUpdateTimeDelta / framesDelta;
+		const unsigned fps = framesDelta / titleUpdateTimeDelta;
+
+		std::ostringstream title;
+		title << appName << "\t\t\t mean frame time: " << meanFrameTime << " ms || fps: " << fps;
+		title.flush();
+
+		glfwSetWindowTitle(title.str().c_str());
+
+		lastTitleUpdateTime = now;
+		lastTitleUpdateFrameCount = frameCount;
+	}
+
+	lastFrameEnd = glfwGetTime();
+}
+
 void Application::run()
 {
 	initializeScene();
 
-	float lastTime = glfwGetTime();
+	float lastTime = glfwGetTime(); // get time in seconds
 
 	while (glfwGetWindowParam(GLFW_OPENED))
 	{
@@ -164,8 +198,7 @@ void Application::run()
 		player->updatePosition(thisTime - lastTime, gWorld, *skybox);
 		m_renderer->updateScene(thisTime - lastTime);
 
-		// debugging info
-		//std::cout << "x:" << gWorld->cameraPosition().x << " y:" << gWorld->cameraPosition().y << " z:" << gWorld->cameraPosition().z << std::endl;
+		displayFrameCounter();
 
 		lastTime = thisTime;
 

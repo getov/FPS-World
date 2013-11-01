@@ -21,6 +21,8 @@ class Application
 
 		int screenWidth;
 		int screenHeight;
+		const char * const appName;
+
 		Player* player;
 		Camera* gWorld;
 		Crosshair* cross;
@@ -42,13 +44,23 @@ class Application
 
 		void Destroy();
 
+		void initializeScene();
+
+		void renderScene();
+
+		//fps stuff
+		unsigned frameCount;
+		unsigned lastFrameEnd;
+		unsigned lastTitleUpdateTime;
+		unsigned lastTitleUpdateFrameCount;
+
+		//* Function that calculates and displays
+		//* frame time and fps on the window frame
+		void displayFrameCounter();
+
 	public:
 
 		static Application& Instance();
 
 		void run();
-
-		void initializeScene();
-
-		void renderScene();
 };
