@@ -14,6 +14,7 @@ Projectile::Projectile()
 	, camera(nullptr)
 	, vertexArrayID(0)
 	, moveSpeed(5.0)
+	, m_color(0.5, 0.0, 0.7)
 {
 }
 
@@ -34,7 +35,7 @@ void Projectile::prepareMaterial()
 
 	shader = new GPUProgram;
 
-	shader->loadFragmentShaderFromFile("projectile.frag");
+	shader->loadFragmentShaderFromFile("SimpleColor.frag");
 	shader->loadVertexShaderFromFile("projectile.vert");
 
 	shader->link();
@@ -95,7 +96,7 @@ void Projectile::prepareMaterial()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
 	// translate it so that it appears behind the FPS camera of Player
-	transform = glm::translate(glm::mat4(), glm::vec3(0, 0, 4)) * glm::scale(glm::mat4(), glm::vec3(0.03, 0.03, 0.03));
+	transform = glm::translate(glm::mat4(), glm::vec3(0, 0, 4)) * glm::scale(glm::mat4(), glm::vec3(0.03, 0.03, 0.03)) * glm::rotate(glm::mat4(), 45.0f, glm::vec3(0, 0, 1));
 }
 
 void Projectile::drawProjectile()
@@ -104,6 +105,7 @@ void Projectile::drawProjectile()
 
 	shader->setUniform("camera", camera->matrix());
 	shader->setUniform("model", transform);
+	shader->setUniform("m_color", m_color);
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);

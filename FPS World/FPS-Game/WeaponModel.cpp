@@ -45,7 +45,7 @@ void WeaponModel::prepareMaterial()
 
 	shader = new GPUProgram;
 
-	shader->loadFragmentShaderFromFile("weaponModel.frag");
+	shader->loadFragmentShaderFromFile("SimpleTexture.frag");
 	shader->loadVertexShaderFromFile("weaponModel.vert");
 
 	shader->link();

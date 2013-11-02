@@ -38,7 +38,7 @@ void Box::prepareMaterial(Camera* camera)
 
 	shader = new GPUProgram;
 
-	shader->loadFragmentShaderFromFile("box.frag");
+	shader->loadFragmentShaderFromFile("PhongReflectionTex.frag");
 	shader->loadVertexShaderFromFile("box.vert");
 
 	shader->link();

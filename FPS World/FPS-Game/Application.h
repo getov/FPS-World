@@ -14,6 +14,7 @@ class WeaponModel;
 class GPUProgram;
 class Skybox;
 class Grid;
+//class Sphere;
 
 class Application
 {
@@ -36,6 +37,8 @@ class Application
 		WeaponModel* weapon;
 		Skybox* skybox;
 		Grid* gridFloor;
+
+		//Sphere* sun;
 
 		Application();
 		Application(const Application&);

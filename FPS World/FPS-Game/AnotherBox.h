@@ -14,9 +14,11 @@ class AnotherBox
 
 		GLfloat shininess;
 		glm::vec3 specularColor;
+		glm::vec4 m_color;
 
 	public:
 		AnotherBox();
+		AnotherBox(glm::vec4& color);
 		~AnotherBox();
 
 		void prepareMaterial(Camera* camera);

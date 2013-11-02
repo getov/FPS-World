@@ -79,6 +79,9 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -132,15 +135,12 @@
     <ClInclude Include="Grid.h">
       <Filter>Objects</Filter>
     </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="crosshair.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="crosshair.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="box.frag">
       <Filter>Shaders</Filter>
     </None>
     <None Include="box.vert">
@@ -149,22 +149,10 @@
     <None Include="anBox.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="anBox.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="lostHP.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="lostHP.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="projectile.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="projectile.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="weaponModel.frag">
       <Filter>Shaders</Filter>
     </None>
     <None Include="weaponModel.vert">
@@ -173,13 +161,16 @@
     <None Include="skybox.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="skybox.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="grid.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="grid.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="SimpleColor.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="SimpleTexture.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Sphere.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
@@ -196,5 +187,13 @@
     <Image Include="space.jpg">
       <Filter>Source Files\Resources</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="PhongReflectionTex.frag">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="PhongReflection.frag">
+      <Filter>Shaders</Filter>
+    </Text>
   </ItemGroup>
 </Project>

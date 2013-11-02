@@ -10,6 +10,7 @@
 HealthBar::HealthBar()
 	: shader(nullptr)
 	, vertexArrayID(0)
+	, m_color(0.0, 1.0, 0.0)
 {
 }
 
@@ -27,7 +28,7 @@ void HealthBar::prepareMaterial()
 
 	shader = new GPUProgram;
 
-	shader->loadFragmentShaderFromFile("lostHP.frag");
+	shader->loadFragmentShaderFromFile("SimpleColor.frag");
 	shader->loadVertexShaderFromFile("lostHP.vert");
 
 	shader->link();
@@ -57,6 +58,7 @@ void HealthBar::drawHealthBar()
 	shader->use();
 
 	shader->setUniform("model", transform);
+	shader->setUniform("m_color", m_color);
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);

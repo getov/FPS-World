@@ -98,6 +98,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Skybox.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="WeaponModel.cpp" />
@@ -117,26 +118,22 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Skybox.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="WeaponModel.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="box.frag" />
     <None Include="box.vert" />
-    <None Include="anBox.frag" />
     <None Include="anBox.vert" />
-    <None Include="crosshair.frag" />
     <None Include="crosshair.vert" />
-    <None Include="grid.frag" />
     <None Include="grid.vert" />
-    <None Include="lostHP.frag" />
     <None Include="lostHP.vert" />
-    <None Include="projectile.frag" />
     <None Include="projectile.vert" />
-    <None Include="skybox.frag" />
+    <None Include="SimpleColor.frag" />
+    <None Include="SimpleTexture.frag" />
     <None Include="skybox.vert" />
-    <None Include="weaponModel.frag" />
+    <None Include="Sphere.vert" />
     <None Include="weaponModel.vert" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +141,10 @@
     <Image Include="space.jpg" />
     <Image Include="test.png" />
     <Image Include="weapon-model.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="PhongReflection.frag" />
+    <Text Include="PhongReflectionTex.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

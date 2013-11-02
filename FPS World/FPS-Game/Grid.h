@@ -12,6 +12,8 @@ class Grid
 		GLuint indexBuffer;
 		glm::mat4 transform;
 
+		glm::vec3 m_color;
+
 		struct Point {
 		  GLfloat x;
 		  GLfloat y;

@@ -10,6 +10,7 @@
 Crosshair::Crosshair()
 	: shader(nullptr)
 	, vertexArrayID(0)
+	, m_color(1.0, 0.0, 0.0)
 {
 }
 
@@ -27,7 +28,7 @@ void Crosshair::prepareMaterial()
 
 	shader = new GPUProgram;
 
-	shader->loadFragmentShaderFromFile("crosshair.frag");
+	shader->loadFragmentShaderFromFile("SimpleColor.frag");
 	shader->loadVertexShaderFromFile("crosshair.vert");
 
 	shader->link();
@@ -64,6 +65,7 @@ void Crosshair::drawCrosshair()
 	shader->use();
 
 	shader->setUniform("model", transform);
+	shader->setUniform("m_color", m_color);
 	
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);

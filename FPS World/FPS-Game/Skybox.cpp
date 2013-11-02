@@ -40,7 +40,7 @@ void Skybox::prepareMaterial()
 
 	shader = new GPUProgram;
 
-	shader->loadFragmentShaderFromFile("skybox.frag");
+	shader->loadFragmentShaderFromFile("SimpleTexture.frag");
 	shader->loadVertexShaderFromFile("skybox.vert");
 
 	shader->link();

@@ -13,6 +13,8 @@ class Projectile
 		glm::mat4 transform;
 		float moveSpeed;
 
+		glm::vec3 m_color;
+
 	public:
 		Projectile();
 		~Projectile();

@@ -12,6 +12,14 @@
 AnotherBox::AnotherBox()
 	: shader(nullptr)
 	, vertexArrayID(0)
+	, m_color(1.0, 0.0, 0.0, 0.0)
+{
+}
+
+AnotherBox::AnotherBox(glm::vec4& color)
+	: shader(nullptr)
+	, vertexArrayID(0)
+	, m_color(color)
 {
 }
 
@@ -29,7 +37,7 @@ void AnotherBox::prepareMaterial(Camera* camera)
 
 	shader = new GPUProgram;
 
-	shader->loadFragmentShaderFromFile("anBox.frag");
+	shader->loadFragmentShaderFromFile("PhongReflection.frag");
 	shader->loadVertexShaderFromFile("anBox.vert");
 
 	shader->link();
@@ -113,6 +121,7 @@ void AnotherBox::drawBox(Camera* camera, Light* gLight)
 
 	shader->setUniform("camera", camera->matrix());
 	shader->setUniform("model", transform);
+	shader->setUniform("m_color", m_color);
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);

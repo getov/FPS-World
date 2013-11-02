@@ -15,6 +15,7 @@ const int Grid::GRID_LINES = 52;
 Grid::Grid()
 	: shader(nullptr)
 	, vertexArrayID(0)
+	, m_color(0.0, 1.0, 0.0)
 {
 }
 
@@ -33,7 +34,7 @@ void Grid::prepareMaterial()
 
 	shader = new GPUProgram;
 
-	shader->loadFragmentShaderFromFile("grid.frag");
+	shader->loadFragmentShaderFromFile("SimpleColor.frag");
 	shader->loadVertexShaderFromFile("grid.vert");
 
 	shader->link();
@@ -88,6 +89,7 @@ void Grid::drawGrid(Camera& gWordl)
 
 	shader->setUniform("camera", gWordl.matrix());
 	shader->setUniform("model", transform);
+	shader->setUniform("m_color", m_color);
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
