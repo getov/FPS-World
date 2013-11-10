@@ -24,6 +24,7 @@ class Application
 		int screenHeight;
 		const char * const appName;
 
+		// objects
 		Player* player;
 		Camera* gWorld;
 		Crosshair* cross;
@@ -32,13 +33,15 @@ class Application
 		HealthBar* health;
 		Projectile* projectile;
 		AnotherBox* anBox;
-		BoxInstance* boxI;
 		Renderer* m_renderer;
 		WeaponModel* weapon;
 		Skybox* skybox;
 		Grid* gridFloor;
 
 		//Sphere* sun;
+
+		// instances
+		BoxInstance* boxI;
 
 		Application();
 		Application(const Application&);

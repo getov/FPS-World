@@ -78,20 +78,21 @@ void Application::initializeScene()
 	}
 
 	// open a window with GLFW
-    glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
+    glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE); //GLFW_OPENGL_CORE_PROFILE , GLFW_OPENGL_COMPAT_PROFILE
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
     glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 2);
     glfwOpenWindowHint(GLFW_WINDOW_NO_RESIZE, GL_TRUE);
-    if(!glfwOpenWindow(screenWidth, screenHeight, 8, 8, 8, 8, 16, 0, GLFW_WINDOW))
+    if(!glfwOpenWindow(screenWidth, screenHeight, 8, 8, 8, 8, 16, 0, GLFW_WINDOW)) // for full screen = GLFW_FULLSCREEN
 	{
 		std::cerr << "glfwOpenWindow failed!\n";
 	}
-
+	
 	// GLFW settings
     glfwDisable(GLFW_MOUSE_CURSOR);
     glfwSetMousePos(0, 0);
     glfwSetMouseWheel(0);
 
+	glewExperimental = GL_TRUE;
 	// initialize GLEW
 	if (glewInit() != GLEW_OK)
 	{
@@ -125,9 +126,9 @@ void Application::initializeScene()
 	//sun = new Sphere(10.0, glm::vec4(0.5, 0.7, 0.0, 0.0));
 
 	// setup light
-	gLight->setPosition(glm::vec3(0.0, 1.0, 2.0)); // gWorld->cameraPosition() ; glm::vec3(1.0, 0.0, 4.0);
+	gLight->setPosition(glm::vec3(0.0, 1.0, 2.0)); // gWorld->cameraPosition() ; glm::vec3(1.0, 0.0, 4.0); glm::vec3(0.0, 1.0, 2.0)
 	gLight->setColor(glm::vec3(1, 1, 1)); // white color
-	gLight->setAttenuation(0.2f);
+	gLight->setAttenuation(0.2f); // 0.2 - light power
 	gLight->setAmbiendCoefficient(0.005f);
 
 	// Prepare objects' materials to render
