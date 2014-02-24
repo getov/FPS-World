@@ -61,9 +61,6 @@
     <ClCompile Include="Projectile.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="BoxInstance.cpp">
-      <Filter>Objects\Instances</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
@@ -81,6 +78,12 @@
     </ClCompile>
     <ClCompile Include="Sphere.cpp">
       <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GeometryInstance.cpp">
+      <Filter>Objects\Instances</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxInstance.cpp">
+      <Filter>Objects\Instances</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -117,9 +120,6 @@
     <ClInclude Include="Projectile.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="BoxInstance.h">
-      <Filter>Objects\Instances</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Rendering</Filter>
     </ClInclude>
@@ -137,6 +137,15 @@
     </ClInclude>
     <ClInclude Include="Sphere.h">
       <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="IGeometry.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryInstance.h">
+      <Filter>Objects\Instances</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxInstance.h">
+      <Filter>Objects\Instances</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

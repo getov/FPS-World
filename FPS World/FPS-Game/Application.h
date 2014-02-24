@@ -14,7 +14,9 @@ class WeaponModel;
 class GPUProgram;
 class Skybox;
 class Grid;
-//class Sphere;
+class Sphere;
+
+#include "IGeometry.h"
 
 class Application
 {

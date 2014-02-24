@@ -28,7 +28,7 @@ Box::~Box()
 	delete texture;
 }
 
-void Box::prepareMaterial(Camera* camera)
+void Box::prepareMaterial()
 {
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);

@@ -87,6 +87,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="BoxInstance.cpp" />
+    <ClCompile Include="GeometryInstance.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -108,8 +109,10 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Box.h" />
     <ClInclude Include="BoxInstance.h" />
+    <ClInclude Include="GeometryInstance.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="IGeometry.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Camera.h" />

@@ -121,7 +121,7 @@ void Sphere::prepareMaterial(Camera& camera)
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertexBufferSize, &vertexBufferData, GL_STATIC_DRAW);
 	
-	transform = glm::translate(glm::mat4(), glm::vec3(2.5f, 1.0f, -2.0f)) * glm::scale(glm::mat4(), glm::vec3(1.0, 1.0, 1.0));
+	transform = glm::translate(glm::mat4(), glm::vec3(2.5f, 1.0f, -2.0f)) * glm::scale(glm::mat4(), glm::vec3(2.0, 2.0, 2.0));
 
 	setShininess(80.0f);
 	setSpecularColor(glm::vec3(1.0f, 1.0f, 1.0f));

@@ -9,12 +9,14 @@
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 
+#include "IGeometry.h"
+
 class GPUProgram;
 class Camera;
 class Light;
 class Texture;
 
-class Box
+class Box : public IGeometry
 {
 	private:
 		GPUProgram* shader;
@@ -34,7 +36,7 @@ class Box
 		Box();
 		~Box();
 
-		void prepareMaterial(Camera* camera);
+		void prepareMaterial();
 		void setShininess(GLfloat shine);
 		void setSpecularColor(glm::vec3 color);
 

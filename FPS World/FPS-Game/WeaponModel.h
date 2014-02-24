@@ -2,6 +2,7 @@
 
 class GPUProgram;
 class Texture;
+class Camera;
 
 class WeaponModel
 {
@@ -20,11 +21,28 @@ class WeaponModel
 		float* uvArray;
 		int numTriangles;
 		int numUvCoords;*/
+		int numTriangles;
+		std::vector<glm::vec3> vertices;
+		std::vector<glm::vec3> normals;
+		std::vector<glm::vec2> uvs;
+
+		/*std::vector<double> vertices;
+		std::vector<double> normals;
+		std::vector<double> uvs;*/
+
+		bool loadFromOBJ(const char* fileName);
+
+		bool loadOBJ(
+			const char * path, 
+			std::vector<glm::vec3> & out_vertices, 
+			std::vector<glm::vec2> & out_uvs, 
+			std::vector<glm::vec3> & out_normals
+		);
 
 	public:
 		WeaponModel();
 		~WeaponModel();
 
 		void prepareMaterial();
-		void drawWeapon();
+		void drawWeapon(Camera& world);
 };

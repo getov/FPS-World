@@ -41,6 +41,44 @@ namespace Util
 		return fileContents;
 	}
 
+	int parseToInt(const std::string& s)
+	{
+		int res;
+		if (s == "")
+		{
+			return 0;
+		}
+		sscanf(s.c_str(), "%d", &res);
+		return res;
+	}
+
+	double parseToDouble(const std::string& s)
+	{
+		double res;
+		if (s == "")
+		{
+			return 0;
+		}
+		sscanf(s.c_str(), "%lf", &res);
+		return res;
+	}
+
+	std::vector<std::string> tokenize(std::string s)
+	{
+		int i = 0, j, l = (int) s.length();
+		std::vector<std::string> result;
+		while (i < l)
+		{
+			while (i < l && isspace(s[i])) i++;
+			if (i >= l) break;
+			j = i;
+			while (j < l && !isspace(s[j])) j++;
+			result.push_back(s.substr(i, j - i));
+			i = j;
+		}
+		return result;
+	}
+
 	// wrapper functions for more intuitive interface
 	glm::mat4 scale(GLfloat x, GLfloat y, GLfloat z)
 	{

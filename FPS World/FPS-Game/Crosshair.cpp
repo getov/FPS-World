@@ -57,7 +57,7 @@ void Crosshair::prepareMaterial()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
 	// scale the size of the crosshair
-	transform = glm::scale(glm::mat4(), glm::vec3(1.0, 1.0, 1.0));
+	transform = glm::scale(glm::mat4(), glm::vec3(1, 1, 1)); //glm::ortho(0, 1366, 768, 0); glm::translate(glm::mat4(1), glm::vec3(0.375, 0.375, 0.));
 }
 
 void Crosshair::drawCrosshair()

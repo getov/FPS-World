@@ -104,6 +104,8 @@ void Application::initializeScene()
 	// Enable Depth testing , so that objects that are far away in the distans doesn't overlap closer objects
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	//glEnable(GL_CULL_FACE);
+	//glEnable(GL_MULTISAMPLE);
 	//glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -120,7 +122,7 @@ void Application::initializeScene()
 	health = new HealthBar;
 	projectile = new Projectile;
 	m_renderer = new Renderer;
-	//weapon = new WeaponModel;
+	weapon = new WeaponModel;
 	anBox = new AnotherBox;
 	gridFloor = new Grid;
 	//sun = new Sphere(10.0, glm::vec4(0.5, 0.7, 0.0, 0.0));
@@ -135,14 +137,17 @@ void Application::initializeScene()
 	skybox->prepareMaterial();
 	player->prepare(gWorld);
 	cross->prepareMaterial();
-	box->prepareMaterial(gWorld);
+	//box->prepareMaterial(gWorld);
 	health->prepareMaterial();
-	anBox->prepareMaterial(gWorld);
-	m_renderer->createBoxInstances(box, boxI);
+	//anBox->prepareMaterial(gWorld);
+	//m_renderer->createBoxInstances(box, boxI);
 	//weapon->prepareMaterial();
-	gridFloor->prepareMaterial();
+	//gridFloor->prepareMaterial();
 
 	//sun->prepareMaterial(*gWorld);
+
+	m_renderer->prepareSceneObjects();
+	m_renderer->createGeometryInstances();
 }
 
 void Application::renderScene()
@@ -155,13 +160,14 @@ void Application::renderScene()
 	cross->drawCrosshair();
 	health->drawHealthBar();
 	player->renderProjectiles();
-	anBox->drawBox(gWorld, gLight);
-	m_renderer->renderBoxInstances(box, gWorld, gLight);
-	//weapon->drawWeapon();
+	//anBox->drawBox(gWorld, gLight);
+	//m_renderer->renderBoxInstances(box, gWorld, gLight);	
 	skybox->drawSkybox();
-	gridFloor->drawGrid(*gWorld);
-
+	//weapon->drawWeapon(*gWorld);
+	//gridFloor->drawGrid(*gWorld);
 	//sun->renderSphere(*gWorld, *gLight);
+
+	m_renderer->renderGeometries(*gWorld, *gLight);
 
 	glfwSwapBuffers();
 }
@@ -206,13 +212,18 @@ void Application::run()
 		player->updatePosition(thisTime - lastTime, gWorld, *skybox);
 		m_renderer->updateScene(thisTime - lastTime);
 
+		/*if (glfwGetKey(GLFW_KEY_KP_0) == GLFW_PRESS)
+		{
+			m_renderer->createBox(box, *gWorld, thisTime - lastTime);
+		}*/
+
 		displayFrameCounter();
 
 		lastTime = thisTime;
 
 		renderScene();
 	}
-
+	
 	Destroy();
 
 	glfwTerminate();
