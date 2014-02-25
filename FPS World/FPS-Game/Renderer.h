@@ -1,20 +1,24 @@
 #pragma once
 #include "IGeometry.h"
 #include "GeometryInstance.h"
+#include "GPUProgram.h"
+#include "Camera.h"
+#include "Light.h"
+#include "Box.h"
+#include "Util.h"
+#include "Texture.h"
 
-
-class GPUProgram;
-class Camera;
-class Light;
-class Box;
-class BoxInstance;
+#include <vector>
+#include <algorithm>
+//class GPUProgram;
+//class Camera;
+//class Light;
+//class Box;
 
 class Renderer
 {
 	private:
-		std::vector<BoxInstance*> boxes;
-		
-		// 
+		GPUProgram* shader;
 		std::vector<IGeometry*> geometries;
 		std::vector<GeometryInstance*> geomInstances;
 
@@ -28,8 +32,6 @@ class Renderer
 		void createGeometryInstances();
 		void renderGeometries(Camera& world, Light& gLight);
 
-		// DEPRECATED
-		void createBoxInstances(Box* box, BoxInstance* boxI);
-		void renderBoxInstances(Box* box, Camera* gWorld, Light* gLight);
-		void createBox(Box* box, Camera& world, float secElapsed);
+		void createBox(Camera& world, float secElapsed);
+		void removeLastGeometry();
 };

@@ -26,4 +26,14 @@ public:
 
 	virtual GLfloat getShininess() = 0;
 	virtual glm::vec3 getSpecularColor() = 0;
+
+
+	// movement
+	virtual float getMoveSpeed() = 0;
+	virtual GLfloat getDegreesPerSecond() = 0;
+	virtual float getDegreesRotated() = 0;
+
+	virtual void setMoveSpeed(const float& speed) = 0;
+	virtual void setDegreesPerSecond(const float& degPerSecond) = 0;
+	virtual void setDegreesRotated(const float& degRotated) = 0;
 };

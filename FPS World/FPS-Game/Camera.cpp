@@ -1,6 +1,3 @@
-#include <glm\glm.hpp>
-#include <glm\gtc\matrix_transform.hpp>
-
 #include "Camera.h"
 
 static const float MAX_VERTICAL_ANGLE = 85.0f;

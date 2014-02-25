@@ -37,15 +37,15 @@ void Player::prepare(Camera* camera)
 	//camera->offsetOrientation(0.0f, 0.0f);
 
 	// TO FIX *********
-	for (int i = 0; i < 2; ++i)
-	{
-		ammo.push_back(new Projectile);
-	}
+	//for (int i = 0; i < 2; ++i)
+	//{
+	//	ammo.push_back(new Projectile);
+	//}
 
-	for (auto i = ammo.begin(); i != ammo.end(); ++i)
-	{
-		(*i)->prepareMaterial();
-	}
+	//for (auto i = ammo.begin(); i != ammo.end(); ++i)
+	//{
+	//	(*i)->prepareMaterial();
+	//}
 	// ***********************
 }
 
@@ -102,22 +102,22 @@ void Player::updatePosition(float secondsElapsed, Camera* camera, Skybox& cubema
 	cubemap.getSkyboxCamera()->offsetOrientation(mouseSensitivity * mouseY, mouseSensitivity * mouseX);
 
 	// TO FIX *********
-	if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	/*if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
 		mouseLeftClick = true;
-	}
+	}*/
 
 	upAngle = mouseSensitivity * mouseY;
 	rightAngle = mouseSensitivity * mouseX;
 
 
-	if (mouseLeftClick)
-	{
-		for (auto i = ammo.begin(); i != ammo.end(); ++i)
-		{
-			(*i)->updatePosition(secondsElapsed, upAngle, rightAngle);
-		}
-	}
+	//if (mouseLeftClick)
+	//{
+	//	for (auto i = ammo.begin(); i != ammo.end(); ++i)
+	//	{
+	//		(*i)->updatePosition(secondsElapsed, upAngle, rightAngle);
+	//	}
+	//}
 
 	// **************************
 

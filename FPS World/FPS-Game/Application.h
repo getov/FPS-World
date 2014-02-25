@@ -30,7 +30,6 @@ class Application
 		Player* player;
 		Camera* gWorld;
 		Crosshair* cross;
-		Box* box;
 		Light* gLight;
 		HealthBar* health;
 		Projectile* projectile;
@@ -39,11 +38,6 @@ class Application
 		WeaponModel* weapon;
 		Skybox* skybox;
 		Grid* gridFloor;
-
-		//Sphere* sun;
-
-		// instances
-		BoxInstance* boxI;
 
 		Application();
 		Application(const Application&);
@@ -65,6 +59,8 @@ class Application
 		//* Function that calculates and displays
 		//* frame time and fps on the window frame
 		void displayFrameCounter();
+
+		void handleEvents(float time, Renderer* renderer, Camera* camera);
 
 	public:
 

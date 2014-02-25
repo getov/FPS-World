@@ -124,7 +124,8 @@ void AnotherBox::drawBox(Camera* camera, Light* gLight)
 	shader->setUniform("m_color", m_color);
 
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	//glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glBindVertexArray(vertexArrayID);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
 
 	// connect the normal to the "vertNormal" attribute of the vertex shader

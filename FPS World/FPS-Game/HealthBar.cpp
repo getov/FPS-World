@@ -51,6 +51,13 @@ void HealthBar::prepareMaterial()
 
 	// transform and translate Healthbar to the lower left corner
 	transform = glm::translate(glm::mat4(), glm::vec3(-1, -1, 0)) * glm::scale(glm::mat4(), glm::vec3(2.0, 0.5, 0.0));
+
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	// unbind VBO and VAO
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 }
 
 void HealthBar::drawHealthBar()
@@ -60,9 +67,10 @@ void HealthBar::drawHealthBar()
 	shader->setUniform("model", transform);
 	shader->setUniform("m_color", m_color);
 
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
+	glBindVertexArray(vertexArrayID);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+
+	// unbind
+	glBindVertexArray(0);
+	shader->stopUsing();
 }

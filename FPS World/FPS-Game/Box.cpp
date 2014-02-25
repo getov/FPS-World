@@ -34,7 +34,7 @@ void Box::prepareMaterial()
 	glBindVertexArray(vertexArrayID);
 
 	texture = new Texture;
-	texture->loadTexture("nvidia.jpg");
+	texture->loadTexture("wooden-crate.jpg");
 
 	shader = new GPUProgram;
 
@@ -103,6 +103,22 @@ void Box::prepareMaterial()
 
 	setShininess(80.0f);
 	setSpecularColor(glm::vec3(1.0f, 1.0f, 1.0f));
+
+	// vertices
+	glEnableVertexAttribArray(0);	
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
+
+	// connect the normal to the "vertNormal" attribute of the vertex shader
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 8*sizeof(GLfloat), (const GLvoid*)(5 * sizeof(GLfloat)));
+
+	// connect the uv coords to the "vertTexCoord" attribute of the vertex shader
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_TRUE,  8*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
+
+	// unbind VBO and VAO
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 }
 
 void Box::setShininess(GLfloat shine)
@@ -156,17 +172,17 @@ float Box::getDegreesRotated()
 	return degreesRotated;
 }
 
-void Box::setMoveSpeed(float speed)
+void Box::setMoveSpeed(const float& speed)
 {
 	moveSpeed = speed;
 }
 
-void Box::setDegreesPerSecond(float degPerSecond)
+void Box::setDegreesPerSecond(const float& degPerSecond)
 {
 	degreesPerSecond = degPerSecond;
 }
 
-void Box::setDegreesRotated(float degRotated)
+void Box::setDegreesRotated(const float& degRotated)
 {
 	degreesRotated += degRotated;
 }

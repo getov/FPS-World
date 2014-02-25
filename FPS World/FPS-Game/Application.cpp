@@ -26,9 +26,9 @@
 #include "WeaponModel.h"
 #include "Skybox.h"
 #include "Grid.h"
-//#include "Sphere.h"
 #include "AnotherBox.h"
 #include "BoxInstance.h"
+
 
 Application& Application::Instance()
 {
@@ -57,7 +57,6 @@ void Application::Destroy()
 	delete player;
 	delete gWorld;
 	delete cross;
-	delete box;
 	delete gLight;
 	delete health;
 	delete projectile;
@@ -117,7 +116,6 @@ void Application::initializeScene()
 	player = new Player;
 	gWorld = new Camera;
 	cross = new Crosshair;
-	box = new Box;
 	gLight = new Light;
 	health = new HealthBar;
 	projectile = new Projectile;
@@ -159,7 +157,7 @@ void Application::renderScene()
 	// render world objects
 	cross->drawCrosshair();
 	health->drawHealthBar();
-	player->renderProjectiles();
+	//player->renderProjectiles();
 	//anBox->drawBox(gWorld, gLight);
 	//m_renderer->renderBoxInstances(box, gWorld, gLight);	
 	skybox->drawSkybox();
@@ -199,6 +197,18 @@ void Application::displayFrameCounter()
 	lastFrameEnd = glfwGetTime();
 }
 
+void Application::handleEvents(float time, Renderer* renderer, Camera* camera)
+{
+	if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	{
+		renderer->createBox(*camera, time);
+	}
+	else if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
+	{
+		renderer->removeLastGeometry();
+	}
+}
+
 void Application::run()
 {
 	initializeScene();
@@ -210,12 +220,9 @@ void Application::run()
 		float thisTime = glfwGetTime();
 
 		player->updatePosition(thisTime - lastTime, gWorld, *skybox);
-		m_renderer->updateScene(thisTime - lastTime);
+		//m_renderer->updateScene(thisTime - lastTime);
 
-		/*if (glfwGetKey(GLFW_KEY_KP_0) == GLFW_PRESS)
-		{
-			m_renderer->createBox(box, *gWorld, thisTime - lastTime);
-		}*/
+		handleEvents(thisTime - lastTime, m_renderer, gWorld);
 
 		displayFrameCounter();
 

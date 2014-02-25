@@ -4,37 +4,27 @@
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 
-#include <vector>
-
-#include "GPUProgram.h"
-#include "Camera.h"
-#include "Light.h"
-#include "Box.h"
 #include "Renderer.h"
-#include "Util.h"
-#include "Texture.h"
-#include "BoxInstance.h"
 
 using namespace Util;
 
 Renderer::Renderer()
+	: shader(nullptr)
 {
 }
 
 Renderer::~Renderer()
 {
 	// free the allocated memory
-	for (auto i = boxes.begin(); i != boxes.end(); ++i)
-	{
-		delete (*i);
-	}
-
 	for (auto i = geometries.begin(); i != geometries.end(); ++i)
 	{
 		delete *i;
 	}
 
-	glBindVertexArray(0);
+	for (auto i = geomInstances.begin(); i != geomInstances.end(); ++i)
+	{
+		delete *i;
+	}
 }
 
 void Renderer::prepareSceneObjects()
@@ -49,157 +39,94 @@ void Renderer::prepareSceneObjects()
 
 void Renderer::createGeometryInstances()
 {
-	geomInstances.resize(geometries.size(), new GeometryInstance);
+	geomInstances.push_back(new GeometryInstance);
+	geomInstances.push_back(new GeometryInstance);
 
-	for (int i = 0; i < geomInstances.size(); ++i)
+	if (!geometries.empty())
 	{
-		geomInstances[i]->asset = geometries[i];
-		geomInstances[i]->transform = translate(0.0f, 0.0f, 0.0f) * scale(1.0f, 1.0f, 1.0f);
-	}
+		geomInstances[0]->asset = geometries[0];
+		geomInstances[1]->asset = geometries[0];
+
+		geomInstances[0]->transform = translate(0.0f, 0.0f, 0.0f) * scale(0.3f, 0.3f, 0.3f);
+		geomInstances[1]->transform = translate(-1.0f, 0.0f, 0.0f) * scale(0.3f, 0.2f, 0.2f);
+	}	
 }
 
 void Renderer::renderGeometries(Camera& world, Light& gLight)
 {
+	shader = nullptr;
+
 	for (int i = 0; i < geomInstances.size(); ++i)
 	{
-		geometries[i] = geomInstances[i]->asset;
+		IGeometry* asset = geomInstances[i]->asset;
 		
-		GPUProgram* shader = geometries[i]->getShader();
+		if (geomInstances[i]->asset->getShader() != shader)
+		{
+			if (shader)
+			{
+				shader->stopUsing();
+			}
 
-		shader->use();
+			shader = geomInstances[i]->asset->getShader();
+			shader->use();
+		}
+
 		shader->setUniform("camera", world.matrix());
 		shader->setUniform("model", geomInstances[i]->transform);
 		//shader->setUniform("tex", (*boxI)->asset->getTexture()->getTexID());
 
-		shader->setUniform("material.shininess", geometries[i]->getShininess());
-		shader->setUniform("material.specularColor", geometries[i]->getSpecularColor());
+		shader->setUniform("material.shininess", asset->getShininess());
+		shader->setUniform("material.specularColor", asset->getSpecularColor());
 		shader->setUniform("light.position", gLight.getPosition());
 		shader->setUniform("light.intensities", gLight.getColor());
 		shader->setUniform("light.attenuation", gLight.getAttenuation());
 		shader->setUniform("light.ambientCoefficient", gLight.getAmbientCoefficient());
 		shader->setUniform("cameraPosition", world.cameraPosition());
 
-		Texture* texture = geomInstances[i]->asset->getTexture();
+		Texture* texture = asset->getTexture();
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(texture->getTexType(), texture->getTexID());
 
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, geometries[i]->getVAO());
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
-
-		// connect the normal to the "vertNormal" attribute of the vertex shader
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 8*sizeof(GLfloat), (const GLvoid*)(5 * sizeof(GLfloat)));
-
-		// connect the uv coords to the "vertTexCoord" attribute of the vertex shader
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_TRUE,  8*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
-
+		glBindVertexArray(asset->getVAO());
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 	}
+
+	// unbind
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	shader->stopUsing();
 }
 
 void Renderer::updateScene(float secondsElapsed)
 {
-	if (!boxes.empty())
+	if (!geomInstances.empty())
 	{
-		for (int i = 0; i < 2; ++i)
-		{
-			boxes[i]->asset->setDegreesRotated((secondsElapsed * boxes[i]->asset->getDegreesPerSecond()) / 6.0); // divide by 6 for slower rotation
+		geomInstances[1]->asset->setDegreesRotated(secondsElapsed * geomInstances[1]->asset->getDegreesPerSecond() * 0.1);
 
-			while(boxes[i]->asset->getDegreesRotated() > 360.0f)
-			{
-				boxes[i]->asset->setDegreesRotated(-360.0f);
-			}
+		while (geomInstances[1]->asset->getDegreesRotated() > 360.f)
+		{
+			geomInstances[1]->asset->setDegreesRotated(-360.f);
 		}
 
-		boxes[0]->transform = translate(2.0f, 0.7f, 0.0f) * scale(0.30f, 0.30f, 0.30f) * rotate(boxes[0]->asset->getDegreesRotated(), 0, 1, 0);
-		boxes[1]->transform = rotate(boxes[1]->asset->getDegreesRotated(), 0, 1, 0) * translate(1.0f, 2.3f, 1.0f) * scale(0.30f, 0.30f, 0.30f) *
-							  rotate(boxes[1]->asset->getDegreesRotated() * 2.0, 0, -1, 0); // optional rotation for fun :)
+		geomInstances[1]->transform = translate(-1.0f, 0.0f, 0.0f) * scale(0.3f, 0.2f, 0.2f) *
+									  rotate(geomInstances[1]->asset->getDegreesRotated(), 0, 1, 0);
 	}
 }
 
-
-// DEPRECATED
-void Renderer::createBoxInstances(Box* box, BoxInstance* boxI)
+void Renderer::createBox(Camera& world, float secElapsed)
 {
-	boxI = new BoxInstance;
-	boxI->asset = box;
-	boxI->transform = translate(-1.0f, 0.0f, 0.0f) * scale(0.30f, 0.30f, 0.30f);
-	boxes.push_back(boxI);
-	
-	boxI = new BoxInstance;
-	boxI->asset = box;
-	boxI->transform = translate(-2.0f, 0.0f, 1.0f) * scale(0.40f, 0.35f, 0.30f);
-	boxes.push_back(boxI);
-
-	boxI = new BoxInstance;
-	boxI->asset = box;
-	boxI->transform = translate(1.0f, 0.0f, 0.0f) * scale(0.40f, 0.35f, 0.30f);
-	boxes.push_back(boxI);
-
-	boxI = new BoxInstance;
-	boxI->asset = box;
-	boxI->transform = translate(0.0f, 0.7f, -2.0f) * scale(1.0f, 1.0f, 1.0f);
-	boxes.push_back(boxI);
-
-	/*boxI = new BoxInstance;
-	boxI->asset = box;
-	boxI->transform = rotate(45.0f, 0.0f, 1.0f, 0.0f) * translate(0.0f, 1.0f, 0.0f) * scale(0.30f, 0.30f, 0.30f);
-	boxes.push_back(boxI);*/
-/*
-	boxI = new BoxInstance;
-	boxI->asset = box;
-	boxI->transform = translate(-1.0f, 1.0f, 0.0f) * scale(0.30f, 0.30f, 0.30f);
-	boxes.push_back(boxI);*/
+	GeometryInstance* box = new GeometryInstance;
+	glm::vec3 position = world.cameraPosition() + world.forward() * 2.0f;
+	box->asset = geometries[0];
+	box->transform = translate(position.x, position.y, position.z) * scale(0.1f, 0.1f, 0.1f);
+	geomInstances.push_back(box);
 }
 
-void Renderer::createBox(Box* box, Camera& world, float secElapsed)
+void Renderer::removeLastGeometry()
 {
-	BoxInstance* boxI = new BoxInstance;
-	glm::vec3 boxPosition = world.cameraPosition() + world.forward() * 20.0f;
-	boxI->asset = box;
-	boxI->transform = translate(boxPosition.x, boxPosition.y, boxPosition.z) * scale(1.0f, 1.0f, 1.0f);
-	boxes.push_back(boxI);
-}
-
-void Renderer::renderBoxInstances(Box* box, Camera* gWorld, Light* gLight)
-{
-	// render all the created instances in boxes
-	for (auto boxI = boxes.begin(); boxI != boxes.end(); ++boxI)
+	if (!geomInstances.empty())
 	{
-		box = (*boxI)->asset;
-		GPUProgram* shader = box->getShader();
-
-		shader->use();
-		shader->setUniform("camera", gWorld->matrix());
-		shader->setUniform("model", (*boxI)->transform);
-		//shader->setUniform("tex", (*boxI)->asset->getTexture()->getTexID());
-
-		shader->setUniform("material.shininess", box->getShininess());
-		shader->setUniform("material.specularColor", box->getSpecularColor());
-		shader->setUniform("light.position", gLight->getPosition());
-		shader->setUniform("light.intensities", gLight->getColor());
-		shader->setUniform("light.attenuation", gLight->getAttenuation());
-		shader->setUniform("light.ambientCoefficient", gLight->getAmbientCoefficient());
-		shader->setUniform("cameraPosition", gWorld->cameraPosition());
-
-		Texture* texture = (*boxI)->asset->getTexture();
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(texture->getTexType(), texture->getTexID());
-
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, box->getVAO());
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(GLfloat), NULL);
-
-		// connect the normal to the "vertNormal" attribute of the vertex shader
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_TRUE, 8*sizeof(GLfloat), (const GLvoid*)(5 * sizeof(GLfloat)));
-
-		// connect the uv coords to the "vertTexCoord" attribute of the vertex shader
-		glEnableVertexAttribArray(2);
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_TRUE,  8*sizeof(GLfloat), (const GLvoid*)(3 * sizeof(GLfloat)));
-
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		geomInstances.erase(std::remove(geomInstances.begin(), geomInstances.end(), geomInstances.back()),
+							geomInstances.end());
 	}
 }

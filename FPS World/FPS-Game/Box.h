@@ -52,7 +52,7 @@ class Box : public IGeometry
 		GLfloat getDegreesPerSecond();
 		float getDegreesRotated();
 
-		void setMoveSpeed(float speed);
-		void setDegreesPerSecond(float degPerSecond);
-		void setDegreesRotated(float degRotated);
+		void setMoveSpeed(const float& speed);
+		void setDegreesPerSecond(const float& degPerSecond);
+		void setDegreesRotated(const float& degRotated);
 };
