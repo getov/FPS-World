@@ -14,8 +14,13 @@ class Camera
 		float farPlane;
 		float viewportRatio;
 
+		mutable float q;
+		mutable float n;
+
 	public:
 		Camera();
+
+		bool useQuat;
 
 		// position of the camera
 		const glm::vec3 &cameraPosition() const;
@@ -33,6 +38,9 @@ class Camera
 
 		// A rotation matrix that determines the direction the camera is looking.
 		glm::mat4 orientation() const;
+
+		// A rotation matrix that rotates the camera only about the 'Y' axis
+		glm::mat4 horizontalOrientation() const;
 
 		// Offsets the camera's orientation.
 		void offsetOrientation(float upAngle, float rightAngle);
@@ -69,4 +77,6 @@ class Camera
          transformation.
          */
         glm::mat4 view() const;
+
+		glm::mat4 quaternion() const;
 };

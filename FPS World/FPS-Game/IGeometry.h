@@ -26,6 +26,7 @@ public:
 
 	virtual GLfloat getShininess() = 0;
 	virtual glm::vec3 getSpecularColor() = 0;
+	virtual glm::vec4 getDiffuseColor() = 0;
 
 
 	// movement

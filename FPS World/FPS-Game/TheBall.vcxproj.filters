@@ -46,9 +46,6 @@
     <ClCompile Include="Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AnotherBox.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="Box.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
@@ -56,9 +53,6 @@
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="HealthBar.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Projectile.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
@@ -73,16 +67,7 @@
     <ClCompile Include="Skybox.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
-    <ClCompile Include="Sphere.cpp">
-      <Filter>Objects</Filter>
-    </ClCompile>
     <ClCompile Include="GeometryInstance.cpp">
-      <Filter>Objects\Instances</Filter>
-    </ClCompile>
-    <ClCompile Include="BoxInstance.cpp">
       <Filter>Objects\Instances</Filter>
     </ClCompile>
   </ItemGroup>
@@ -105,9 +90,6 @@
     <ClInclude Include="Light.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="AnotherBox.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Box.h">
       <Filter>Objects</Filter>
     </ClInclude>
@@ -115,9 +97,6 @@
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="HealthBar.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Projectile.h">
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
@@ -132,19 +111,10 @@
     <ClInclude Include="Skybox.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="IGeometry.h">
       <Filter>Objects</Filter>
     </ClInclude>
     <ClInclude Include="GeometryInstance.h">
-      <Filter>Objects\Instances</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxInstance.h">
       <Filter>Objects\Instances</Filter>
     </ClInclude>
   </ItemGroup>
@@ -155,22 +125,13 @@
     <None Include="box.vert">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="anBox.vert">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="lostHP.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="projectile.vert">
       <Filter>Shaders</Filter>
     </None>
     <None Include="weaponModel.vert">
       <Filter>Shaders</Filter>
     </None>
     <None Include="skybox.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="grid.vert">
       <Filter>Shaders</Filter>
     </None>
     <None Include="SimpleColor.frag">

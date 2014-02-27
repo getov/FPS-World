@@ -21,13 +21,9 @@
 #include "Box.h"
 #include "Light.h"
 #include "HealthBar.h"
-#include "Projectile.h"
 #include "Renderer.h"
 #include "WeaponModel.h"
 #include "Skybox.h"
-#include "Grid.h"
-#include "AnotherBox.h"
-#include "BoxInstance.h"
 
 
 Application& Application::Instance()
@@ -59,14 +55,9 @@ void Application::Destroy()
 	delete cross;
 	delete gLight;
 	delete health;
-	delete projectile;
 	//delete weapon;
 	delete m_renderer;
-	delete anBox;
 	delete skybox;
-	delete gridFloor;
-
-	//delete sun;
 }
 
 void Application::initializeScene()
@@ -99,10 +90,11 @@ void Application::initializeScene()
 	}
 
 	while(glGetError() != GL_NO_ERROR) {}
-
+		
 	// Enable Depth testing , so that objects that are far away in the distans doesn't overlap closer objects
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+
 	//glEnable(GL_CULL_FACE);
 	//glEnable(GL_MULTISAMPLE);
 	//glEnable(GL_BLEND);
@@ -118,31 +110,21 @@ void Application::initializeScene()
 	cross = new Crosshair;
 	gLight = new Light;
 	health = new HealthBar;
-	projectile = new Projectile;
 	m_renderer = new Renderer;
 	weapon = new WeaponModel;
-	anBox = new AnotherBox;
-	gridFloor = new Grid;
-	//sun = new Sphere(10.0, glm::vec4(0.5, 0.7, 0.0, 0.0));
 
 	// setup light
-	gLight->setPosition(glm::vec3(0.0, 1.0, 2.0)); // gWorld->cameraPosition() ; glm::vec3(1.0, 0.0, 4.0); glm::vec3(0.0, 1.0, 2.0)
+	gLight->setPosition(glm::vec3(0.0, 2.0, 4.0)); // gWorld->cameraPosition() ; glm::vec3(1.0, 0.0, 4.0); glm::vec3(0.0, 1.0, 2.0)
 	gLight->setColor(glm::vec3(1, 1, 1)); // white color
-	gLight->setAttenuation(0.2f); // 0.2 - light power
+	gLight->setAttenuation(0.01f); // 0.2 - light power
 	gLight->setAmbiendCoefficient(0.005f);
 
 	// Prepare objects' materials to render
 	skybox->prepareMaterial();
 	player->prepare(gWorld);
 	cross->prepareMaterial();
-	//box->prepareMaterial(gWorld);
 	health->prepareMaterial();
-	//anBox->prepareMaterial(gWorld);
-	//m_renderer->createBoxInstances(box, boxI);
 	//weapon->prepareMaterial();
-	//gridFloor->prepareMaterial();
-
-	//sun->prepareMaterial(*gWorld);
 
 	m_renderer->prepareSceneObjects();
 	m_renderer->createGeometryInstances();
@@ -152,18 +134,14 @@ void Application::renderScene()
 {
 	glClearColor(0.55f, 0.8f, 0.95f, 0); //skyblue
 	//glClearColor(0.0f, 0.0f, 0.0f, 0); //black
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// render world objects
 	cross->drawCrosshair();
 	health->drawHealthBar();
-	//player->renderProjectiles();
-	//anBox->drawBox(gWorld, gLight);
-	//m_renderer->renderBoxInstances(box, gWorld, gLight);	
 	skybox->drawSkybox();
 	//weapon->drawWeapon(*gWorld);
-	//gridFloor->drawGrid(*gWorld);
-	//sun->renderSphere(*gWorld, *gLight);
 
 	m_renderer->renderGeometries(*gWorld, *gLight);
 
@@ -202,6 +180,10 @@ void Application::handleEvents(float time, Renderer* renderer, Camera* camera)
 	if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
 		renderer->createBox(*camera, time);
+	}
+	else if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_4) == GLFW_PRESS)
+	{
+		renderer->createBoxNoTex(*camera, time);
 	}
 	else if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 	{

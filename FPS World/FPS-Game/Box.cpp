@@ -17,6 +17,23 @@ Box::Box()
 	, moveSpeed(0.1f)
 	, degreesPerSecond(180.0f)
 	, degreesRotated(0.0f)
+	, fragShaderName("PhongReflectionTex.frag")
+	, textureName("wooden-crate.jpg")
+	, useTexture(true)
+{
+}
+
+Box::Box(const glm::vec4& color, const char* fragShader, const char* texName, bool useTex)
+	: shader(nullptr)
+	, texture(nullptr)
+	, vertexArrayID(0)
+	, moveSpeed(0.1f)
+	, degreesPerSecond(180.0f)
+	, degreesRotated(0.0f)
+	, m_color(color)
+	, fragShaderName(fragShader)
+	, textureName(texName)
+	, useTexture(useTex)
 {
 }
 
@@ -33,12 +50,9 @@ void Box::prepareMaterial()
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
 
-	texture = new Texture;
-	texture->loadTexture("wooden-crate.jpg");
-
 	shader = new GPUProgram;
 
-	shader->loadFragmentShaderFromFile("PhongReflectionTex.frag");
+	shader->loadFragmentShaderFromFile(fragShaderName);
 	shader->loadVertexShaderFromFile("box.vert");
 
 	shader->link();
@@ -99,8 +113,17 @@ void Box::prepareMaterial()
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
-	shader->setUniform("tex", *texture);
-
+	if (useTexture)
+	{
+		texture = new Texture;
+		texture->loadTexture(textureName);
+		//shader->setUniform("tex", *texture);
+	}
+	/*else
+	{
+		shader->setUniform("m_color", m_color);
+	}*/
+	
 	setShininess(80.0f);
 	setSpecularColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
@@ -119,6 +142,11 @@ void Box::prepareMaterial()
 	// unbind VBO and VAO
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+}
+
+glm::vec4 Box::getDiffuseColor()
+{
+	return m_color;
 }
 
 void Box::setShininess(GLfloat shine)

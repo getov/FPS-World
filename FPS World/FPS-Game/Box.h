@@ -1,8 +1,6 @@
 #pragma once
 
-// THESE HEADER INCLUDES SHOULD NOT BE HERE 
-// BUT THE COMPILER FREAKED OUT AND 
-// IT WOULDN'T COMPILE IF I DIDN'T INCLUDE THEM HERE
+
 #include <GL\glew.h>
 #include <GL\glfw.h>
 
@@ -27,13 +25,19 @@ class Box : public IGeometry
 
 		GLfloat shininess;
 		glm::vec3 specularColor;
+		glm::vec4 m_color;
 
 		float moveSpeed;
 		GLfloat degreesPerSecond;
 		float degreesRotated;
 
+		const char* fragShaderName;
+		const char* textureName;
+		bool useTexture;
+
 	public:
 		Box();
+		Box(const glm::vec4& color, const char* fragShader, const char* texName, bool useTex = false);
 		~Box();
 
 		void prepareMaterial();
@@ -46,6 +50,7 @@ class Box : public IGeometry
 
 		GLfloat getShininess();
 		glm::vec3 getSpecularColor();
+		glm::vec4 getDiffuseColor();
 
 		// functions for movement control over the box
 		float getMoveSpeed();

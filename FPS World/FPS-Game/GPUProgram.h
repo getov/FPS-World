@@ -11,7 +11,7 @@ class GPUProgram
 		GLuint glObject;
 		GLuint glFragmentShader;
 		GLuint glVertexShader;
-		static size_t boundTextures;
+		size_t boundTextures;
 
 		GLuint loadShader(GLenum shaderType, const char* shaderData);
 

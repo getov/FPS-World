@@ -10,6 +10,9 @@ Camera::Camera()
 	, nearPlane(0.01f)
 	, farPlane(100.0f)
 	, viewportRatio(4.0f / 3.0f)
+	, q(0.0)
+	, n(1.0)
+	, useQuat(false)
 {
 }
 
@@ -60,12 +63,42 @@ void Camera::setNearAndFarPlanes(float nearClipPlane, float farClipPlane)
 
 glm::mat4 Camera::orientation() const
 {
-	glm::mat4 orientation;
+	glm::mat4 m_orientation;
 
-	orientation = glm::rotate(orientation, verticalAngle, glm::vec3(1, 0, 0));
-	orientation = glm::rotate(orientation, horizontalAngle, glm::vec3(0, 1, 0));
+	m_orientation = glm::rotate(m_orientation, verticalAngle, glm::vec3(1, 0, 0));
+	m_orientation = glm::rotate(m_orientation, horizontalAngle, glm::vec3(0, 1, 0));
 
-	return orientation;
+	return m_orientation;
+}
+
+glm::mat4 Camera::horizontalOrientation() const
+{
+	glm::mat4 horizonOrientation;
+
+	horizonOrientation = glm::rotate(horizonOrientation, horizontalAngle, glm::vec3(0, 1, 0));
+
+	return horizonOrientation;
+}
+
+glm::mat4 Camera::quaternion() const
+{
+	q += n * 0.01;
+
+	if (q > 10.0)
+	{
+		q = 10.0;
+		n *= -1.0;
+	}
+	else if (q < -10.0)
+	{
+		q = -10.0;
+		n *= -1.0;
+	}
+
+	glm::mat4 rotate;
+	rotate = glm::rotate(rotate, q, glm::vec3(0, 0, 1));
+
+	return rotate;
 }
 
 void Camera::offsetOrientation(float upAngle, float rightAngle)
@@ -105,14 +138,16 @@ void Camera::setViewportAspectRatio(float viewportAspectRatio)
 
 glm::vec3 Camera::forward() const
 {
-	glm::vec4 forward = glm::inverse(orientation()) * glm::vec4(0, 0, -1, 1);
+	// use orientation() for free roam
+	glm::vec4 forward = glm::inverse(horizontalOrientation()) * glm::vec4(0, 0, -1, 1);
 
 	return glm::vec3(forward);
 }
 
 glm::vec3 Camera::right() const
 {
-	glm::vec4 right = glm::inverse(orientation()) * glm::vec4(1, 0, 0, 1);
+	// use orientation() for free roam
+	glm::vec4 right = glm::inverse(horizontalOrientation()) * glm::vec4(1, 0, 0, 1);
 
 	return glm::vec3(right);
 }
@@ -136,5 +171,10 @@ glm::mat4 Camera::projection() const
 
 glm::mat4 Camera::view() const
 {
+	if (useQuat)
+	{
+		return quaternion() * orientation() * glm::translate(glm::mat4(), -position);
+	}
+
 	return orientation() * glm::translate(glm::mat4(), -position);
 }

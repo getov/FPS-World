@@ -9,12 +9,12 @@
 #include "GPUProgram.h"
 #include "Util.h"
 
-size_t GPUProgram::boundTextures = 0;
+//size_t GPUProgram::boundTextures = 0;
 
 GPUProgram::GPUProgram()
 	: glFragmentShader(0)
 	, glVertexShader(0)
-//	, boundTextures(0)
+	, boundTextures(0)
 {
 	glObject = glCreateProgram();
 }

@@ -30,6 +30,8 @@ Renderer::~Renderer()
 void Renderer::prepareSceneObjects()
 {
 	geometries.push_back(new Box);
+	geometries.push_back(new Box(glm::vec4(0.0f, 0.5f, 0.7f, 0.0f),
+								 "PhongReflection.frag", "wooden-crate.jpg", false));
 
 	for (auto i = geometries.begin(); i != geometries.end(); ++i)
 	{
@@ -47,8 +49,12 @@ void Renderer::createGeometryInstances()
 		geomInstances[0]->asset = geometries[0];
 		geomInstances[1]->asset = geometries[0];
 
-		geomInstances[0]->transform = translate(0.0f, 0.0f, 0.0f) * scale(0.3f, 0.3f, 0.3f);
-		geomInstances[1]->transform = translate(-1.0f, 0.0f, 0.0f) * scale(0.3f, 0.2f, 0.2f);
+		geomInstances[0]->transform = translate(-1.0f, 0.0f, 0.0f) * scale(0.3f, 0.2f, 0.2f);
+		geomInstances[1]->transform = scale(1000.3f, 0.01f, 1000.3f) * translate(0.0f, 0.0f, 0.0f);
+
+		geomInstances.push_back(new GeometryInstance);
+		geomInstances[2]->asset = geometries[1];
+		geomInstances[2]->transform = translate(1.0f, 0.0f, 0.0f) * scale(0.3f, 0.2f, 0.2f);
 	}	
 }
 
@@ -71,9 +77,20 @@ void Renderer::renderGeometries(Camera& world, Light& gLight)
 			shader->use();
 		}
 
+		Texture* texture = asset->getTexture();
+		if (texture)
+		{
+			//glActiveTexture(GL_TEXTURE0);
+			//glBindTexture(texture->getTexType(), texture->getTexID());
+			shader->setUniform("tex", *texture);
+		}
+		else
+		{
+			shader->setUniform("m_color",  geomInstances[i]->asset->getDiffuseColor());
+		}
+
 		shader->setUniform("camera", world.matrix());
 		shader->setUniform("model", geomInstances[i]->transform);
-		//shader->setUniform("tex", (*boxI)->asset->getTexture()->getTexID());
 
 		shader->setUniform("material.shininess", asset->getShininess());
 		shader->setUniform("material.specularColor", asset->getSpecularColor());
@@ -82,10 +99,6 @@ void Renderer::renderGeometries(Camera& world, Light& gLight)
 		shader->setUniform("light.attenuation", gLight.getAttenuation());
 		shader->setUniform("light.ambientCoefficient", gLight.getAmbientCoefficient());
 		shader->setUniform("cameraPosition", world.cameraPosition());
-
-		Texture* texture = asset->getTexture();
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(texture->getTexType(), texture->getTexID());
 
 		glBindVertexArray(asset->getVAO());
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -122,11 +135,23 @@ void Renderer::createBox(Camera& world, float secElapsed)
 	geomInstances.push_back(box);
 }
 
+void Renderer::createBoxNoTex(Camera& world, float secElapsed)
+{
+	GeometryInstance* box = new GeometryInstance;
+	glm::vec3 position = world.cameraPosition() + world.forward() * 2.0f;
+	box->asset = geometries[1];
+	box->transform = translate(position.x, position.y, position.z) * scale(0.1f, 0.1f, 0.1f);
+	geomInstances.push_back(box);
+}
+
 void Renderer::removeLastGeometry()
 {
 	if (!geomInstances.empty())
 	{
-		geomInstances.erase(std::remove(geomInstances.begin(), geomInstances.end(), geomInstances.back()),
-							geomInstances.end());
+		GeometryInstance* tmp = geomInstances.back();
+
+		geomInstances.pop_back();
+
+		delete tmp;
 	}
 }

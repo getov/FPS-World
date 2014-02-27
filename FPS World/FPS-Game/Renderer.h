@@ -10,10 +10,6 @@
 
 #include <vector>
 #include <algorithm>
-//class GPUProgram;
-//class Camera;
-//class Light;
-//class Box;
 
 class Renderer
 {
@@ -33,5 +29,6 @@ class Renderer
 		void renderGeometries(Camera& world, Light& gLight);
 
 		void createBox(Camera& world, float secElapsed);
+		void createBoxNoTex(Camera& world, float secElapsed);
 		void removeLastGeometry();
 };

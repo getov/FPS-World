@@ -3,18 +3,12 @@
 class Player;
 class Camera;
 class Crosshair;
-class Box;
 class Light;
 class HealthBar;
-class Projectile;
 class Renderer;
-class AnotherBox;
-class BoxInstance;
 class WeaponModel;
 class GPUProgram;
 class Skybox;
-class Grid;
-class Sphere;
 
 #include "IGeometry.h"
 
@@ -32,12 +26,9 @@ class Application
 		Crosshair* cross;
 		Light* gLight;
 		HealthBar* health;
-		Projectile* projectile;
-		AnotherBox* anBox;
 		Renderer* m_renderer;
 		WeaponModel* weapon;
 		Skybox* skybox;
-		Grid* gridFloor;
 
 		Application();
 		Application(const Application&);

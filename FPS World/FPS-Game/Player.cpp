@@ -7,7 +7,6 @@
 #include "Player.h"
 #include "GPUProgram.h"
 #include "Camera.h"
-#include "Projectile.h"
 #include "Skybox.h"
 
 #include <iostream>
@@ -22,31 +21,14 @@ Player::Player()
 
 Player::~Player()
 {
-	// free the allocated memory for ammo
-	for (auto i = ammo.begin(); i != ammo.end(); ++i)
-	{
-		delete (*i);
-	}
 }
 
 void Player::prepare(Camera* camera)
 {
-	camera->setCameraPosition(glm::vec3(0.0f, -0.10f, 4.0f));	
+	camera->setCameraPosition(glm::vec3(0.0f, 0.2f, 4.0f));	
 	camera->setViewportAspectRatio(1366 / 768);
 	// set the "look at" camera position, but it gets reseted as soon as mouse coordinates are registered
 	//camera->offsetOrientation(0.0f, 0.0f);
-
-	// TO FIX *********
-	//for (int i = 0; i < 2; ++i)
-	//{
-	//	ammo.push_back(new Projectile);
-	//}
-
-	//for (auto i = ammo.begin(); i != ammo.end(); ++i)
-	//{
-	//	(*i)->prepareMaterial();
-	//}
-	// ***********************
 }
 
 void Player::updatePosition(float secondsElapsed, Camera* camera, Skybox& cubemap)
@@ -71,6 +53,16 @@ void Player::updatePosition(float secondsElapsed, Camera* camera, Skybox& cubema
 		camera->offsetCameraPosition(secondsElapsed * moveSpeed * camera->right());
 	}
 
+	if (glfwGetKey('X'))
+	{
+		camera->offsetCameraPosition(secondsElapsed * moveSpeed * camera->up());
+	}
+
+	if (glfwGetKey('Z'))
+	{
+		camera->offsetCameraPosition(secondsElapsed * moveSpeed * -camera->up());
+	}
+
 	// Hold left SHIFT for slow movement
 	if (glfwGetKey(GLFW_KEY_LSHIFT) == GLFW_PRESS)
 	{
@@ -85,10 +77,12 @@ void Player::updatePosition(float secondsElapsed, Camera* camera, Skybox& cubema
 	if (glfwGetKey(GLFW_KEY_LALT) == GLFW_PRESS)
 	{
 		moveSpeed = 1.0;
+		camera->useQuat = true;
 	}
 	else if (glfwGetKey(GLFW_KEY_LALT) == GLFW_RELEASE && glfwGetKey(GLFW_KEY_LSHIFT) == GLFW_RELEASE)
 	{
 		moveSpeed = 0.5;
+		camera->useQuat = false;
 	}
 
 	// exit game
@@ -101,40 +95,9 @@ void Player::updatePosition(float secondsElapsed, Camera* camera, Skybox& cubema
 	camera->offsetOrientation(mouseSensitivity * mouseY, mouseSensitivity * mouseX);
 	cubemap.getSkyboxCamera()->offsetOrientation(mouseSensitivity * mouseY, mouseSensitivity * mouseX);
 
-	// TO FIX *********
-	/*if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-	{
-		mouseLeftClick = true;
-	}*/
-
 	upAngle = mouseSensitivity * mouseY;
 	rightAngle = mouseSensitivity * mouseX;
-
-
-	//if (mouseLeftClick)
-	//{
-	//	for (auto i = ammo.begin(); i != ammo.end(); ++i)
-	//	{
-	//		(*i)->updatePosition(secondsElapsed, upAngle, rightAngle);
-	//	}
-	//}
-
-	// **************************
 
 	// cursor stays inside the window and the camera doesn't freak out ;)
 	glfwSetMousePos(0, 0);
 }
-
-void Player::renderProjectiles()
-{
-	for (auto i = ammo.begin(); i != ammo.end(); ++i)
-	{
-		if (mouseLeftClick)
-		{
-			(*i)->drawProjectile();
-		}
-	}
-}
-
-// states
-bool Player::mouseLeftClick = false;

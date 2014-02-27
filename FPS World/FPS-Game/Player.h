@@ -3,7 +3,6 @@
 
 class GPUProgram;
 class Camera;
-class Projectile;
 
 class Skybox;
 
@@ -17,7 +16,6 @@ class Player
 		int mouseX;
 		int mouseY;
 
-		std::vector<Projectile*> ammo;
 		float upAngle;
 		float rightAngle;
 
@@ -29,8 +27,4 @@ class Player
 
 		void prepare(Camera* camera);
 		void updatePosition(float secondsElapsed, Camera* camera, Skybox& cubemap);
-		void renderProjectiles();
-
-		//states
-		static bool mouseLeftClick;
 };

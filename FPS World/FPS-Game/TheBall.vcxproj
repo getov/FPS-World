@@ -83,12 +83,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AnotherBox.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Box.cpp" />
-    <ClCompile Include="BoxInstance.cpp" />
     <ClCompile Include="GeometryInstance.cpp" />
-    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -96,21 +93,16 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GPUProgram.cpp" />
     <ClCompile Include="Crosshair.cpp" />
-    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Skybox.cpp" />
-    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="WeaponModel.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnotherBox.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Box.h" />
-    <ClInclude Include="BoxInstance.h" />
     <ClInclude Include="GeometryInstance.h" />
-    <ClInclude Include="Grid.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="IGeometry.h" />
     <ClInclude Include="Light.h" />
@@ -118,21 +110,16 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GPUProgram.h" />
     <ClInclude Include="Crosshair.h" />
-    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Skybox.h" />
-    <ClInclude Include="Sphere.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="WeaponModel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="box.vert" />
-    <None Include="anBox.vert" />
     <None Include="crosshair.vert" />
-    <None Include="grid.vert" />
     <None Include="lostHP.vert" />
-    <None Include="projectile.vert" />
     <None Include="SimpleColor.frag" />
     <None Include="SimpleTexture.frag" />
     <None Include="skybox.vert" />
