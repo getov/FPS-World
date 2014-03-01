@@ -11,6 +11,8 @@
 #include <vector>
 #include <algorithm>
 
+class Application;
+
 class Renderer
 {
 	private:
@@ -18,17 +20,22 @@ class Renderer
 		std::vector<IGeometry*> geometries;
 		std::vector<GeometryInstance*> geomInstances;
 
+		// take the "global" objects
+		Camera* world;
+		Light*  gLight;
+
 	public:
 		Renderer();
+		Renderer(Camera* world, Light* light);
 		~Renderer();
 		
 		void updateScene(float secondsElapsed);
 
 		void prepareSceneObjects();
 		void createGeometryInstances();
-		void renderGeometries(Camera& world, Light& gLight);
+		void renderGeometries();
 
-		void createBox(Camera& world, float secElapsed);
-		void createBoxNoTex(Camera& world, float secElapsed);
+		void createBox();
+		void createBoxNoTex();
 		void removeLastGeometry();
 };

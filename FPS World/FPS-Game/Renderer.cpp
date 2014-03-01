@@ -13,6 +13,13 @@ Renderer::Renderer()
 {
 }
 
+Renderer::Renderer(Camera* world, Light* light)
+	: shader(nullptr)
+	, world(world)
+	, gLight(light)
+{
+}
+
 Renderer::~Renderer()
 {
 	// free the allocated memory
@@ -58,7 +65,7 @@ void Renderer::createGeometryInstances()
 	}	
 }
 
-void Renderer::renderGeometries(Camera& world, Light& gLight)
+void Renderer::renderGeometries()
 {
 	shader = nullptr;
 
@@ -76,7 +83,7 @@ void Renderer::renderGeometries(Camera& world, Light& gLight)
 			shader = geomInstances[i]->asset->getShader();
 			shader->use();
 		}
-
+		
 		Texture* texture = asset->getTexture();
 		if (texture)
 		{
@@ -89,16 +96,16 @@ void Renderer::renderGeometries(Camera& world, Light& gLight)
 			shader->setUniform("m_color",  geomInstances[i]->asset->getDiffuseColor());
 		}
 
-		shader->setUniform("camera", world.matrix());
+		shader->setUniform("camera", world->matrix());
 		shader->setUniform("model", geomInstances[i]->transform);
 
 		shader->setUniform("material.shininess", asset->getShininess());
 		shader->setUniform("material.specularColor", asset->getSpecularColor());
-		shader->setUniform("light.position", gLight.getPosition());
-		shader->setUniform("light.intensities", gLight.getColor());
-		shader->setUniform("light.attenuation", gLight.getAttenuation());
-		shader->setUniform("light.ambientCoefficient", gLight.getAmbientCoefficient());
-		shader->setUniform("cameraPosition", world.cameraPosition());
+		shader->setUniform("light.position", gLight->getPosition());
+		shader->setUniform("light.intensities", gLight->getColor());
+		shader->setUniform("light.attenuation", gLight->getAttenuation());
+		shader->setUniform("light.ambientCoefficient", gLight->getAmbientCoefficient());
+		shader->setUniform("cameraPosition", world->cameraPosition());
 
 		glBindVertexArray(asset->getVAO());
 		glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -124,21 +131,23 @@ void Renderer::updateScene(float secondsElapsed)
 		geomInstances[1]->transform = translate(-1.0f, 0.0f, 0.0f) * scale(0.3f, 0.2f, 0.2f) *
 									  rotate(geomInstances[1]->asset->getDegreesRotated(), 0, 1, 0);
 	}
+
+	
 }
 
-void Renderer::createBox(Camera& world, float secElapsed)
+void Renderer::createBox()
 {
 	GeometryInstance* box = new GeometryInstance;
-	glm::vec3 position = world.cameraPosition() + world.forward() * 2.0f;
+	glm::vec3 position = world->cameraPosition() + world->forward() * 2.0f;
 	box->asset = geometries[0];
 	box->transform = translate(position.x, position.y, position.z) * scale(0.1f, 0.1f, 0.1f);
 	geomInstances.push_back(box);
 }
 
-void Renderer::createBoxNoTex(Camera& world, float secElapsed)
+void Renderer::createBoxNoTex()
 {
 	GeometryInstance* box = new GeometryInstance;
-	glm::vec3 position = world.cameraPosition() + world.forward() * 2.0f;
+	glm::vec3 position = world->cameraPosition() + world->forward() * 2.0f;
 	box->asset = geometries[1];
 	box->transform = translate(position.x, position.y, position.z) * scale(0.1f, 0.1f, 0.1f);
 	geomInstances.push_back(box);

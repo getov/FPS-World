@@ -85,6 +85,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Box.cpp" />
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="GeometryInstance.cpp" />
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -102,6 +103,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Box.h" />
+    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GeometryInstance.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="IGeometry.h" />

@@ -11,6 +11,7 @@ class GPUProgram;
 class Skybox;
 
 #include "IGeometry.h"
+#include "EventHandler.h"
 
 class Application
 {
@@ -20,15 +21,20 @@ class Application
 		int screenHeight;
 		const char * const appName;
 
-		// objects
-		Player* player;
-		Camera* gWorld;
+		// UI		
 		Crosshair* cross;
-		Light* gLight;
 		HealthBar* health;
-		Renderer* m_renderer;
+
+		// Objects
+		Player*      player;
+		Camera*      gWorld;
+		Light*       gLight;
 		WeaponModel* weapon;
-		Skybox* skybox;
+		Skybox*      skybox;
+
+		// Handlers
+		Renderer*     m_renderer;
+		EventHandler* m_eventController;
 
 		Application();
 		Application(const Application&);
@@ -50,8 +56,6 @@ class Application
 		//* Function that calculates and displays
 		//* frame time and fps on the window frame
 		void displayFrameCounter();
-
-		void handleEvents(float time, Renderer* renderer, Camera* camera);
 
 	public:
 

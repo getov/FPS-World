@@ -23,6 +23,9 @@
     <Filter Include="Source Files\Resources">
       <UniqueIdentifier>{ff613954-f2e5-4110-9ce2-e7b4231611ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="User Input">
+      <UniqueIdentifier>{a7296439-5551-43c1-9a0b-2df38c6758cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -70,6 +73,9 @@
     <ClCompile Include="GeometryInstance.cpp">
       <Filter>Objects\Instances</Filter>
     </ClCompile>
+    <ClCompile Include="EventHandler.cpp">
+      <Filter>User Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -116,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="GeometryInstance.h">
       <Filter>Objects\Instances</Filter>
+    </ClInclude>
+    <ClInclude Include="EventHandler.h">
+      <Filter>User Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

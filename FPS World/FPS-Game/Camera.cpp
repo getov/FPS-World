@@ -76,7 +76,7 @@ glm::mat4 Camera::horizontalOrientation() const
 	glm::mat4 horizonOrientation;
 
 	horizonOrientation = glm::rotate(horizonOrientation, horizontalAngle, glm::vec3(0, 1, 0));
-
+	
 	return horizonOrientation;
 }
 
@@ -171,10 +171,5 @@ glm::mat4 Camera::projection() const
 
 glm::mat4 Camera::view() const
 {
-	if (useQuat)
-	{
-		return quaternion() * orientation() * glm::translate(glm::mat4(), -position);
-	}
-
 	return orientation() * glm::translate(glm::mat4(), -position);
 }

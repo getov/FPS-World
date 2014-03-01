@@ -42,6 +42,16 @@ Application::Application()
 	, lastTitleUpdateTime(0)
 	, lastTitleUpdateFrameCount(0)
 {
+	skybox = new Skybox;
+	player = new Player;
+	gWorld = new Camera;
+	cross  = new Crosshair;
+	gLight = new Light;
+	health = new HealthBar;
+	weapon = new WeaponModel;
+
+	m_renderer = new Renderer(gWorld, gLight);
+	m_eventController = new EventHandler(m_renderer);
 }
 
 Application::~Application()
@@ -58,6 +68,8 @@ void Application::Destroy()
 	//delete weapon;
 	delete m_renderer;
 	delete skybox;
+
+	delete m_eventController;
 }
 
 void Application::initializeScene()
@@ -100,19 +112,6 @@ void Application::initializeScene()
 	//glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	/* 
-		Initialize game objects here instead in the constructor
-		Memory usage highly decreased 
-	*/
-	skybox = new Skybox;
-	player = new Player;
-	gWorld = new Camera;
-	cross = new Crosshair;
-	gLight = new Light;
-	health = new HealthBar;
-	m_renderer = new Renderer;
-	weapon = new WeaponModel;
-
 	// setup light
 	gLight->setPosition(glm::vec3(0.0, 2.0, 4.0)); // gWorld->cameraPosition() ; glm::vec3(1.0, 0.0, 4.0); glm::vec3(0.0, 1.0, 2.0)
 	gLight->setColor(glm::vec3(1, 1, 1)); // white color
@@ -143,7 +142,7 @@ void Application::renderScene()
 	skybox->drawSkybox();
 	//weapon->drawWeapon(*gWorld);
 
-	m_renderer->renderGeometries(*gWorld, *gLight);
+	m_renderer->renderGeometries();
 
 	glfwSwapBuffers();
 }
@@ -175,22 +174,6 @@ void Application::displayFrameCounter()
 	lastFrameEnd = glfwGetTime();
 }
 
-void Application::handleEvents(float time, Renderer* renderer, Camera* camera)
-{
-	if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
-	{
-		renderer->createBox(*camera, time);
-	}
-	else if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_4) == GLFW_PRESS)
-	{
-		renderer->createBoxNoTex(*camera, time);
-	}
-	else if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
-	{
-		renderer->removeLastGeometry();
-	}
-}
-
 void Application::run()
 {
 	initializeScene();
@@ -204,7 +187,9 @@ void Application::run()
 		player->updatePosition(thisTime - lastTime, gWorld, *skybox);
 		//m_renderer->updateScene(thisTime - lastTime);
 
-		handleEvents(thisTime - lastTime, m_renderer, gWorld);
+		//GLFWmousebuttonfun (EventHandler::*ptr) (int, int) = &(EventHandler::mouseKeyCallback);
+		//glfwSetMouseButtonCallback(m_eventController->mouseKeyCallback);
+		m_eventController->handleEvents();
 
 		displayFrameCounter();
 
