@@ -16,6 +16,7 @@ Player::Player()
 	: moveSpeed(0.5)
 	, degreesPerSecond(180)
 	, mouseSensitivity(0.1)
+	, gravity(0.0f, -1.0f, 0.0f)
 {
 }
 
@@ -85,6 +86,18 @@ void Player::updatePosition(float secondsElapsed, Camera* camera, Skybox& cubema
 		camera->useQuat = false;
 	}
 
+	if (glfwGetKey(GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
+		camera->offsetCameraPosition(secondsElapsed * camera->velocity());
+		camera->updateVelocity(secondsElapsed * camera->gravity());
+		
+		if (camera->cameraPosition().y < 0.2f)
+		{
+			camera->resetVelocity();
+		}
+	}
+	
+
 	// exit game
 	if (glfwGetKey(GLFW_KEY_ESC) == GLFW_PRESS)
 	{
@@ -95,7 +108,7 @@ void Player::updatePosition(float secondsElapsed, Camera* camera, Skybox& cubema
 	camera->offsetOrientation(mouseSensitivity * mouseY, mouseSensitivity * mouseX);
 	cubemap.getSkyboxCamera()->offsetOrientation(mouseSensitivity * mouseY, mouseSensitivity * mouseX);
 
-	upAngle = mouseSensitivity * mouseY;
+	upAngle    = mouseSensitivity * mouseY;
 	rightAngle = mouseSensitivity * mouseX;
 
 	// cursor stays inside the window and the camera doesn't freak out ;)

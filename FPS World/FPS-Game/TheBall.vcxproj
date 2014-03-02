@@ -94,6 +94,8 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GPUProgram.cpp" />
     <ClCompile Include="Crosshair.cpp" />
+    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="ProjectileInstance.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -107,11 +109,14 @@
     <ClInclude Include="GeometryInstance.h" />
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="IGeometry.h" />
+    <ClInclude Include="IProjectile.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GPUProgram.h" />
     <ClInclude Include="Crosshair.h" />
+    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="ProjectileInstance.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="Texture.h" />

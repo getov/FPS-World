@@ -185,10 +185,8 @@ void Application::run()
 		float thisTime = glfwGetTime();
 
 		player->updatePosition(thisTime - lastTime, gWorld, *skybox);
-		//m_renderer->updateScene(thisTime - lastTime);
+		m_renderer->updateScene(thisTime - lastTime);
 
-		//GLFWmousebuttonfun (EventHandler::*ptr) (int, int) = &(EventHandler::mouseKeyCallback);
-		//glfwSetMouseButtonCallback(m_eventController->mouseKeyCallback);
 		m_eventController->handleEvents();
 
 		displayFrameCounter();

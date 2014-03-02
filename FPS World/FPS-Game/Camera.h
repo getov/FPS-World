@@ -14,6 +14,9 @@ class Camera
 		float farPlane;
 		float viewportRatio;
 
+		glm::vec3 m_velocity;
+		glm::vec3 m_gravity;
+
 		mutable float q;
 		mutable float n;
 
@@ -57,6 +60,24 @@ class Camera
 
         /** A unit vector representing the direction out of the top of the camera*/
         glm::vec3 up() const;
+
+		/**
+		 * @brief - Vector representing direction for jumping
+		 * @return - Camera::m_velocity
+		*/
+		glm::vec3 velocity();
+
+		/**
+		 * @brief - A gravity vector
+		 * @return - Camera::m_gravity
+		*/
+		glm::vec3 gravity();
+
+		/**
+		 * @brief - 
+		*/
+		void updateVelocity(glm::vec3 offset);
+		void resetVelocity();
 
 		/**
          The combined camera transformation matrix, including perspective projection.

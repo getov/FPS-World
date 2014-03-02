@@ -13,6 +13,8 @@ Camera::Camera()
 	, q(0.0)
 	, n(1.0)
 	, useQuat(false)
+	, m_gravity(0.0f, -1.0f, 0.0f)
+	, m_velocity(0.0f, 1.0f, -1.0f)
 {
 }
 
@@ -157,6 +159,28 @@ glm::vec3 Camera::up() const
 	glm::vec4 up = glm::inverse(orientation()) * glm::vec4(0, 1, 0, 1);
 
 	return glm::vec3(up);
+}
+
+glm::vec3 Camera::velocity()
+{
+	glm::vec4 orient = glm::inverse(horizontalOrientation()) * glm::vec4(m_velocity.x, m_velocity.y, m_velocity.z, 1);
+	m_velocity = glm::vec3(orient);
+	return m_velocity;
+}
+
+glm::vec3 Camera::gravity()
+{
+	return m_gravity;
+}
+
+void Camera::updateVelocity(glm::vec3 offset)
+{
+	m_velocity += offset;
+}
+
+void Camera::resetVelocity()
+{
+	m_velocity = glm::vec3(0.0f, 1.0f, -1.0f);
 }
 
 glm::mat4 Camera::matrix() const

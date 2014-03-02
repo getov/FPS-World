@@ -12,8 +12,16 @@
 
 class IGeometry
 {
+protected:
+	glm::vec3 pos;
+
 public:
 	virtual ~IGeometry() {}
+
+	virtual glm::vec3& position()
+	{
+		return pos;
+	}
 
 	virtual void prepareMaterial() = 0;
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "IGeometry.h"
 #include "GeometryInstance.h"
+#include "ProjectileInstance.h"
 #include "GPUProgram.h"
 #include "Camera.h"
 #include "Light.h"
@@ -19,6 +20,7 @@ class Renderer
 		GPUProgram* shader;
 		std::vector<IGeometry*> geometries;
 		std::vector<GeometryInstance*> geomInstances;
+		std::vector<ProjectileInstance*> projectiles;
 
 		// take the "global" objects
 		Camera* world;
@@ -37,5 +39,6 @@ class Renderer
 
 		void createBox();
 		void createBoxNoTex();
+		void shoot();
 		void removeLastGeometry();
 };

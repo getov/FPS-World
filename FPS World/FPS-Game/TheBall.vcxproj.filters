@@ -26,6 +26,9 @@
     <Filter Include="User Input">
       <UniqueIdentifier>{a7296439-5551-43c1-9a0b-2df38c6758cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Objects\Interface">
+      <UniqueIdentifier>{38246b4c-2b3a-4f31-a0cd-4e0c68b6ad92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -76,6 +79,12 @@
     <ClCompile Include="EventHandler.cpp">
       <Filter>User Input</Filter>
     </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileInstance.cpp">
+      <Filter>Objects\Instances</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -117,14 +126,23 @@
     <ClInclude Include="Skybox.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="IGeometry.h">
-      <Filter>Objects</Filter>
-    </ClInclude>
     <ClInclude Include="GeometryInstance.h">
       <Filter>Objects\Instances</Filter>
     </ClInclude>
     <ClInclude Include="EventHandler.h">
       <Filter>User Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="IGeometry.h">
+      <Filter>Objects\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="IProjectile.h">
+      <Filter>Objects\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileInstance.h">
+      <Filter>Objects\Instances</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,7 @@ class Player
 		float upAngle;
 		float rightAngle;
 
-		//Skybox* skybox;
+		glm::vec3 gravity;
 
 	public:
 		Player();
