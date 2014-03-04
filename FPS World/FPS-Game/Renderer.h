@@ -26,6 +26,9 @@ class Renderer
 		Camera* world;
 		Light*  gLight;
 
+		Renderer(const Renderer&);
+		Renderer& operator=(const Renderer&);
+
 	public:
 		Renderer();
 		Renderer(Camera* world, Light* light);

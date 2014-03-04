@@ -48,6 +48,7 @@ void main() {
     
     //attenuation
     float distanceToLight = length(light.position - surfacePos);
+	// Attenuation is the loss of light intensity (color) over distance.
     float attenuation = 1.0 / (1.0 + light.attenuation * pow(distanceToLight, 2));
 
     //linear color (color before gamma correction)

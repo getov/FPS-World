@@ -5,10 +5,9 @@
 #include <glm\gtc\matrix_transform.hpp>
 
 #include <vector>
-#include <assimp\Importer.hpp>
-#include <assimp\cimport.h>
-#include <assimp\scene.h>
-#include <assimp\postprocess.h>
+#include <fstream>
+#include <string>
+#include <sstream>
 
 #include "GPUProgram.h"
 #include "Texture.h"
@@ -22,14 +21,13 @@ WeaponModel::WeaponModel()
 	, texture(nullptr)
 	, vertexArrayID(0)
 	, transform()
-	, numTriangles(0)
 {
 }
 
 WeaponModel::~WeaponModel()
 {
 	glDeleteBuffers(1, &vertexBuffer);
-	//glDeleteVertexArrays(1, &vertexArrayID);
+	glDeleteVertexArrays(1, &vertexArrayID);
 	delete shader;
 	delete texture;
 
@@ -95,69 +93,9 @@ bool WeaponModel::loadFromOBJ(const char* fileName)
 		// f line - a face definition
 		if (tokens[0] == "f")
 		{
-			numTriangles = tokens.size() - 3;
+			//numTriangles = tokens.size() - 3;
 		}
 	}
-
-	
-	//uvs.push_back(glm::vec2(0, 0));
-	//normals.push_back(glm::vec3(0, 0, 0));*/
-	////hasNormals = false;
-	//vertices.push_back(0);
-	//vertices.push_back(0);
-	//vertices.push_back(0);
-	//uvs.push_back(0);
-	//uvs.push_back(0);
-	//normals.push_back(0);
-	//normals.push_back(0);
-	//normals.push_back(0);
-	//
-	//char line[2048];
-	//
-	//while (fgets(line, sizeof(line), f))
-	//{
-	//	if (line[0] == '#') continue;
-	//	
-	//	std::vector<std::string> tokens = Util::tokenize(std::string(line));
-	//	
-	//	if (tokens.empty()) continue;
-	//	
-	//	// v line - a vertex definition
-	//	if (tokens[0] == "v")
-	//	{
-	//		vertices.push_back(Util::parseToDouble(tokens[1]));
-	//		vertices.push_back(Util::parseToDouble(tokens[2]));
-	//		vertices.push_back(Util::parseToDouble(tokens[3]));
-
-	//		continue;
-	//	}
-
-	//	// vn line - a vertex normal definition
-	//	if (tokens[0] == "vn")
-	//	{
-	//		//hasNormals = true;
-	//		normals.push_back(Util::parseToDouble(tokens[1]));
-	//		normals.push_back(Util::parseToDouble(tokens[2]));
-	//		normals.push_back(Util::parseToDouble(tokens[3]));
-
-	//		continue;
-	//	}
-
-	//	// vt line - a texture coordinate definition
-	//	if (tokens[0] == "vt")
-	//	{
-	//		uvs.push_back(Util::parseToDouble(tokens[1]));
-	//		uvs.push_back(Util::parseToDouble(tokens[2]));
-
-	//		continue;
-	//	}
-	//	
-	//	// f line - a face definition
-	//	if (tokens[0] == "f")
-	//	{
-	//		++numTriangles;
-	//	}
-	//}
 
 	return true;
 }
@@ -256,19 +194,19 @@ bool WeaponModel::loadOBJ(
 void WeaponModel::prepareMaterial()
 {
 	//----CUSTOM LOADER------------------------
-	//glGenVertexArrays(1, &vertexArrayID);
-	//glBindVertexArray(vertexArrayID);
+	glGenVertexArrays(1, &vertexArrayID);
+	glBindVertexArray(vertexArrayID);
 
-	//loadFromOBJ("ak.obj");
-
-	loadOBJ("ak.obj", vertices, uvs, normals);
+	loadFromOBJ("cube.obj");
 
 	shader = new GPUProgram;
 	shader->loadFragmentShaderFromFile("SimpleColor.frag");
 	shader->loadVertexShaderFromFile("weaponModel.vert");
 	shader->link();
+
+
 	
-	glGenBuffers(1, &vertexBuffer);
+	/*glGenBuffers(1, &vertexBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices, GL_STATIC_DRAW);
 
@@ -278,7 +216,7 @@ void WeaponModel::prepareMaterial()
 
 	glGenBuffers(1, &normalBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals, GL_STATIC_DRAW);*/
 
 	//glGenBuffers(1, &vertexBuffer);
 	//glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -331,63 +269,19 @@ void WeaponModel::prepareMaterial()
 	//
 	//transform = Util::translate(-1.1, -2.0, 0.0) * Util::scale(4.0, 10.0, 0.0);
 
-	//------ASSIMP---------------------------------------------------------------------
-	//glGenVertexArrays(1, &vertexArrayID);
+	glGenBuffers(1, &vertexBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+
+	glGenBuffers(1, &normalBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+
+	glGenBuffers(1, &texBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, texBuffer);
+
 	//glBindVertexArray(vertexArrayID);
-	//shader = new GPUProgram;
-	//shader->loadFragmentShaderFromFile("weaponModel.frag");
-	//shader->loadVertexShaderFromFile("weaponModel.vert");
-	//shader->link();
 
-	//Assimp::Importer importer;
-	//const aiScene* scene = importer.ReadFile("ak.obj", aiProcessPreset_TargetRealtime_MaxQuality);
-
-	//aiMesh* mesh = scene->mMeshes[0]; //assuming you only want the first mesh
-
-	//numTriangles = mesh->mNumFaces*3;
-	//int index = 0;
-	//numUvCoords = mesh->GetNumUVChannels();
- //
-	//vertexArray = new float[mesh->mNumFaces*3*3];
-	//normalArray = new float[mesh->mNumFaces*3*3];
-	//uvArray = new float[mesh->mNumFaces*3*2];
- //
-	//for(unsigned int i = 0; i < mesh->mNumFaces; i++)
-	//{
-	//	const aiFace& face = mesh->mFaces[i];
- //
-	//	//foreach index
-	//	for(int j = 0; j < 3; j++)//assume all faces are triangulated
-	//	{
-	//		aiVector3D uv = mesh->mTextureCoords[0][face.mIndices[j]];
-	//		memcpy(uvArray,&uv,sizeof(float)*2);
-	//		uvArray+=2;
- //
-	//		aiVector3D normal = mesh->mNormals[face.mIndices[j]];
-	//		memcpy(normalArray,&normal,sizeof(float)*3);
-	//		normalArray+=3;
- //
-	//		aiVector3D pos = mesh->mVertices[face.mIndices[j]];
-	//		memcpy(vertexArray,&pos,sizeof(float)*3);
-	//		vertexArray+=3;
-	//	}
-	//}
- //
-	//uvArray -= mesh->mNumFaces*3*2;
-	//normalArray -= mesh->mNumFaces*3*3;
-	//vertexArray -= mesh->mNumFaces*3*3;
-
-	//glGenBuffers(1, &vertexBuffer);
-	//glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(vertexArray)/sizeof(float), vertexArray, GL_STATIC_DRAW);
-
-	//glGenBuffers(1, &texBuffer);
-	//glBindBuffer(GL_ARRAY_BUFFER, texBuffer);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(uvArray)/sizeof(float), uvArray, GL_STATIC_DRAW);
-
-	//glGenBuffers(1, &normalBuffer);
-	//glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(normalArray)/sizeof(float), normalArray, GL_STATIC_DRAW);
+	transform = Util::translate(-1.1, 0.5, 0.0) * Util::scale(5.0, 5.0, 5.0);		
+  
 }
 
 void WeaponModel::drawWeapon(Camera& world)
@@ -413,23 +307,66 @@ void WeaponModel::drawWeapon(Camera& world)
 	shader->setUniform("camera", world.matrix());
 	shader->setUniform("model", transform);
 	shader->setUniform("m_color", glm::vec4(1.0, 0.5, 0.0, 0.0));
+	//glBindVertexArray
 
-	// verteces
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-	// UV
 	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, texBuffer);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,  0, NULL);
-
-	//normals
 	glEnableVertexAttribArray(2);
-	glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_TRUE,  0, NULL);
+		// Describe our vertices array to OpenGL (it can't guess its format automatically)
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glVertexAttribPointer(
+		0,  // attribute
+		3,                  // number of elements per vertex, here (x,y,z,w)
+		GL_FLOAT,           // the type of each element
+		GL_FALSE,           // take our values as-is
+		0,                  // no extra data between each position
+		0                   // offset of first element
+	);
 
-	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+	glBindBuffer(GL_ARRAY_BUFFER, texBuffer);
+	glVertexAttribPointer(
+		1, // attribute
+		2,                  // number of elements per vertex, here (x,y,z)
+		GL_FLOAT,           // the type of each element
+		GL_FALSE,           // take our values as-is
+		0,                  // no extra data between each position
+		0                   // offset of first element
+	);
+ 
+	glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+	glVertexAttribPointer(
+		2, // attribute
+		3,                  // number of elements per vertex, here (x,y,z)
+		GL_FLOAT,           // the type of each element
+		GL_FALSE,           // take our values as-is
+		0,                  // no extra data between each position
+		0                   // offset of first element
+	);
+ 
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elements.front());
+
+	//int size;
+	//glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);  
+	//glDrawElements(GL_TRIANGLES, size/sizeof(GLushort), GL_UNSIGNED_SHORT, 0);
+
+	glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);
+
+	//// verteces
+	//glEnableVertexAttribArray(0);
+	//glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+	//// UV
+	//glEnableVertexAttribArray(1);
+	//glBindBuffer(GL_ARRAY_BUFFER, texBuffer);
+	//glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,  0, NULL);
+
+	////normals
+	//glEnableVertexAttribArray(2);
+	//glBindBuffer(GL_ARRAY_BUFFER, normalBuffer);
+	//glVertexAttribPointer(2, 3, GL_FLOAT, GL_TRUE,  0, NULL);
+
+	//glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 
 	//// verteces
 	//glEnableVertexAttribArray(0);
@@ -449,7 +386,7 @@ void WeaponModel::drawWeapon(Camera& world)
 	//glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);
 
 	
-	glDisableVertexAttribArray(0);
+	/*glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
-	glDisableVertexAttribArray(2);
+	glDisableVertexAttribArray(2);*/
 }

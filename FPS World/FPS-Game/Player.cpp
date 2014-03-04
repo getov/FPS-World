@@ -28,8 +28,6 @@ void Player::prepare(Camera* camera)
 {
 	camera->setCameraPosition(glm::vec3(0.0f, 0.2f, 4.0f));	
 	camera->setViewportAspectRatio(1366 / 768);
-	// set the "look at" camera position, but it gets reseted as soon as mouse coordinates are registered
-	//camera->offsetOrientation(0.0f, 0.0f);
 }
 
 void Player::updatePosition(float secondsElapsed, Camera* camera, Skybox& cubemap)

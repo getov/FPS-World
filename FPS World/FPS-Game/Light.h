@@ -2,25 +2,22 @@
 
 class Light
 {
-	private:
-		glm::vec3 position;
+	public:
 		glm::vec3 color;
+		glm::vec3 position;		
 
-		float attenuation;
+		// attenuation = 1 / (1 + attMult * distanceToLight^2)
+		// multiplier that controls how fast the color of
+		// the light increases or decreases
+		// (for controlling the attenuation speed)
+		float attMult;
+
 		float ambientCoefficient;
 
-	public:
 		Light();
+
+		Light(const glm::vec3& color, const glm::vec3& position,
+			  const float& attenuationMult, const float& ambient);
+
 		~Light();
-
-		void setPosition(glm::vec3 lightPos);
-		void setColor(glm::vec3 lightColor);
-		void setAttenuation(float att);
-		void setAmbiendCoefficient(float ambient);
-
-		glm::vec3 getPosition();
-		glm::vec3 getColor();
-
-		float getAttenuation();
-		float getAmbientCoefficient();
 };

@@ -14,7 +14,7 @@ out vec3 fragNormal;
 void main() 
 {
     // Pass the tex coord straight through to the fragment shader
-    //fragTexCoord = vertTexCoord;
+    fragTexCoord = vertTexCoord;
 	fragVert = vert;
 	fragNormal = normals;
     

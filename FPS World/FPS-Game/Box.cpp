@@ -23,7 +23,8 @@ Box::Box()
 {
 }
 
-Box::Box(const glm::vec4& color, const char* fragShader, const char* texName, bool useTex)
+Box::Box(const glm::vec4& color, const char* fragShader,
+		 bool useTex, const char* texName)
 	: shader(nullptr)
 	, texture(nullptr)
 	, vertexArrayID(0)

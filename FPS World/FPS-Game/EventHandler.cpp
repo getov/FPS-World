@@ -27,7 +27,12 @@ void EventHandler::handleMouse()
 {
 	if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_LEFT == GLFW_PRESS))
 	{
-		m_renderer->shoot();
+		m_renderer->createBox();
+	}
+
+	if (glfwGetMouseButton(GLFW_MOUSE_BUTTON_RIGHT == GLFW_PRESS))
+	{
+		m_renderer->createBoxNoTex();
 	}
 }
 

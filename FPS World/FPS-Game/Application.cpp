@@ -46,9 +46,9 @@ Application::Application()
 	player = new Player;
 	gWorld = new Camera;
 	cross  = new Crosshair;
-	gLight = new Light;
+	gLight = new Light(glm::vec3(1.0, 1.0, 1.0), glm::vec3(0.0, 2.0, 4.0), 0.2f, 0.005f);
 	health = new HealthBar;
-	weapon = new WeaponModel;
+	//weapon = new WeaponModel;
 
 	m_renderer = new Renderer(gWorld, gLight);
 	m_eventController = new EventHandler(m_renderer);
@@ -107,16 +107,7 @@ void Application::initializeScene()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
-	//glEnable(GL_CULL_FACE);
-	//glEnable(GL_MULTISAMPLE);
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	// setup light
-	gLight->setPosition(glm::vec3(0.0, 2.0, 4.0)); // gWorld->cameraPosition() ; glm::vec3(1.0, 0.0, 4.0); glm::vec3(0.0, 1.0, 2.0)
-	gLight->setColor(glm::vec3(1, 1, 1)); // white color
-	gLight->setAttenuation(0.01f); // 0.2 - light power
-	gLight->setAmbiendCoefficient(0.005f);
+	glEnable(GL_CULL_FACE);
 
 	// Prepare objects' materials to render
 	skybox->prepareMaterial();

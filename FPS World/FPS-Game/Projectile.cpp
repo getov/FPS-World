@@ -24,7 +24,8 @@ Projectile::Projectile()
 {
 }
 
-Projectile::Projectile(const glm::vec4& color, const char* fragShader, const char* texName, bool useTex)
+Projectile::Projectile(const glm::vec4& color, const char* fragShader,
+					   bool useTex, const char* texName)
 	: shader(nullptr)
 	, texture(nullptr)
 	, vertexArrayID(0)

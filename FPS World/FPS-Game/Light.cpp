@@ -7,49 +7,22 @@
 #include "Light.h"
 
 Light::Light()
+	: color(1.0, 1.0, 1.0)
+	, position(0.0, 0.0, 0.0)
+	, attMult(0.2)
+	, ambientCoefficient(0.02)
+{
+}
+
+Light::Light(const glm::vec3& color, const glm::vec3& position,
+			  const float& attenuationMult, const float& ambient)
+	: color(color)
+	, position(position)
+	, attMult(attenuationMult)
+	, ambientCoefficient(ambient)
 {
 }
 
 Light::~Light()
 {
-}
-
-void Light::setPosition(glm::vec3 lightPos)
-{
-	position = lightPos;
-}
-
-void Light::setColor(glm::vec3 lightColor)
-{
-	color = lightColor;
-}
-
-void Light::setAttenuation(float att)
-{
-	attenuation = att;
-}
-
-void Light::setAmbiendCoefficient(float ambient)
-{
-	ambientCoefficient = ambient;
-}
-
-glm::vec3 Light::getPosition()
-{
-	return position;
-}
-
-glm::vec3 Light::getColor()
-{
-	return color;
-}
-
-float Light::getAttenuation()
-{
-	return attenuation;
-}
-
-float Light::getAmbientCoefficient()
-{
-	return ambientCoefficient;
 }

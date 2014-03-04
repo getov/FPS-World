@@ -37,12 +37,13 @@ Renderer::~Renderer()
 
 void Renderer::prepareSceneObjects()
 {
-	geometries.push_back(new Box);
+	geometries.push_back(new Box(glm::vec4(1.0f, 1.0f, 1.0f, 0.0f),
+								 "PhongReflectionTex.frag", true, "wooden-crate.jpg"));
 	geometries.push_back(new Box(glm::vec4(0.0f, 0.5f, 0.7f, 0.0f),
-								 "PhongReflection.frag", "wooden-crate.jpg", false));
+								 "PhongReflection.frag"));
 
 	geometries.push_back(new Projectile(glm::vec4(0.3f, 0.0f, 0.7f, 0.0f), 
-										"PhongReflection.frag", "wooden-crate.jpg", false));
+										"PhongReflection.frag"));
 	
 	for (auto i = geometries.begin(); i != geometries.end(); ++i)
 	{
@@ -60,21 +61,13 @@ void Renderer::createGeometryInstances()
 		geomInstances[0]->asset = geometries[0];
 		geomInstances[1]->asset = geometries[0];
 
-		geomInstances[0]->transform = translate(-1.0f, 0.0f, 0.0f) * scale(0.3f, 0.2f, 0.2f);
-		geomInstances[1]->transform = scale(1000.3f, 0.01f, 1000.3f) * translate(0.0f, 0.0f, 0.0f);
+		geomInstances[0]->transform = scale(0.3f, 0.2f, 0.2f) * translate(-2.0f, 1.0f, 0.0f);
+		geomInstances[1]->transform = scale(1000.3f, 0.01f, 1000.3f)/* * translate(0.0f, 0.0f, 0.0f)*/;
 
 		geomInstances.push_back(new GeometryInstance);
 		geomInstances[2]->asset = geometries[1];
-		geomInstances[2]->transform = translate(1.0f, 0.0f, 0.0f) * scale(0.3f, 0.2f, 0.2f);
-	}	
-
-	projectiles.push_back(new ProjectileInstance);
-	projectiles.push_back(new ProjectileInstance);
-	projectiles.push_back(new ProjectileInstance);
-	projectiles.push_back(new ProjectileInstance);
-
-	/*projectiles[0]->asset = dynamic_cast<IProjectile*>(geometries[2]);
-	projectiles[0]->asset->position() = world->cameraPosition();*/
+		geomInstances[2]->transform = scale(0.3f, 1.5f, 0.2f) * translate(1.0f, 1.0f, 0.0f);
+	}
 }
 
 void Renderer::renderGeometries()
@@ -99,8 +92,6 @@ void Renderer::renderGeometries()
 		Texture* texture = asset->getTexture();
 		if (texture)
 		{
-			//glActiveTexture(GL_TEXTURE0);
-			//glBindTexture(texture->getTexType(), texture->getTexID());
 			shader->setUniform("tex", *texture);
 		}
 		else
@@ -113,54 +104,10 @@ void Renderer::renderGeometries()
 
 		shader->setUniform("material.shininess", asset->getShininess());
 		shader->setUniform("material.specularColor", asset->getSpecularColor());
-		shader->setUniform("light.position", gLight->getPosition());
-		shader->setUniform("light.intensities", gLight->getColor());
-		shader->setUniform("light.attenuation", gLight->getAttenuation());
-		shader->setUniform("light.ambientCoefficient", gLight->getAmbientCoefficient());
-		shader->setUniform("cameraPosition", world->cameraPosition());
-
-		glBindVertexArray(asset->getVAO());
-		glDrawArrays(GL_TRIANGLES, 0, 36);
-	}
-
-	// unbind
-	glBindVertexArray(0);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
-	for (int i = 0; i < projectiles.size(); ++i)
-	{
-		IProjectile* asset = projectiles[i]->asset;
-		
-		if (projectiles[i]->asset->getShader() != shader)
-		{
-			if (shader)
-			{
-				shader->stopUsing();
-			}
-
-			shader = projectiles[i]->asset->getShader();
-			shader->use();
-		}
-		
-		Texture* texture = asset->getTexture();
-		if (texture)
-		{
-			shader->setUniform("tex", *texture);
-		}
-		else
-		{
-			shader->setUniform("m_color",  projectiles[i]->asset->getDiffuseColor());
-		}
-
-		shader->setUniform("camera", world->matrix());
-		shader->setUniform("model", projectiles[i]->transform);
-
-		shader->setUniform("material.shininess", asset->getShininess());
-		shader->setUniform("material.specularColor", asset->getSpecularColor());
-		shader->setUniform("light.position", gLight->getPosition());
-		shader->setUniform("light.intensities", gLight->getColor());
-		shader->setUniform("light.attenuation", gLight->getAttenuation());
-		shader->setUniform("light.ambientCoefficient", gLight->getAmbientCoefficient());
+		shader->setUniform("light.position", gLight->position);
+		shader->setUniform("light.intensities", gLight->color);
+		shader->setUniform("light.attenuation", gLight->attMult);
+		shader->setUniform("light.ambientCoefficient", gLight->ambientCoefficient);
 		shader->setUniform("cameraPosition", world->cameraPosition());
 
 		glBindVertexArray(asset->getVAO());
@@ -234,7 +181,7 @@ void Renderer::createBoxNoTex()
 
 void Renderer::removeLastGeometry()
 {
-	if (!geomInstances.empty())
+	if (geomInstances.size() > 3) // don't delete the first 3 geometries
 	{
 		GeometryInstance* tmp = geomInstances.back();
 

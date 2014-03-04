@@ -15,20 +15,10 @@ class WeaponModel
 		GLuint normalBuffer;
 		glm::mat4 transform;
 
-		//const char* filename;
-		/*float* vertexArray;
-		float* normalArray;
-		float* uvArray;
-		int numTriangles;
-		int numUvCoords;*/
-		int numTriangles;
 		std::vector<glm::vec3> vertices;
 		std::vector<glm::vec3> normals;
 		std::vector<glm::vec2> uvs;
-
-		/*std::vector<double> vertices;
-		std::vector<double> normals;
-		std::vector<double> uvs;*/
+		std::vector<GLushort> elements;
 
 		bool loadFromOBJ(const char* fileName);
 

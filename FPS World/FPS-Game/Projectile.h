@@ -37,7 +37,8 @@ class Projectile : public IProjectile
 
 	public:
 		Projectile();
-		Projectile(const glm::vec4& color, const char* fragShader, const char* texName, bool useTex = false);
+		Projectile(const glm::vec4& color, const char* fragShader,
+				   bool useTex = false, const char* texName = "");
 		~Projectile();
 
 		void shoot(){}

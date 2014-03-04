@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <GL\glew.h>
 #include <GL\glfw.h>
 
@@ -37,7 +36,8 @@ class Box : public IGeometry
 
 	public:
 		Box();
-		Box(const glm::vec4& color, const char* fragShader, const char* texName, bool useTex = false);
+		Box(const glm::vec4& color, const char* fragShader,
+			bool useTex = false, const char* texName = "");
 		~Box();
 
 		void prepareMaterial();
